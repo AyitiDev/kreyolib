@@ -44,13 +44,7 @@ Most NLP progress has focused on high-resource languages, while Haitian Creole r
 
 ### How People Can Contribute
 
-Contributions could include:
-
-- Collecting and cleaning Haitian Creole datasets
-- Improving NLP algorithms
-- Building libraries and APIs
-- Testing models
-- Sharing linguistic knowledge
-- Creating documentation and examples
+For ways to
+ contribute, see [Contributing Guide](https://github.com/AyitiDev/kreyolib/blob/main/CONTRIBUTING.md).
 
 > This would be a community-driven project to give Haitian Creole a stronger place in the AI and NLP ecosystem.

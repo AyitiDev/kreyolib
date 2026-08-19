@@ -25,4 +25,3 @@ if __name__ == "__main__":  # pragma: no cover
     text = "Kilè ou te fè sa?"
     cleaned_text = strip_diacritics(text)
     print_rich_diff(text, cleaned_text)
- 

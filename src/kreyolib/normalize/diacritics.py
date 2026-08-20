@@ -2,13 +2,7 @@ import unicodedata
 
 
 def strip_diacritics(text: str) -> str:
-    """Removes diacritic marks entirely (è -> e, ò -> o).
-
-    Args:
-        text: The input text
-
-    Returns: A text without the diacritic marks
-    """
+    """Removes diacritic marks entirely (è -> e, ò -> o)."""
     if not text or text.isspace():
         return text
 

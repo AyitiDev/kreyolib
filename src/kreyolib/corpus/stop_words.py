@@ -6,7 +6,8 @@
 # See LICENSE or https://opensource.org/licenses/MIT for full license text.
 
 
-STOP_WORDS = set([
+STOP_WORDS = set(
+    [
         "a",
         "ak",
         "an",

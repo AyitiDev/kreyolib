@@ -23,10 +23,10 @@ Most NLP progress has focused on high-resource languages, while Haitian Creole r
 - [ ] **1. Tokenization & Normalization**
   - [ ] Sentence, word, and subword splitters
   - [ ] Kreyòl contraction handling (`m'ap` => `mwen ap`, `l'a` => `li va`)
-  - [ ] Stopwords remover and diacritic normalizer (`è`, `ò`, `à`)
+  - [x] Diacritic rrmover (`è`, `ò`, `à`)
 - [ ] **2. Grammar & Phonetics**
   - [ ] Smart article selector (`la`, `a`, `an`, `nan`, `l`, `yo`)
-  - [ ] Part-of-Speech (POS) tagging engine
+  - [x] Part-of-Speech (POS) tagging engine
   - [ ] Phonetic mapper and syllabification engine
 - [ ] **3. Formatting & Corpus Utilities**
   - [ ] Number-to-words converter (`123` => `san vennfwa`)

@@ -74,8 +74,7 @@ def _postprocess_tokens(tokens: list[str]) -> list[str]:
         # "se" is always misclassified
         if tok_lower == "se":
             tag = "VERB"
-        # Skip tok less longer than 3 to reduce misclassification
-        elif len(tok_lower) >= 3 and tok_lower in fr_names:
+        elif tok_lower in fr_names:
             tag = "PROPN"
 
         processed_tokens.append((tok, tag))

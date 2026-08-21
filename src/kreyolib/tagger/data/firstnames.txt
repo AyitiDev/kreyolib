@@ -51,7 +51,6 @@ aauguste
 aaugustine
 aazdine
 aaziz
-ab
 ab-del
 ab-del-kader
 ab-del-krim
@@ -1859,7 +1858,6 @@ adzir
 adzire
 adzo
 adzowa
-ae
 aeata
 aecha
 aedan
@@ -1886,7 +1884,6 @@ aetius
 aetua
 aexandre
 aexis
-af
 afaf
 afafe
 afai
@@ -1969,7 +1966,6 @@ afua
 afumba
 afya
 afzal
-ag
 aga
 agabit
 agabito
@@ -2335,7 +2331,6 @@ ahui
 ahurau
 ahutiare
 ahuura
-ai
 ai-lien
 ai-ling
 aiache
@@ -2683,7 +2678,6 @@ akuavi
 akuete
 akuvi
 akyl
-al
 al-hassane
 ala
 alaa
@@ -5201,7 +5195,6 @@ amyr
 amyrthe
 amza
 amziane
-an
 an-icha
 an-ichat
 ana
@@ -7276,7 +7269,6 @@ aouria
 aoussine
 aoustin
 aouti
-ap
 apalahamo
 aparecida
 aparecido
@@ -7451,7 +7443,6 @@ aquilino
 aquilio
 aquinaldo
 aquino
-ar
 ara
 araba
 arabe
@@ -8703,7 +8694,6 @@ arzine
 arzki
 arzu
 arzule
-as
 asa
 asaad
 asad
@@ -9076,7 +9066,6 @@ asusena
 asut
 aswad
 asya
-at
 ata
 atacan
 ataf
@@ -9327,7 +9316,6 @@ atty
 atulde
 atur
 atus
-au
 auardia
 auarii
 aubain
@@ -9950,7 +9938,6 @@ awessou
 aweus
 awinga
 awo
-ax
 axalia
 axcel
 axel
@@ -9967,7 +9954,6 @@ axil
 axile
 axime
 axone
-ay
 aya
 ayaan
 ayaba
@@ -10137,7 +10123,6 @@ ayyachi
 ayyad
 ayyada
 ayyoub
-az
 az-eddine
 az-elarab
 aza
@@ -11311,7 +11296,6 @@ bazyle
 bazyli
 bbernard
 bchira
-be
 bea
 bean
 beat
@@ -12661,7 +12645,6 @@ bhoulia
 bhoye
 bhupinder
 bhye
-bi
 bia
 biaggia
 biaggina
@@ -14199,7 +14182,6 @@ brynmor
 bryon
 bryson
 brython
-bt
 bte
 btissam
 btissame
@@ -14285,7 +14267,6 @@ bvenjamin
 bverthe
 bwana
 bwanga
-by
 bya
 byamba
 byarne
@@ -14297,7 +14278,6 @@ byrd
 byre
 byron
 byung
-ca
 caambi
 caamille
 caarmen
@@ -15214,7 +15194,6 @@ cazorla
 cazymir
 cchristophe
 cdlaude
-ce
 ceasar
 cebien
 cebrail
@@ -15733,7 +15712,6 @@ cezina
 cezira
 cezlaw
 cezminur
-ch
 cha
 chaa
 chaaba
@@ -17237,7 +17215,6 @@ civis
 civita
 ciwan
 ckaude
-cl
 cla
 claaude
 clade
@@ -17995,7 +17972,6 @@ cmaude
 cmaudia
 cmiljana
 cmille
-co
 coba
 cobra
 cobus
@@ -18853,7 +18829,6 @@ csaba
 cseslaw
 csilla
 ctherine
-cu
 cua
 cuc
 cueta
@@ -18912,7 +18887,6 @@ cvetko
 cvijeta
 cvijo
 cvlemence
-cy
 cyana
 cyane
 cyann
@@ -19091,7 +19065,6 @@ d'epine
 d'gino
 d'jalma
 d'une
-da
 da-conceicao
 daa
 daad
@@ -21545,7 +21518,6 @@ dneise
 dniel
 dnis
 dnise
-do
 doaa
 doady
 doan
@@ -22395,7 +22367,6 @@ drusilla
 drusolina
 dryan
 dryss
-du
 dua
 duan
 duane
@@ -22598,7 +22569,6 @@ dwoira
 dwojra
 dwora
 dwyer
-dy
 dyana
 dyane
 dyani
@@ -22656,7 +22626,6 @@ dzislaw
 dzmitry
 dzong
 dzuong
-ea
 eam
 eamonn
 ean
@@ -22724,7 +22693,6 @@ ebtisam
 ebtisem
 ebubekir
 ebunoluwa
-ec
 ecatarina
 ecaterina
 ecatherina
@@ -22751,7 +22719,6 @@ ecle
 ecrin
 ector
 ectore
-ed
 eda
 edaimee
 edaise
@@ -23459,7 +23426,6 @@ eithne
 eiugene
 eiva
 eizer
-ej
 ejan
 ejanne
 ejilane
@@ -23472,7 +23438,6 @@ ejudes
 ejup
 ejust
 ejuste
-ek
 eka
 ekaterina
 ekaterine
@@ -23491,7 +23456,6 @@ ekrem
 eksa
 ekue
 ekwe
-el
 el-alia
 el-aloui
 el-amin
@@ -24698,7 +24662,6 @@ elzire
 elznia
 elzo
 elzy
-em
 ema
 emad
 emade
@@ -25154,7 +25117,6 @@ emyre
 emyrse
 emzar
 emzari
-en
 en-ichat
 ena
 enaam
@@ -25430,7 +25392,6 @@ eorges
 eorgette
 eose
 eouard
-ep
 epaminonda
 epaminondas
 epaphrodite
@@ -25502,7 +25463,6 @@ epvre
 epyphane
 equilino
 equis
-er
 era
 erache
 eraclio
@@ -26006,7 +25966,6 @@ erzilie
 erzsebert
 erzsebet
 erzulia
-es
 es-lien
 es-saadia
 es-sadia
@@ -26487,7 +26446,6 @@ etwin
 ety
 etzer
 etzio
-eu
 eubenie
 eubert
 euberte
@@ -27219,7 +27177,6 @@ ewige
 ewin
 ewing
 ewolda
-ex
 exagesime
 exala
 exaline
@@ -27333,7 +27290,6 @@ eyva
 eyveline
 eyvind
 eyyup
-ez
 ez-zahra
 ez-zohra
 ezahra
@@ -27404,7 +27360,6 @@ ezzina
 ezzine
 ezzio
 ezzohra
-fa
 faahei
 faahira
 faana
@@ -28164,7 +28119,6 @@ fdal
 fdila
 fdrancois
 fdrancoise
-fe
 feancois
 feancoise
 febe
@@ -29777,7 +29731,6 @@ foze
 fozi
 fozia
 foziha
-fr
 fra
 fraancine
 fraancois
@@ -30679,7 +30632,6 @@ ftaima
 ftima
 ftitem
 ftoma
-fu
 fuad
 fualdes
 fuat
@@ -30775,7 +30727,6 @@ fuy
 fynia
 fyrmin
 fys
-ga
 gab
 gabain
 gabar
@@ -31366,7 +31317,6 @@ gdal
 gdala
 gdalia
 gdalja
-ge
 gea
 geale
 geamal
@@ -32340,7 +32290,6 @@ gezrmaine
 geztelin
 gfeorges
 ggaston
-gh
 ghachoua
 ghada
 ghadbani
@@ -32560,7 +32509,6 @@ ghyslene
 ghysline
 ghzala
 ghzizla
-gi
 gia
 giabica
 giac
@@ -34062,7 +34010,6 @@ grzgorz
 gston
 gsutave
 gteorges
-gu
 guabert
 guacolda
 guadaloupe
@@ -34888,7 +34835,6 @@ gwyneth
 gwynfor
 gwynne
 gwynneth
-gy
 gyant
 gyatso
 gyl
@@ -36197,7 +36143,6 @@ hazzia
 hazziz
 hbara
 hbiba
-he
 hea
 heab
 heabube
@@ -37393,7 +37338,6 @@ hfaiedh
 hgenri
 hhenri
 hhenriette
-hi
 hia
 hia'ai
 hiacinthe
@@ -37769,7 +37713,6 @@ hnina
 hniya
 hnri
 hnriette
-ho
 hoa
 hoai
 hoan
@@ -38252,7 +38195,6 @@ hsing
 hsiu
 hssain
 hssaine
-hu
 hua
 huamei
 huan
@@ -38466,7 +38408,6 @@ huynh-hoa
 huzur
 hwa
 hwan
-hy
 hyacenthe
 hyacin
 hyacine
@@ -38549,7 +38490,6 @@ hyvette
 hyvone
 hyvonne
 hywel
-ia
 iabelle
 iacinto
 iacob
@@ -38589,7 +38529,6 @@ iason
 iasonas
 iazid
 iazza
-ib
 iba
 ibada
 ibadete
@@ -38849,7 +38788,6 @@ idzi
 idzia
 idzislaw
 idzy
-ie
 iel
 ielka
 ielma
@@ -38870,7 +38808,6 @@ iete
 ieuan
 ieva
 ievgen
-if
 ifan
 ifany
 ife
@@ -38971,7 +38908,6 @@ ijja
 ijjou
 ijou
 ijsbrand
-ik
 ika
 ikbal
 ikbalhoussen
@@ -38988,7 +38924,6 @@ ikra
 ikram
 ikrame
 ikuko
-il
 ila
 iladie
 ilah
@@ -39208,7 +39143,6 @@ ilyess
 ilyesse
 ilyitch
 ilza
-im
 ima
 imache
 imacio
@@ -39310,7 +39244,6 @@ imrgard
 imrich
 imtiaz
 imtiyaz
-in
 ina
 inaam
 inacia
@@ -39510,7 +39443,6 @@ intyre
 inwig
 inza
 inzoudine
-io
 ioan
 ioan-catalin
 ioan-sorin
@@ -39576,7 +39508,6 @@ iouri
 iourievna
 ioussef
 iovine
-ip
 ipaque
 ipek
 iphigenie
@@ -39801,7 +39732,6 @@ irwing
 iryna
 irys
 irza
-is
 isa
 isa-bella
 isaa
@@ -40215,7 +40145,6 @@ iswarlall
 isy
 isydore
 isys
-it
 ita
 itaata
 itaia
@@ -40285,7 +40214,6 @@ iura
 iuri
 iurie
 iurii
-iv
 iva
 ivachim
 ivahine
@@ -40473,7 +40401,6 @@ izzet
 izzettin
 izzi
 j-pierre
-ja
 jaafar
 jaafer
 jaak
@@ -41219,7 +41146,6 @@ jaywantee
 jazef
 jazia
 jazmin
-jb
 jcqueline
 jcques
 jda
@@ -42301,7 +42227,6 @@ jezef
 jezn
 jezy
 jgina
-jh
 jham
 jhan
 jhane
@@ -42493,11 +42418,9 @@ jkosephine
 jmarie
 jmia
 jmiaa
-jn
 jno
 jnoseph
 jnosephine
-jo
 jo-ann
 joa
 joab
@@ -43501,7 +43424,6 @@ jozua
 jozue
 jposeph
 jpseph
-jr
 jran
 jranne
 jrean
@@ -43513,7 +43435,6 @@ jsoeph
 jsoephe
 jsoephine
 jsutine
-ju
 jua
 juan
 juan-andres
@@ -44021,7 +43942,6 @@ juvita
 juying
 juzefa
 juzet
-jy
 jyhane
 jym
 jymmy
@@ -46035,7 +45955,6 @@ knarik
 knud
 knul
 knut
-ko
 koa
 koami
 koan
@@ -46447,7 +46366,6 @@ ksenia
 ksenija
 ksenja
 ksor
-ku
 kuadjo
 kuam
 kuang
@@ -46558,7 +46476,6 @@ kweku
 kwesi
 kwok
 kwong
-ky
 ky-ling
 kyan
 kyana
@@ -47645,7 +47562,6 @@ lbachir
 lbert
 lbertine
 ldzislaw
-le
 le-xuan
 lea
 lea-jeanne
@@ -49299,7 +49215,6 @@ lmaurice
 lmouis
 lmouise
 lmucien
-lo
 loa
 loai
 loam
@@ -50127,7 +50042,6 @@ lozea
 lozia
 lozine
 lpuis
-lu
 lua
 luaka
 luan
@@ -50803,7 +50717,6 @@ luzolo
 luzon
 luzviminda
 lvovna
-ly
 ly-lan
 lya
 lyacine
@@ -50997,7 +50910,6 @@ lywen
 lyza
 lyziane
 lyzie
-m'
 m'ahmed
 m'backe
 m'badiala
@@ -51053,7 +50965,6 @@ m-hamed
 m-leontine
 m-louise
 m-therese
-ma
 maache
 maachi
 maachou
@@ -56127,7 +56038,6 @@ mbunga
 mbungu
 mbuta
 mbuyi
-mc
 mcdonald
 mcdougal
 mchangama
@@ -56139,7 +56049,6 @@ mckay
 mckinley
 mclean
 mcolo
-md
 mdahoma
 mdallah
 mdeleine
@@ -57371,7 +57280,6 @@ mhoma
 mhoudhoiri
 mhoumadi
 mhouni
-mi
 mi-careme
 mia
 miah
@@ -59666,7 +59574,6 @@ mstislav
 mstislaw
 mthilde
 mtzouani
-mu
 mua
 muadi
 muamet
@@ -59900,7 +59807,6 @@ mvutu
 mwamba
 mwana
 mwanga
-my
 my-linh
 mya
 myana
@@ -60051,7 +59957,6 @@ mzrcel
 mzrcelle
 mzrguerite
 mzrie
-n'
 n'barch
 n'bia
 n'cho
@@ -60083,7 +59988,6 @@ n'nene
 n'paly
 n'taho
 n'zi
-na
 naaima
 naama
 naaman
@@ -61165,7 +61069,6 @@ nazzarin
 nazzarina
 nazzarino
 nazzaro
-nc
 nchan
 ncolas
 ndack
@@ -61207,7 +61110,6 @@ ndualu
 ndzai
 ndzeu
 ndzie
-ne
 nea
 neak
 neal
@@ -61762,7 +61664,6 @@ nfa
 nfally
 nfamara
 nfansou
-ng
 nga
 ngagne
 ngai
@@ -62362,7 +62263,6 @@ nmarie
 nmarius
 nnenna
 nnoelie
-no
 noa
 noach
 noaga
@@ -62920,7 +62820,6 @@ ntoinette
 ntsimba
 ntsong
 ntumba
-nu
 nua
 nuala
 nubar
@@ -63031,7 +62930,6 @@ nuzia
 nuziata
 nuzio
 nwokedi
-ny
 ny-aina
 nycha
 nycia
@@ -63078,7 +62976,6 @@ oanh
 oaul
 oaula
 oaule
-ob
 obadiah
 obaid
 obaldo
@@ -63184,7 +63081,6 @@ oculine
 oculise
 oculy
 ocyavie
-od
 oda
 odair
 odalia
@@ -63423,7 +63319,6 @@ oho
 ohoua
 ohoueu
 ohran
-oi
 oiel
 oierre
 oierrette
@@ -63460,7 +63355,6 @@ oktai
 oktavie
 oktawia
 oktay
-ol
 ol'ga
 ola
 oladar
@@ -63787,7 +63681,6 @@ olyvia
 olyvier
 olza
 olzere
-om
 oma
 omaima
 oman
@@ -63850,7 +63743,6 @@ omphre
 omran
 omrane
 omur
-on
 ona
 onali
 onaly
@@ -64001,7 +63893,6 @@ optavie
 opter
 opuhara
 opuraino
-or
 ora
 orabuena
 orace
@@ -65038,7 +64929,6 @@ oxence
 oxide
 oxilia
 oxis
-oy
 oya
 oyana
 oyunchimeg
@@ -65993,7 +65883,6 @@ pazanne
 pazia
 pazzi
 pdette
-pe
 pea
 peace
 peang
@@ -66421,7 +66310,6 @@ peyre
 peyroline
 peyronne
 peyton
-ph
 pha
 phacion
 phady
@@ -67904,7 +67792,6 @@ pscal
 psyche
 psylvia
 ptolemee
-pu
 pua
 puahi
 puai
@@ -68004,7 +67891,6 @@ puwaneswary
 puy
 puzant
 puzante
-py
 pylade
 pylypivna
 pyong
@@ -68023,7 +67909,6 @@ qayyum
 qazim
 qemal
 qentin
-qi
 qian
 qiang
 qiao
@@ -70588,7 +70473,6 @@ rmila
 rne
 rnee
 rnest
-ro
 roa
 roald
 roalnd
@@ -71815,7 +71699,6 @@ rroger
 rrok
 rtene
 rtoger
-ru
 rua
 ruahei
 ruan
@@ -72017,7 +71900,6 @@ ruzhdi
 ruzica
 ruziye
 rwan
-ry
 ryad
 ryade
 ryadh
@@ -73745,7 +73627,6 @@ scoura
 scylla
 scyllia
 sduzanne
-se
 sea
 sead
 seada
@@ -76899,7 +76780,6 @@ soybou
 soyi
 sozia
 sozio
-sp
 spada
 spalta
 sparta
@@ -76967,7 +76847,6 @@ spyridon
 spyridoula
 spyro
 spyros
-sr
 sraina
 sraphine
 srbislav
@@ -77005,7 +76884,6 @@ sserge
 ssimonne
 ssophie
 ssuzanne
-st
 st-ange
 st-bertin
 st-clair
@@ -77450,7 +77328,6 @@ styntje
 styve
 styvel
 styven
-su
 sua
 suaad
 suad
@@ -77830,7 +77707,6 @@ swewa
 swiatoslaw
 swift
 swina
-sy
 syam
 syana
 sybe
@@ -79637,7 +79513,6 @@ teyfik
 teyi
 teymour
 tezo
-th
 tha
 thabet
 thac
@@ -81576,7 +81451,6 @@ tsvetanka
 tsvetanov
 tsvi
 ttherese
-tu
 tu-tran
 tua
 tuaana
@@ -81769,7 +81643,6 @@ tvonne
 txomin
 txong
 txu
-ty
 tya
 tyago
 tyana
@@ -81850,7 +81723,6 @@ ubrick
 ubrico
 ucie
 ucien
-ud
 uda
 udai
 udanie
@@ -81870,7 +81742,6 @@ udo
 udolie
 udom
 udovic
-ue
 uecharis
 ueva
 uffe
@@ -81896,9 +81767,7 @@ uguette
 ugur
 ugustine
 uhlrich
-ui
 uichel
-ul
 ula
 uladzimir
 ulai
@@ -82053,7 +81922,6 @@ umran
 umus
 umut
 umutali
-un
 una
 unai
 unal
@@ -82080,10 +81948,8 @@ uno
 uoc
 uon
 uong
-up
 upa
 upali
-ur
 ura
 uraine
 uralie
@@ -82252,7 +82118,6 @@ usuel
 usul
 usvaldo
 uszer
-ut
 uta
 utako
 ute
@@ -82276,7 +82141,6 @@ uvon
 uvonne
 uvszula
 uwe
-uy
 uyen
 uzebie
 uzeyir
@@ -82977,7 +82841,6 @@ vcitorine
 vctoire
 vctor
 vctoria
-ve
 veaceslav
 veanouche
 veasna
@@ -83431,7 +83294,6 @@ veysel
 vezio
 vezir
 vezira
-vi
 viacheslav
 viagoulamarie
 vial
@@ -84433,7 +84295,6 @@ vrine
 vruyr
 vsevolod
 vsevolode
-vu
 vucic
 vucko
 vui
@@ -84471,7 +84332,6 @@ vural
 vurenne
 vuthy
 vve
-vy
 vyacheslav
 vyanette
 vyannette
@@ -85366,7 +85226,6 @@ wren
 wright
 wsevolode
 wsewolod
-wu
 wui
 wuillam
 wuillame
@@ -85388,7 +85247,6 @@ wulphy
 wumba
 wun
 wunibald
-wy
 wyatt
 wycliffe
 wyktoria
@@ -85407,7 +85265,6 @@ wynford
 wynn
 wynne
 wyomie
-xa
 xabi
 xabier
 xai
@@ -85453,7 +85310,6 @@ xavine
 xavirer
 xaxier
 xay
-xe
 xen
 xena
 xene
@@ -85480,7 +85336,6 @@ xheva
 xhevat
 xhevdet
 xhevrije
-xi
 xia
 xian
 xiang
@@ -85539,7 +85394,6 @@ xoa
 xom
 xong
 xou
-xu
 xuan
 xuan-huong
 xuan-mai
@@ -85553,9 +85407,7 @@ xuoi
 xuon
 xuong
 xuyen
-xy
 xyste
-ya
 yaa
 yaacob
 yaacoub
@@ -85912,7 +85764,6 @@ ydris
 ydriss
 ydrissa
 ydylle
-ye
 yean
 yeang
 yeap
@@ -86076,7 +85927,6 @@ yhdih
 yherese
 yhierry
 yhouda
-yi
 yia
 yialina
 yiana
@@ -86144,7 +85994,6 @@ ymma
 ymmouna
 ymouna
 ymran
-yn
 ynaia
 ynee
 ynes
@@ -86489,7 +86338,6 @@ yssoufi
 yta
 ythier
 ytje
-yu
 yuan
 yuc
 yucel
@@ -86580,7 +86428,6 @@ yuy
 yuyan
 yuying
 yuzuru
-yv
 yva
 yvain
 yvaine
@@ -86789,7 +86636,6 @@ yzelen
 yzelle
 yzette
 yzza
-za
 zaal
 zaanti
 zaara
@@ -87639,7 +87485,6 @@ zhou
 zhour
 zhu
 zhufeng
-zi
 zia
 ziad
 ziade
@@ -88043,7 +87888,6 @@ zsigmond
 zsofia
 zsolt
 zsuzsanna
-zu
 zuarde
 zubeda
 zubeida

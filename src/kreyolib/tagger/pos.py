@@ -12,7 +12,7 @@ _fr_names = set()
 
 # Sets for contractions that can be split into pronoun + auxiliary
 CLITIC_CONTRACTIONS = {"map", "tap", "nap", "wap"}
-UNAMBIGUOUS_CONTRACTIONS = {"lap", "yap"}
+UNAMBIGUOUS_CONTRACTIONS = {"lap", "yap", "tal", "lal", "wal"}
 
 MERGED_WORD_PATTERNS = [
     re.compile("(kisa)(k)", re.I),

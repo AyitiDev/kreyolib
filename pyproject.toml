@@ -120,6 +120,7 @@ ignore = ["PLW2901", "PLW0603", "COM812", "D203", "D213", "RUF001", "RUF003", "R
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F403", "I001"]
 "cli.py" = ["PLR0913", "PLR0917", "UP045", "FBT001", "FBT002", "PTH123", "S603"]
+"src/kreyolib/tagger/pos.py" = ["PLR2004"]
 "tests/*" = ["E501", "S101", "PLR2004", "Q0", "ERA001", "SLF001", "PT006", "ARG002", "S101"]
 
 [tool.ruff.format]

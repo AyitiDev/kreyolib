@@ -11,12 +11,12 @@ _model = None
 _fr_names = set()
 
 # Sets for contractions that can be split into pronoun + auxiliary
-CLITIC_CONTRACTIONS = {"map", "tap", "nap", "wap"}
-UNAMBIGUOUS_CONTRACTIONS = {"lap", "yap", "tal", "lal", "wal"}
+CLITIC_CONTRACTIONS = {"map", "tap", "nap"}
+UNAMBIGUOUS_CONTRACTIONS = {"wap", "lap", "yap", "tal", "wal", "lal", "yal"}
 
 MERGED_WORD_PATTERNS = [
     re.compile("(kisa)(k)", re.I),
-    re.compile("([a-z]+)(w)$", re.I),  # e.g., eg saw -> sa w
+    re.compile("([a-z]+)(w)$", re.I)  # e.g., eg saw -> sa w
 ]
 
 

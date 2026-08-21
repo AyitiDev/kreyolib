@@ -55,6 +55,16 @@ from kreyolib.tagger.pos import tag
                 (".", "PUNCT"),
             ],
         ),
+        (
+            "Kisak fè sa?",
+            [
+                ("Kisa", "ADV"),
+                ("k", "PRON"),
+                ("fè", "VERB"),
+                ("sa", "PRON"),
+                ("?", "PUNCT"),
+            ],
+        ),
     ],
 )
 def test_pos_tagging(inputs, expected):

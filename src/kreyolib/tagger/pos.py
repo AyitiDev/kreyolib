@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 import joblib
@@ -12,6 +13,11 @@ _fr_names = set()
 # Sets for contractions that can be split into pronoun + auxiliary
 CLITIC_CONTRACTIONS = {"map", "tap", "nap", "wap"}
 UNAMBIGUOUS_CONTRACTIONS = {"lap", "yap"}
+
+MERGED_WORD_PATTERNS = [
+    re.compile("(kisa)(k)", re.I),
+    re.compile("([a-z]+)(w)$", re.I),  # e.g., eg saw -> sa w
+]
 
 
 def _get_model():
@@ -60,6 +66,15 @@ def _preprocess_tokens(tokens: list[str]) -> list[str]:
             processed_tokens.extend([pronoun, aux_marker])
             continue
 
+        has_token_unmerged = False
+        for pat in MERGED_WORD_PATTERNS:
+            if pat.search(current_token):
+                processed_tokens.extend(pat.sub(r"\1 \2", current_token).split())
+                has_token_unmerged = True
+                break
+        if has_token_unmerged:
+            continue
+
         processed_tokens.append(current_token)
 
     return processed_tokens
@@ -99,7 +114,6 @@ def tag(inputs: str | list[str]) -> list[tuple[str, str]]:
 
 
 if __name__ == "__main__":
-    test_sentence = "Map vini demen nan maten."
-    test_sentence = ["Li", "se", "Christophe", "."]
+    test_sentence = "Kisak fè sa. Sak te a pete. preparew."
     print("Loaded names count:", len(_get_names_set()))
     print("String input:", tag(test_sentence))

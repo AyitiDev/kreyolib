@@ -45,6 +45,7 @@ dev = [
   "pytest-cov>=6.2.1",
   "pre-commit>=4.4.0",
   "pydoc-markdown>=4.8.0,<5.0",
+  "rich>=13.7.1",
   "ruff>=0.14.14",
 ]
 
@@ -68,8 +69,8 @@ include-package-data = true
 
 [tool.pytest.ini_options]
 minversion = "7.4"
-addopts = "--doctest-modules --cov=kreyolib --cov-report=term-missing:skip-covered --durations=10"
-testpaths = ["tests", "src/kreyolib"]
+addopts = "--cov=kreyolib --cov-report=term-missing:skip-covered --durations=10"
+testpaths = ["tests"]
 python_files = "test_*.py"
 
 [tool.coverage.run]

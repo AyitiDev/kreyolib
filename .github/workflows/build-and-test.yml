@@ -36,15 +36,15 @@ jobs:
       run: |
         uv run pytest -v --tb=short
 
-     - name: Generate Coverage
-       if: matrix.python-version == '3.12'
-       run: |
+    - name: Generate Coverage
+      if: matrix.python-version == '3.12'
+      run: |
          uv run pytest --cov-report=xml
 
-     - name: Upload coverage to Coveralls
-       if: matrix.python-version == '3.12'
-       uses: coverallsapp/github-action@v2.3.8
-       with:
+    - name: Upload coverage to Coveralls
+      if: matrix.python-version == '3.12'
+      uses: coverallsapp/github-action@v2.3.8
+      with:
          github-token: ${{ secrets.GITHUB_TOKEN }}
          file: coverage.xml
          fail-on-error: false

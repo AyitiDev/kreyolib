@@ -117,6 +117,7 @@ def _fix_articles_usage(text: str) -> str:
 @lru_cache(maxsize=128)
 def _modernize_word(word: str, *, aggressive: bool) -> str:
     """Modernizes a word's orthography."""
+    was_upper = (word or " ")[0].isupper()
     if aggressive:
         # deeper mutations
         for old, new in OLD_TO_NEW_VOCAB_MAP_1.items():
@@ -127,7 +128,7 @@ def _modernize_word(word: str, *, aggressive: bool) -> str:
     if aggressive:
         word = U_WITHOUT_O_OR_I.sub("i", word)
         word = IN_WITHOUT_M_OR_N.sub("en", word)
-    return word
+    return word.capitalize() if was_upper else word
 
 
 def standardize_text(text: str, *, aggressive: bool = False) -> str:

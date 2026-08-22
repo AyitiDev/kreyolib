@@ -1,6 +1,7 @@
 from functools import lru_cache
 from string import ascii_lowercase
 
+import ftfy
 import regex as re
 
 from kreyolib.corpus.chat_abbrvs import CHAT_ABBRVS_MAP
@@ -134,9 +135,9 @@ def _modernize_word(word: str, *, aggressive: bool) -> str:
 def standardize_text(text: str, *, aggressive: bool = False) -> str:
     """Standardizes input text.
 
-    Applies a series of normalization steps including contraction standardization,
-    chat abbreviation expansion, orthography modernization, and article correction
-    and more.
+    Applies a series of normalization steps including fix mojibakes,
+    contraction standardization, chat abbreviation expansion,
+    orthography modernization, and article correction and more.
 
     Args:
         text: The input text to process.
@@ -153,8 +154,9 @@ def standardize_text(text: str, *, aggressive: bool = False) -> str:
     if not text or text.isspace():
         return ""
 
-    text = _standardize_contractions(text)
-    words = WORD_TOKENIZER.findall(text)
+    fixed_text = ftfy.fix_text(text)
+    fixed_text = _standardize_contractions(fixed_text)
+    words = WORD_TOKENIZER.findall(fixed_text)
     processed_words = []
     for word in words:
         stripped_word = word.rstrip()

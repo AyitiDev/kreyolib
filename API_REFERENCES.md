@@ -102,9 +102,9 @@ def standardize_text(text: str, *, aggressive: bool = False) -> str
 
 Standardizes input text.
 
-Applies a series of normalization steps including contraction standardization,
-chat abbreviation expansion, orthography modernization, and article correction
-and more.
+Applies a series of normalization steps including fix mojibakes,
+contraction standardization, chat abbreviation expansion,
+orthography modernization, and article correction and more.
 
 **Arguments**:
 

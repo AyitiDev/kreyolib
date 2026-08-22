@@ -25,11 +25,10 @@ def expand_contractions(text: str) -> str:
     def replace(match: re.Match) -> str:
         # Extract the matched clitic character
         matched_char = match.group(1)
-        print(matched_char)
         was_upper = matched_char.isupper()
 
         full_form = CONTRACTIONS_MAP.get(matched_char.lower(), match.group(1)) + " "
-        return full_form.title() if was_upper else full_form
+        return full_form.capitalize() if was_upper else full_form
 
     return CONTRACTIONS_FINDER.sub(replace, text)
 

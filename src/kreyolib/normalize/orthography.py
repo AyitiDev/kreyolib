@@ -120,10 +120,7 @@ def _modernize_word(word: str, *, aggressive: bool) -> str:
     if aggressive:
         # deeper mutations
         for old, new in OLD_TO_NEW_VOCAB_MAP_1.items():
-            a = word
             word = word.replace(old, new)
-            if word != a:
-                print(word, old, new)
 
     word = OLD_TO_NEW_VOCAB_MAP_2.get(word.lower(), word)
 
@@ -142,7 +139,7 @@ def standardize_text(text: str, *, aggressive: bool = False) -> str:
 
     Args:
         text: The input text to process.
-        aggressive: Wether to make the deeper but more fragile.
+        aggressive: Whether to make the deeper but more fragile.
             This is useful if you are parsing really old Haitian creole.
             For example the version in Chant d'esperance Creole'
 

@@ -1,28 +1,43 @@
 import difflib
+import os
+import shutil
+import sys
 
-from rich.console import Console
-from rich.syntax import Syntax
+RESET = "\033[0m"
+DIM = "\033[2m"
+GREEN = "\033[92m"
+RED = "\033[91m"
+BG = "\033[48;5;234m"
 
 
-def print_rich_diff(text1: str, text2: str, theme: str = "monokai") -> None:
-    """Renders a colorized diff of two strings using Rich's diff lexer."""
-    console = Console()
+def _colorize_line(line: str, width: int) -> str:
+    if line.startswith(("+++", "+")):
+        return f"{GREEN}{BG}{line.ljust(width)}{RESET}"
+    if line.startswith(("---", "-")):
+        return f"{RED}{BG}{line.ljust(width)}{RESET}"
+    if line.startswith("@@"):
+        return f"{DIM}{BG}{line.ljust(width)}{RESET}"
+    return f"{BG}{line.ljust(width)}{RESET}"
 
-    # Ensure lines end with newlines for unified_diff
-    lines1 = [line + "\n" for line in text1.splitlines()]
-    lines2 = [line + "\n" for line in text2.splitlines()]
 
-    diff_generator = difflib.unified_diff(
-        lines1,
-        lines2,
-        fromfile="before",
-        tofile="after",
+def print_rich_diff(text1: str, text2: str) -> None:
+    """Renders a colorized diff of two strings using ANSI escape codes."""
+    diff = list(
+        difflib.unified_diff(
+            [line + "\n" for line in text1.splitlines()],
+            [line + "\n" for line in text2.splitlines()],
+            fromfile="before",
+            tofile="after",
+        )
     )
-    diff_text = "".join(diff_generator)
 
-    if not diff_text:
-        console.print("[dim]No differences found.[/dim]")
+    if not diff:
+        print(f"{DIM}No differences found.{RESET}")
         return
 
-    syntax_diff = Syntax(diff_text, "diff", theme=theme, line_numbers=False)
-    console.print(syntax_diff)
+    if os.environ.get("NO_COLOR") or not sys.stdout.isatty():
+        sys.stdout.write("".join(diff))
+        return
+
+    width = shutil.get_terminal_size().columns
+    sys.stdout.write("".join(_colorize_line(line.rstrip("\n"), width) + "\n" for line in diff))

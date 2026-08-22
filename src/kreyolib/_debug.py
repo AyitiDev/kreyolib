@@ -11,9 +11,9 @@ BG = "\033[48;5;234m"
 
 
 def _colorize_line(line: str, width: int) -> str:
-    if line.startswith(("+++", "+")):
+    if line.startswith("+"):
         return f"{GREEN}{BG}{line.ljust(width)}{RESET}"
-    if line.startswith(("---", "-")):
+    if line.startswith("-"):
         return f"{RED}{BG}{line.ljust(width)}{RESET}"
     if line.startswith("@@"):
         return f"{DIM}{BG}{line.ljust(width)}{RESET}"

@@ -1,6 +1,7 @@
-# Kreyolib 🇭🇹
-
-> _Built by haitians for everyone_
+<div align="center">
+  <img src="https://raw.githubusercontent.com/speedyk-005/kreyolib/main/kreyolib_logo.png" alt="Kreyolib Logo" width="625"/>
+  <p><i>"Pa gen ti lang · No language is small"</i></p>
+</div>
 
 [![Python Version](https://img.shields.io/badge/Python-3.10%20--%203.14-blue)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/kreyolib?kill_cache=1)](https://pypi.org/project/kreyolib)
@@ -38,64 +39,78 @@ pip install kreyolib -U
 
 ### Normalization [API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalize)
 
-#### Orthography ([API Reference](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizeorthographystandardize_text))
+#### Orthography ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizeorthographystandardize_text))
+
+Standardizes chat slang, archaic spellings, clitics, and article usage into modern IPN orthography.
+
 ```python
 from kreyolib.normalize.orthography import standardize_text
 
-# Comprehensive cleaning of chat slang, archaic text, clitics, and automatic article correction
-messy_text = "Bjr! Mw tap tann ou sou ban a, svp cheri ou knn c fèt mwen jodi a."
-standardized_output = standardize_text(messy_text, aggressive=False)
-print(standardized_output)
-# Output: Bonjou! Mwen tap tann ou sou ban an, silvouplè cheri ou konn se fèt mwen jodi a.
+# -- Chat slang & abbreviations --
+standardize_text("Bjr! Mw tap tann ou sou ban an, svp cheri ou knn c fèt mwen jodi a.")
+# Bonjou! Mwen tap tann ou sou ban an, silvouplè cheri ou konn se fèt mwen jodi a.
 
-# Aggressive mode handles older historical variations and non-standard spellings
-archaic_text = "Nan lé monn mouin té pèdu nan péché; Min Jézu té sové-m."
-modern_output = standardize_text(archaic_text, aggressive=True)
-print(modern_output)
-# Output: Nan le mond mwen te pèdi nan peche; Men Jezi te sovem.
+# -- Article correction --
+standardize_text("Mwen chita sou ban a. Mwen ap manje bannann la ki te sou tab lan.")
+# Mwen chita sou ban an. Mwen ap manje bannann nan ki te sou tab la.
+
+# -- Capitalization fixes --
+standardize_text("mwen renmen bondye")
+# Mwen renmen Bondye
 ```
 
-#### Contractions ([API Reference](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizecontractionsexpand_contractions))
+With `aggressive=True`, older historical variations and non-standard spellings are folded in as well:
+
+```python
+standardize_text("Nan lé monn mouin té pèdu nan péché; Min Jézu té sové-m.", aggressive=True)
+# Nan le mond mwen te pèdi nan peche; Men Jezi te sovem.
+```
+
+#### Contractions ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizecontractionsexpand_contractions))
+
+Expands colloquial clitics (`m'ap`, `y'ap`, `n'`) into formal standalone words.
+
 ```python
 from kreyolib.normalize.contractions import expand_contractions
 
-# Seamlessly expand colloquial clitics into formal standalone tokens across full statements
-raw_sentence = "M'ap ale lakay nou paske y'ap tann nou pou n' al travay."
-expanded_sentence = expand_contractions(raw_sentence)
-print(expanded_sentence)
-# Output: Mwen ap ale lakay nou paske yo ap tann nou pou nou al travay.
+expand_contractions("M'ap ale lakay nou paske yap tann nou pou n' al travay.")
+# Mwen ap ale lakay nou paske yo ap tann nou pou nou al travay.
 ```
 
-#### Diacritics ([API Reference](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizediacriticsstrip_diacritics))
+#### Diacritics ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizediacriticsstrip_diacritics))
+
+Removes accent marks — useful for search indexes or legacy systems that expect plain ASCII.
+
 ```python
 from kreyolib.normalize.diacritics import strip_diacritics
 
-# Clean text by removing accent marks for downstream search index normalization or legacy systems
-accented_text = "Abèy yo ap vole sou òganizasyon an lè yo ale nan fèt la."
-stripped_text = strip_diacritics(accented_text)
-print(stripped_text)
-# Output: Abey yo ap vole sou oganizasyon an le yo ale nan fet la.
+strip_diacritics("Abèy yo ap vole sou òganizasyon an lè yo ale nan fèt la.")
+# Abey yo ap vole sou oganizasyon an le yo ale nan fet la.
 ```
 
 ### Advanced Models & Intelligence
 
-#### POS Tagger ([API Reference](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))
-The POS tagger is built on top of Universal Dependencies treebanks and enhanced with custom preprocessing and French-based proper noun handling. For details on training and implementation, see the [Tagger Source Code](https://github.com/AyitiDev/kreyolib/tree/main/src/kreyolib/tagger).
+#### POS Tagger ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))
+
+Built on Universal Dependencies treebanks (Autogramm, Adolphe) with custom preprocessing and French-based proper noun handling. See the [Tagger Source Code](https://github.com/AyitiDev/kreyolib/tree/main/src/kreyolib/tagger) for training details.
+
+Tag a raw sentence:
 
 ```python
 from kreyolib.tagger.pos import tag
 
-# Perform detailed part-of-speech disambiguation on raw string sequences trained using Universal Dependencies treebanks (Autogramm and Adolphe)
-sentence_input = "Map vini demen nan maten pou n al travay ansanm."
-pos_results = tag(sentence_input)
-print(pos_results)
-# Output: [('M', 'PRON'), ('ap', 'AUX'), ('vini', 'VERB'), ('demen', 'NOUN'), ('nan', 'ADP'), ('maten', 'NOUN'), ('pou', 'ADP'), ('n', 'PRON'), ('al', 'VERB'), ('travay', 'VERB'), ('ansanm', 'ADV'), ('.', 'PUNCT')]
+tag("Map vini demen nan maten pou n al travay ansanm.")
+# [('M', 'PRON'), ('ap', 'AUX'), ('vini', 'VERB'), ('demen', 'NOUN'), ('nan', 'ADP'),
+#  ('maten', 'NOUN'), ('pou', 'ADP'), ('n', 'PRON'), ('al', 'VERB'), ('travay', 'VERB'),
+#  ('ansanm', 'ADV'), ('.', 'PUNCT')]
+```
 
-# Direct processing utilizing French-based proper noun enhancements and hardcoded copula rules
-token_list = ["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."]
-tagged_tokens = tag(token_list)
-print(tagged_tokens)
-# Output: [('Mwen', 'PRON'), ('rele', 'VERB'), ('Jan', 'PROPN'), (',', 'PUNCT'), ('e', 'CCONJ'), ('mwen', 'PRON'), ('abite', 'VERB'), ('Okay', 'NOUN'), ('.', 'PUNCT')]
+Or a pre-tokenized list:
+
+```python
+tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
+# [('Mwen', 'PRON'), ('rele', 'VERB'), ('Jan', 'PROPN'), (',', 'PUNCT'), ('e', 'CCONJ'),
+#  ('mwen', 'PRON'), ('abite', 'VERB'), ('Okay', 'NOUN'), ('.', 'PUNCT')]
 ```
 
 ---

@@ -61,7 +61,9 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
-package-dir = { "" = "src" }
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["kreyolib"]
 include-package-data = true
 
 [tool.pytest.ini_options]

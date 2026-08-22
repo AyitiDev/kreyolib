@@ -2,6 +2,12 @@
 
 > _Built by haitians for everyone_
 
+[![Python Version](https://img.shields.io/badge/Python-3.10%20--%203.14-blue)](https://www.python.org/downloads/)
+[![PyPI](https://img.shields.io/pypi/v/kreyolib?kill_cache=1)](https://pypi.org/project/kreyolib)
+[![Coverage Status](https://coveralls.io/repos/github/AyitiDev/kreyolib/badge.svg?branch=main&kill_cache=1)](https://coveralls.io/github/AyitiDev/kreyolib?branch=main)
+[![Stability](https://img.shields.io/badge/stability-alpha-yellow)](https://github.com/AyitiDev/kreyolib)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/AyitiDev/kreyolib/actions)
+[![lint](https://github.com/AyitiDev/kreyolib/actions/workflows/lint.yml/badge.svg)](https://github.com/AyitiDev/kreyolib/actions/workflows/lint.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/ayitidev/kreyolib/badge)](https://www.codefactor.io/repository/github/ayitidev/kreyolib)
 [![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Maintainer](https://img.shields.io/badge/Maintained%20by-AyitiDev-0052B4.svg)](https://github.com/AyitiDev)

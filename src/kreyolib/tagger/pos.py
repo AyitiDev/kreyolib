@@ -16,7 +16,7 @@ UNAMBIGUOUS_CONTRACTIONS = {"wap", "lap", "yap", "tal", "wal", "lal", "yal"}
 
 MERGED_WORD_PATTERNS = [
     re.compile("(kisa)(k)", re.I),
-    re.compile("([a-z]+)(w)$", re.I)  # e.g., eg saw -> sa w
+    re.compile("([a-z]+)(w)$", re.I),  # e.g., eg saw -> sa w
 ]
 
 
@@ -113,7 +113,7 @@ def tag(inputs: str | list[str]) -> list[tuple[str, str]]:
     return _postprocess_tokens(_get_model().tag(preprocessed_tokens))
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     test_sentence = "Kisak fè sa. Sak te a pete. preparew."
     print("Loaded names count:", len(_get_names_set()))
     print("String input:", tag(test_sentence))

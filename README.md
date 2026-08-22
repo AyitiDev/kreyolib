@@ -30,9 +30,9 @@ pip install kreyolib -U
 
 ## Usage / Itilizasyon
 
-### Normalization
+### Normalization [API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalize)
 
-#### Orthography
+#### Orthography ([API Reference](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizeorthographystandardize_text))
 ```python
 from kreyolib.normalize.orthography import standardize_text
 
@@ -49,7 +49,7 @@ print(modern_output)
 # Output: Nan le mond mwen te pèdi nan peche; Men Jezi te sovem.
 ```
 
-#### Contractions
+#### Contractions ([API Reference](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizecontractionsexpand_contractions))
 ```python
 from kreyolib.normalize.contractions import expand_contractions
 
@@ -60,9 +60,9 @@ print(expanded_sentence)
 # Output: Mwen ap ale lakay nou paske yo ap tann nou pou nou al travay.
 ```
 
-#### Diacritics
+#### Diacritics ([API Reference](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizediacriticsstrip_diacritics))
 ```python
-from kreyolib.normalize import strip_diacritics
+from kreyolib.normalize.diacritics import strip_diacritics
 
 # Clean text by removing accent marks for downstream search index normalization or legacy systems
 accented_text = "Abèy yo ap vole sou òganizasyon an lè yo ale nan fèt la."
@@ -73,7 +73,7 @@ print(stripped_text)
 
 ### Advanced Models & Intelligence
 
-#### POS Tagger
+#### POS Tagger ([API Reference](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))
 The POS tagger is built on top of Universal Dependencies treebanks and enhanced with custom preprocessing and French-based proper noun handling. For details on training and implementation, see the [Tagger Source Code](https://github.com/AyitiDev/kreyolib/tree/main/src/kreyolib/tagger).
 
 ```python

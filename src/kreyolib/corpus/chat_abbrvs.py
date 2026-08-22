@@ -9,6 +9,7 @@ CHAT_ABBRVS_MAP = {
     "b": "bebe",
     "bb": "bebe",
     "bby": "babay",
+    "bjr":"bonjou",
     "bnj": "bonjou",
     "bnsr": "bonswa",
     "bnsw": "bonswa",

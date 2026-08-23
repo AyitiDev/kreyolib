@@ -73,7 +73,7 @@ testpaths = ["tests"]
 python_files = "test_*.py"
 
 [tool.coverage.run]
-omit = ["*/cli.py"]
+omit = ["*/_debug.py", "*/cli.py"]
 
 [tool.ruff]
 target-version = "py310"

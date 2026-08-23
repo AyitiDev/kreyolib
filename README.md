@@ -1,6 +1,6 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/speedyk-005/kreyolib/main/kreyolib_logo.png" alt="Kreyolib Logo" width="625"/>
-  <p><i>"Pa gen ti lang · No language is small"</i></p>
+  <p><i>"Kreyòl merite zouti tou · Kreyòl deserves tools too"</i></p>
 </div>
 
 [![Python Version](https://img.shields.io/badge/Python-3.10%20--%203.14-blue)](https://www.python.org/downloads/)

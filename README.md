@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/speedyk-005/kreyolib/main/kreyolib_logo.png" alt="Kreyolib Logo" width="625"/>
+  <img src="https://raw.githubusercontent.com/AyitiDev/kreyolib/main/kreyolib_logo.png" alt="Kreyolib Logo" width="625"/>
   <p><i>"Kreyòl merite zouti tou · Kreyòl deserves tools too"</i></p>
 </div>
 

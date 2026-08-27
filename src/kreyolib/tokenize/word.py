@@ -30,16 +30,15 @@ WORD_TOKENIZER = re.compile(
 
 
 def word_tokenize(text: str) -> list[str]:
-    """Split text into word level tokens smartly
+    """Split text into word-level tokens.
 
-    Tokenize text while respecting context for
-    hashtags, URLs and emails.
+    Tokenizes text while respecting context for hashtags, URLs, and emails.
 
     Args:
-        text: The text to tokenize into sentences.
+        text: The text to tokenize.
 
     Returns:
-        A list of sentences.
+        A list of word tokens.
     """
     return WORD_TOKENIZER.findall(text)
 

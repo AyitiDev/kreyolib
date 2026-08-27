@@ -154,27 +154,30 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [x] Text standardization and modernization
   - [x] Contraction expansion
   - [x] Diacritics remover
-  - [ ] Date, number, and text formatters
-- [ ] **2. Corpus & Datasets**
+- [ ] **2. Conversion**
+  - [ ] Number-to-text (cardinal, ordinal)
+  - [ ] Date and time formatters
+  - [ ] Text and measure formatters
+- [ ] **3. Corpus & Datasets**
   - [x] Stop words and chat/informal abbreviations
   - [ ] Sentences, words, and chat abbreviation maps
   - [ ] Emoji maps with short Kreyòl description values
-- [ ] **3. Advanced Models & Intelligence**
+- [ ] **4. Advanced Models & Intelligence**
   - [x] Part-of-Speech (POS) tagging engine (ml)
   - [ ] Named Entity Recognition for Haitian entities (ml)
   - [ ] Lexicon-based sentiment analysis engine
   - [ ] Sentence/Next-word predictor
-- [ ] **4. Tokenization & Segmentation**
+- [ ] **5. Tokenization & Segmentation**
   - [x] Context-aware Word tokenizer
   - [x] Sentence boundary splitter
   - [ ] Social media, tweet, mention, and hashtag tokenization
   - [ ] Subword tokenization via Byte-Pair Encoding and rules
-- [ ] **5. Phonetics & Syntax**
+- [ ] **6. Phonetics & Syntax**
   - [ ] Text-to-phonetics and IPA generation
   - [ ] CV syllabification engine
-- [ ] **6. Spelling & Error Correction**
+- [ ] **7. Spelling & Error Correction**
   - [ ] Levenshtein distance and spell-checking engine
-- [ ] **7. Core Architecture & Pipeline**
+- [ ] **8. Core Architecture & Pipeline**
   - [ ] Sequential execution pipeline runner
 
 ### How People Can Contribute

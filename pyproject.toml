@@ -127,4 +127,4 @@ ignore = ["PLW2901", "PLW0603", "COM812", "D203", "D213", "RUF001", "RUF003", "R
 "notebooks/*" = ["ALL"]
 
 [tool.ruff.format]
-exclude = [".git", ".venv", "build", "dist"]
+exclude = [".git", ".venv", "build", "dist", "*/_vocab.py"]

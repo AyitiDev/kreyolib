@@ -160,11 +160,10 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [ ] Sentences, words, and chat abbreviation maps
   - [ ] Emoji maps with short Kreyòl description values
 - [ ] **3. Advanced Models & Intelligence**
-  - [x] Part-of-Speech (POS) tagging engine
-  - [ ] Named Entity Recognition for Haitian entities
+  - [x] Part-of-Speech (POS) tagging engine (ml)
+  - [ ] Named Entity Recognition for Haitian entities (ml)
   - [ ] Lexicon-based sentiment analysis engine
-  - [ ] Next-word predictor
-  - [ ] Regex and rule-based intent matching chatbot
+  - [ ] Sentence/Next-word predictor
 - [ ] **4. Tokenization & Segmentation**
   - [x] Context-aware Word tokenizer
   - [x] Sentence boundary splitter

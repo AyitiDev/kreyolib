@@ -88,6 +88,22 @@ strip_diacritics("Abèy yo ap vole sou òganizasyon an lè yo ale nan fèt la.")
 # Abey yo ap vole sou oganizasyon an le yo ale nan fet la.
 ```
 
+### Tokenization
+
+#### Sentence Splitter ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtokenizesentencesent_tokenize))
+
+Splits text into sentences, respecting abbreviations, quotes, and parenthesized boundaries. Powered by [yasbd-lib](https://github.com/speedyk-005/yasbd-lib/blob/main/src/yasbd/rules/__init__.py), with Haitian Creole rules extended with French abbreviations and sentence starters.
+
+```python
+from kreyolib.tokenize.sentence import sent_tokenize
+
+sent_tokenize("Alo mond. Koman ou ye? Mwen byen.")
+# ['Alo mond.', 'Koman ou ye?', 'Mwen byen.']
+
+sent_tokenize("M. Dupont est un professeur. Li travay nan lekòl la. Li di: \"Mwen pral vini demen.\" Apre sa, li ale.")
+# ['M. Dupont est un professeur.', 'Li travay nan lekòl la.', 'Li di: "Mwen pral vini demen."', 'Apre sa, li ale.']
+```
+
 ### Advanced Models & Intelligence
 
 #### POS Tagger ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))

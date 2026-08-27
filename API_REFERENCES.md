@@ -1,25 +1,38 @@
 # Table of Contents
 
-* [kreyolib](#kreyolib)
+* [kreyolib.corpus.chat\_abbrvs](#kreyolib.corpus.chat_abbrvs)
+* [kreyolib.corpus](#kreyolib.corpus)
+* [kreyolib.corpus.stop\_words](#kreyolib.corpus.stop_words)
 * [kreyolib.\_debug](#kreyolib._debug)
   * [print\_rich\_diff](#kreyolib._debug.print_rich_diff)
-* [kreyolib.corpus](#kreyolib.corpus)
-* [kreyolib.corpus.chat\_abbrvs](#kreyolib.corpus.chat_abbrvs)
-* [kreyolib.corpus.stop\_words](#kreyolib.corpus.stop_words)
-* [kreyolib.normalize](#kreyolib.normalize)
+* [kreyolib](#kreyolib)
 * [kreyolib.normalize.contractions](#kreyolib.normalize.contractions)
   * [expand\_contractions](#kreyolib.normalize.contractions.expand_contractions)
 * [kreyolib.normalize.diacritics](#kreyolib.normalize.diacritics)
   * [strip\_diacritics](#kreyolib.normalize.diacritics.strip_diacritics)
+* [kreyolib.normalize](#kreyolib.normalize)
 * [kreyolib.normalize.orthography](#kreyolib.normalize.orthography)
   * [standardize\_text](#kreyolib.normalize.orthography.standardize_text)
 * [kreyolib.tagger](#kreyolib.tagger)
 * [kreyolib.tagger.pos](#kreyolib.tagger.pos)
   * [tag](#kreyolib.tagger.pos.tag)
+* [kreyolib.tokenize.\_hybrid\_ht\_rules](#kreyolib.tokenize._hybrid_ht_rules)
+  * [HybridHtRules](#kreyolib.tokenize._hybrid_ht_rules.HybridHtRules)
+* [kreyolib.tokenize](#kreyolib.tokenize)
+* [kreyolib.tokenize.sentence](#kreyolib.tokenize.sentence)
+  * [sent\_tokenize](#kreyolib.tokenize.sentence.sent_tokenize)
 
-<a id="kreyolib"></a>
+<a id="kreyolib.corpus.chat_abbrvs"></a>
 
-# kreyolib
+# kreyolib.corpus.chat\_abbrvs
+
+<a id="kreyolib.corpus"></a>
+
+# kreyolib.corpus
+
+<a id="kreyolib.corpus.stop_words"></a>
+
+# kreyolib.corpus.stop\_words
 
 <a id="kreyolib._debug"></a>
 
@@ -30,26 +43,14 @@
 #### print\_rich\_diff
 
 ```python
-def print_rich_diff(text1: str, text2: str, theme: str = "monokai") -> None
+def print_rich_diff(text1: str, text2: str) -> None
 ```
 
-Renders a colorized diff of two strings using Rich's diff lexer.
+Renders a colorized diff of two strings using ANSI escape codes.
 
-<a id="kreyolib.corpus"></a>
+<a id="kreyolib"></a>
 
-# kreyolib.corpus
-
-<a id="kreyolib.corpus.chat_abbrvs"></a>
-
-# kreyolib.corpus.chat\_abbrvs
-
-<a id="kreyolib.corpus.stop_words"></a>
-
-# kreyolib.corpus.stop\_words
-
-<a id="kreyolib.normalize"></a>
-
-# kreyolib.normalize
+# kreyolib
 
 <a id="kreyolib.normalize.contractions"></a>
 
@@ -87,6 +88,10 @@ def strip_diacritics(text: str) -> str
 ```
 
 Removes diacritic marks entirely (è -> e, ò -> o).
+
+<a id="kreyolib.normalize"></a>
+
+# kreyolib.normalize
 
 <a id="kreyolib.normalize.orthography"></a>
 
@@ -149,4 +154,49 @@ Tag a string or a list of tokens with their respective POS classes.
 **Returns**:
 
   A list of tuples containing each token and its corresponding part-of-speech tag.
+
+<a id="kreyolib.tokenize._hybrid_ht_rules"></a>
+
+# kreyolib.tokenize.\_hybrid\_ht\_rules
+
+<a id="kreyolib.tokenize._hybrid_ht_rules.HybridHtRules"></a>
+
+## HybridHtRules Objects
+
+```python
+class HybridHtRules(HtRules)
+```
+
+Extend the base Haitian rules with some French awareness abbreviations.
+
+<a id="kreyolib.tokenize"></a>
+
+# kreyolib.tokenize
+
+<a id="kreyolib.tokenize.sentence"></a>
+
+# kreyolib.tokenize.sentence
+
+<a id="kreyolib.tokenize.sentence.sent_tokenize"></a>
+
+#### sent\_tokenize
+
+```python
+def sent_tokenize(text: str,
+                  *,
+                  preserve_whitespace: bool = False) -> list[str]
+```
+
+Split text into sentences.
+
+**Arguments**:
+
+- `text` - The text to tokenize into sentences.
+- `preserve_whitespace` - If ``False`` (default), strip leading and
+  trailing whitespace from each sentence.
+  
+
+**Returns**:
+
+  A list of sentences.
 

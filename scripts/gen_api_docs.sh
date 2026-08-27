@@ -24,4 +24,4 @@ export PYTHONPATH="$REPO_DIR/src"
 OUT="$REPO_DIR/API_REFERENCES.md"
 pydoc-markdown "${ARGS[@]}" --render-toc > "$OUT"
 LINES=$(wc -l < "$OUT")
-echo "Done. Wrote $OUT ($LINES lines) / Fini. Ekri nan $OUT ($LINES liy)"
+echo "Done/Fini. Wrote/Ekri nan $OUT ($LINES lines/liy)"

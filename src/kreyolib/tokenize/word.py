@@ -4,16 +4,17 @@ from yasbd.utils.trie import build_optimized_pattern
 from kreyolib.tokenize._hybrid_ht_rules import HybridHtRules
 
 ABBREVIATIONS = (
-    HybridHtRules.TITLE_ABBRVS |
-    HybridHtRules.REFERENCE_ABBRVS |
-    HybridHtRules.INLINE_ONLY_ABBRVS |
-    HybridHtRules.DATE_ABBRVS
+    HybridHtRules.TITLE_ABBRVS
+    | HybridHtRules.REFERENCE_ABBRVS
+    | HybridHtRules.INLINE_ONLY_ABBRVS
+    | HybridHtRules.DATE_ABBRVS
 )
-EXCLAM_BRANDS =  HybridHtRules.NAMES_WITH_EXCLAMATION
+EXCLAM_BRANDS = HybridHtRules.NAMES_WITH_EXCLAMATION
 
 
 # https://regex101.com/r/a8lIq7/3
-WORD_TOKENIZER = re.compile(rf"""
+WORD_TOKENIZER = re.compile(
+    rf"""
    (?:https?://|www\.)(?:\.(?!\s)|[^\s\.])+|  # Urls
    (?:\w+[-.]|[#@])+\w+|  # Accronyms/hastags/mentions
 
@@ -23,7 +24,8 @@ WORD_TOKENIZER = re.compile(rf"""
    {build_optimized_pattern(EXCLAM_BRANDS)}\!|
 
    \w+|[^\w\s]     #  Any standalone word or punctuation
-   """, re.I | re.X
+   """,
+    re.I | re.X,
 )
 
 
@@ -42,11 +44,11 @@ def word_tokenize(text: str) -> list[str]:
     return WORD_TOKENIZER.findall(text)
 
 
-if  __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     from kreyolib.tokenize.word import word_tokenize
 
     text = (
         "www.google.com Dr. Jean-Louis t ap travay U.S.A nan Yahoo!"
         " avèk Jhon@gmail.com. ##chill"
     )
-    print (word_tokenize(text))
+    print(word_tokenize(text))

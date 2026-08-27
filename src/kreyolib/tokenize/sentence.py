@@ -1,6 +1,5 @@
 from yasbd import BoundaryDetector
 
-
 # Initialize the detector and expose the module
 _detector = BoundaryDetector(
     "hybridht",
@@ -8,11 +7,7 @@ _detector = BoundaryDetector(
 )
 
 
-def sent_tokenize(
-    text: str,
-    *,
-    preserve_whitespace: bool = False
-) -> list[str]:
+def sent_tokenize(text: str, *, preserve_whitespace: bool = False) -> list[str]:
     """Split text into sentences.
 
     Args:
@@ -23,11 +18,7 @@ def sent_tokenize(
     Returns:
         A list of sentences.
     """
-    return list(_detector.segment(
-        text,
-        preserve_whitespace=preserve_whitespace
-    ))
- 
+    return list(_detector.segment(text, preserve_whitespace=preserve_whitespace))
 
 
 if __name__ == "__main__":  # pragma: no cover

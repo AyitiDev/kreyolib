@@ -166,7 +166,7 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [ ] Next-word predictor
   - [ ] Regex and rule-based intent matching chatbot
 - [ ] **4. Tokenization & Segmentation**
-  - [x] Word tokenizer
+  - [x] Context-aware Word tokenizer
   - [x] Sentence boundary splitter
   - [ ] Social media, tweet, mention, and hashtag tokenization
   - [ ] Subword tokenization via Byte-Pair Encoding and rules

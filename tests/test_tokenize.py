@@ -1,6 +1,33 @@
 import pytest
 
 from kreyolib.tokenize.sentence import sent_tokenize
+from kreyolib.tokenize.word import word_tokenize
+
+
+@pytest.mark.parametrize(
+    "input_text,expected",
+    [
+        (
+            "Dr. Jean-Louis t'ap travay U.S.A nan Yahoo!",
+            ["Dr.", "Jean-Louis", "t", "'", "ap", "travay", "U.S.A", "nan", "Yahoo!"],
+        ),
+        (
+            "Email li a trè senp: Jhon@gmail.com.",
+            ["Email", "li", "a", "trè", "senp", ":", "Jhon", "@gmail.com", "."],
+        ),
+        (
+            "@Jhon Sak genla? ##myboy",
+            ["@Jhon", "Sak", "genla", "?", "##myboy"],
+        ),
+        (
+            "www.reddit.com popilè anpil ui!",
+            ["www.reddit.com", "popilè", "anpil", "ui", "!"],
+        ),
+    ],
+)
+def test_word_tokenize(input_text, expected):
+    """Test word level tokenization is working smarly."""
+    assert word_tokenize(input_text) == expected
 
 
 @pytest.mark.parametrize(

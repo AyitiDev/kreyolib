@@ -104,6 +104,23 @@ sent_tokenize("M. Dupont est un professeur. Li travay nan lekòl la. Li di: \"Mw
 # ['M. Dupont est un professeur.', 'Li travay nan lekòl la.', 'Li di: "Mwen pral vini demen."', 'Apre sa, li ale.']
 ```
 
+#### Word Tokenizer ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtokenizewordword_tokenize))
+
+Splits text into word-level tokens while preserving abbreviations, hashtags, mentions, and URLs.
+
+```python
+from kreyolib.tokenize.word import word_tokenize
+
+word_tokenize("Dr. Jean-Louis t'ap travay U.S.A nan Yahoo!")
+# ['Dr.', 'Jean-Louis', 't', "'", 'ap', 'travay', 'U.S.A', 'nan', 'Yahoo!']
+
+word_tokenize("@Jhon Sak genla? ##myboy")
+# ['@Jhon', 'Sak', 'genla', '?', '##myboy']
+
+word_tokenize("www.google.com avèk Jhon@gmail.com.")
+# ['www.google.com', 'avèk', 'Jhon', '@gmail.com', '.']
+```
+
 ### Advanced Models & Intelligence
 
 #### POS Tagger ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))
@@ -149,8 +166,8 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [ ] Next-word predictor
   - [ ] Regex and rule-based intent matching chatbot
 - [ ] **4. Tokenization & Segmentation**
-  - [ ] Word tokenizer
-  - [ ] Sentence boundary splitter
+  - [x] Word tokenizer
+  - [x] Sentence boundary splitter
   - [ ] Social media, tweet, mention, and hashtag tokenization
   - [ ] Subword tokenization via Byte-Pair Encoding and rules
 - [ ] **5. Phonetics & Syntax**

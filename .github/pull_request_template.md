@@ -25,11 +25,11 @@
 
 ## Verifikasyon / Verification
 
-- [ ] Mwen kouri `pytest` epi tout tès yo pase. / I ran `pytest` and all tests pass.
-- [ ] Mwen kouri `ruff format . && ruff check --fix .`. / I ran `ruff format . && ruff check --fix .`.
+- [ ] Mwen itilize `pytest` epi tout tès yo pase. / I ran `pytest` and all tests pass.
+- [ ] Mwen itilize `ruff format . && ruff check --fix .`. / I ran `ruff format . && ruff check --fix .`.
 - [ ] Mwen ajoute tès pou chanjman mwen yo. / I have added tests for my changes (if applicable).
 - [ ] Chanjman mwen yo pa bezwen ajou nan dokimantasyon an, oswa mwen deja ajourne l. / My changes don't require documentation updates, or I've updated them.
 
 ## Pwoblèm Ki Lye / Related Issues
 
-- Fixes #
+- Fixes #...

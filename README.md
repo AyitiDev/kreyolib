@@ -37,7 +37,7 @@ pip install kreyolib -U
 
 ## Usage / Itilizasyon
 
-### Normalization [API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalize)
+### Normalization
 
 #### Orthography ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizeorthographystandardize_text))
 

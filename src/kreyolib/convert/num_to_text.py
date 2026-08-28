@@ -1,38 +1,38 @@
 import re
 
-from kreyolib.convert._vocab import NUM_TO_TEXT, SCALES, TEXT_TO_NUM
+from kreyolib.convert._vocab import IRREG_ORDINAL_MAP, NUM_TO_TEXT, SCALES, TEXT_TO_NUM
 
 # Scales that ussualy take the prefix `yon`
 # When the magnitude is one, e.g., yon milyon.
 EXCEPTIONS_SCALES = SCALES - {"san", "mil"}
-
-IRREGULAR_ORDINAL_MAP = {
-    "en": "premye",
-    "de": "dezyèm",
-    "twa": "twazyèm",
-    "kat": "katriyèm",
-    "sis": "sizyèm",
-    "nèf": "nevyèm",
-    "dis": "dizyèm",
-    "ven": "ventyèm",
-    "yen": "yinyèm",
-}
 
 # Detection regex to detect the first 4 cardinal num
 # Since they can also merged with some into some number
 FIRST_CARDINALS_DETECTOR = re.compile(r"(?:[yv]?en|de|twa|kat|nèf|[sd]is)$")
 
 
-def _convert_to_ordinal(text: str) -> str:
-    """Convert a numerical text to its ordinal form."""
-    m = FIRST_CARDINALS_DETECTOR.search(text)
+def _finalize(text: str, scale_token: str, *, ordinal: bool, fract_digits: int) -> str:
+    """Apply ordinal conversion, decimal point, and the yon prefix.
 
-    if m:
-        text = text[: m.start()] + IRREGULAR_ORDINAL_MAP[m.group(0)] + text[m.end() :]
-    else:
-        text += "yèm"
+    Args:
+        text: The fully-joined word form (may include the negative prefix).
+        scale_token: The leading magnitude token used to decide the yon
+            prefix (e.g. "milyon"); the raw token, without prefix.
+        ordinal: Whether to return the ordinal form.
+        fract_digits: The fractional digits to append after "pwen".
+    """
+    if ordinal:
+        m = FIRST_CARDINALS_DETECTOR.search(text)
+        if m:
+            text = text[: m.start()] + IRREG_ORDINAL_MAP[m.group(0)] + text[m.end() :]
+        else:
+            text += "yèm"
+        return text
 
-    return text
+    if fract_digits:
+        text += " pwen " + num_to_text(fract_digits).removeprefix("yon ")
+
+    return "yon " + text if scale_token in EXCEPTIONS_SCALES else text
 
 
 def num_to_text(input_num: int, *, ordinal: bool = False) -> str:
@@ -55,8 +55,8 @@ def num_to_text(input_num: int, *, ordinal: bool = False) -> str:
         ValueError: If input_num is greater than or equal to 10**24, or if
             ordinal is True and input_num is less than 1.
     """
-    if ordinal and input_num < 1:
-        raise ValueError("ordinal form requires a number that is greater than zero")
+    if ordinal and (isinstance(input_num, float) or input_num < 1):
+        raise ValueError("ordinal form requires a integer and must be greater than zero")
 
     prefix = "mwens " if input_num < 0 else ""
     input_num = abs(input_num)
@@ -64,12 +64,15 @@ def num_to_text(input_num: int, *, ordinal: bool = False) -> str:
     if input_num >= 10**24:
         raise ValueError(f"number too large: maximum supported is 10**24 - 1, got {input_num}")
 
+    # Separate the fraction digits, e.g., 3.14 -> 3 and 14
+    parts = str(input_num).split(".")
+    input_int = int(parts[0])
+    fract_digits = int(parts[1]) if len(parts) > 1 else 0
+
     # Quick path
-    if input_num in NUM_TO_TEXT:
-        text = prefix + NUM_TO_TEXT[input_num]
-        if ordinal:
-            return _convert_to_ordinal(text)
-        return "yon " + text if text in EXCEPTIONS_SCALES else text
+    if input_int in NUM_TO_TEXT:
+        text = prefix + NUM_TO_TEXT[input_int]
+        return _finalize(text, text, ordinal=ordinal, fract_digits=fract_digits)
 
     sequence = []
     for text, num in TEXT_TO_NUM.items():
@@ -80,7 +83,7 @@ def num_to_text(input_num: int, *, ordinal: bool = False) -> str:
 
         # Count = magnitude: 0 = nothing
         # e.g., for 42_000, q = 42
-        count, input_num = divmod(input_num, num)
+        count, input_int = divmod(input_int, num)
         if count == 0:
             pass
         elif count == 1:
@@ -89,13 +92,11 @@ def num_to_text(input_num: int, *, ordinal: bool = False) -> str:
             sequence.append(f"{num_to_text(count)} {text}")
 
     text = prefix + " ".join(sequence)
-
-    if ordinal:
-        return _convert_to_ordinal(text)
-    return "yon " + text if sequence[0] in EXCEPTIONS_SCALES else text
+    return _finalize(text, sequence[0], ordinal=ordinal, fract_digits=fract_digits)
 
 
 if __name__ == "__main__":  # pragma: no cover
-    numbers = [10, 20, 42, 21, 223, 157, 400_034, 10**6, 10**24 - 1]
+    numbers = [10.5, 20, 42, 21, 223, 157, 400_034, 10**6, 10**24 - 1]
+    numbers = [10.5]
     for num in numbers:
-        print(num, ":", num_to_text(num, ordinal=True))
+        print(num, ":", num_to_text(num, ordinal=False))

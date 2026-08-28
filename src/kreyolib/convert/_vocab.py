@@ -1,5 +1,17 @@
 # https://www.howtocreole.com/2015/04/count-numbers-haitian-creole-0-100.html?m=1
 
+IRREG_ORDINAL_MAP = {
+    "en": "premye",
+    "de": "dezyèm",
+    "twa": "twazyèm",
+    "kat": "katriyèm",
+    "sis": "sizyèm",
+    "nèf": "nevyèm",
+    "dis": "dizyèm",
+    "ven": "ventyèm",
+    "yen": "yinyèm",
+}
+
 # Scale / magnitude unit words (centaine, millier, million, ...)
 SCALES = {"san", "mil", "milyon", "milya", "bilyon", "bilya", "trilyon", "trilya"}
 

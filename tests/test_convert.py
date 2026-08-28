@@ -8,16 +8,20 @@ from kreyolib.convert.text_to_num import text_to_num
     "input_num, expected",
     [
         (0, "zewo"),
+        (0.17, "zewo pwen disèt"),
         (-5, "mwens senk"),
         (-11, "mwens onz"),
         (12, "douz"),
+        (12.4, "douz pwen kat"),
         (20, "ven"),
         (-21, "mwens venteyen"),
         (-157, "mwens san senkannsèt"),
         (21, "venteyen"),
+        (-32.1268, "mwens trannde pwen mil de san swasanntuit"),
         (-99, "mwens katrevendisnèf"),
         (223, "de san venntwa"),
         (1001, "mil en"),
+        (1001.0, "mil en"),
         (1_000_000, "yon milyon"),
         (400_034, "kat san mil trannkat"),
     ],
@@ -45,15 +49,18 @@ def test_num_to_text_ordinal(input_num, expected):
     assert num_to_text(input_num, ordinal=True) == expected
 
 
-def test_num_to_text_guards():
-    """Test that the the function has guard for some cases."""
-    # Test that numbers >= 10**24 are out of range.
-    with pytest.raises(ValueError, match="too large"):
-        num_to_text(10**24)
-
-    # Ordinal form rejects input less than 1
-    with pytest.raises(ValueError, match=r"requires a number that is greater"):
-        num_to_text(-1, ordinal=True)
+@pytest.mark.parametrize(
+    "number, ordinal, error_message",
+    [
+        (10**24, False, "too large"),
+        (-1, True, "must be greater"),
+        (3.14, True, "requires a integer"),
+    ],
+)
+def test_num_to_text_guards(number, ordinal, error_message):
+    """Test that the function has guards for invalid inputs."""
+    with pytest.raises(ValueError, match=error_message):
+        num_to_text(number, ordinal=ordinal)
 
 
 @pytest.mark.parametrize(
@@ -64,7 +71,7 @@ def test_num_to_text_guards():
         ("mil de sann kenz", 1215),
         ("Krateven disnèf", 99),
         ("katreven diznèf", 99),
-        ("mwen sis san mil katrevan", -600080 ),
+        ("mwen sis san mil katrevan", -600080),
         ("sen mil kant san senkant senk", 5455),
         ("kat milyon de san karanntwa", 4_000_243),
     ],

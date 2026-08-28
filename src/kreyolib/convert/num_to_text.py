@@ -1,6 +1,10 @@
 import re
 
-from kreyolib.convert._vocab import NUM_TO_TEXT, POWERS_OF_THOUSAND, TEXT_TO_NUM
+from kreyolib.convert._vocab import NUM_TO_TEXT, SCALES, TEXT_TO_NUM
+
+# Scales that ussualy take the prefix `yon`
+# When the magnitude is one, e.g., yon milyon.
+EXCEPTIONS_SCALES = SCALES - {"san", "mil"}
 
 IRREGULAR_ORDINAL_MAP = {
     "en": "premye",
@@ -16,7 +20,7 @@ IRREGULAR_ORDINAL_MAP = {
 
 # Detection regex to detect the first 4 cardinal num
 # Since they can also merged with some into some number
-FIRST_CARDINALS_DETECTOR = re.compile(r"(?:[yv]?en|de|twa|kat|senk|nèf|[sd]is)$")
+FIRST_CARDINALS_DETECTOR = re.compile(r"(?:[yv]?en|de|twa|kat|nèf|[sd]is)$")
 
 
 def _convert_to_ordinal(text: str) -> str:
@@ -65,7 +69,7 @@ def num_to_text(input_num: int, *, ordinal: bool = False) -> str:
         text = prefix + NUM_TO_TEXT[input_num]
         if ordinal:
             return _convert_to_ordinal(text)
-        return "yon " + text if text in POWERS_OF_THOUSAND else text
+        return "yon " + text if text in EXCEPTIONS_SCALES else text
 
     sequence = []
     for text, num in TEXT_TO_NUM.items():
@@ -88,7 +92,7 @@ def num_to_text(input_num: int, *, ordinal: bool = False) -> str:
 
     if ordinal:
         return _convert_to_ordinal(text)
-    return "yon " + text if sequence[0] in POWERS_OF_THOUSAND else text
+    return "yon " + text if sequence[0] in EXCEPTIONS_SCALES else text
 
 
 if __name__ == "__main__":  # pragma: no cover

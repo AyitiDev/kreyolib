@@ -16,7 +16,7 @@ from kreyolib.convert.num_to_text import num_to_text
         (21, "venteyen"),
         (-99, "mwens katrevendisnèf"),
         (223, "de san venntwa"),
-        (1001, "yon mil en"),
+        (1001, "mil en"),
         (1_000_000, "yon milyon"),
         (400_034, "kat san mil trannkat"),
     ],

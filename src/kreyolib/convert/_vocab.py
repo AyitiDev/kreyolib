@@ -1,7 +1,7 @@
 # https://www.howtocreole.com/2015/04/count-numbers-haitian-creole-0-100.html?m=1
 
 # Scale / magnitude unit words (centaine, millier, million, ...)
-POWERS_OF_THOUSAND = ["mil", "milyon", "milya", "bilyon", "bilya", "trilyon", "trilya"]
+SCALES = {"san", "mil", "milyon", "milya", "bilyon", "bilya", "trilyon", "trilya"}
 
 # Don't alter the order, it does matter especially for num_to_text.py
 TEXT_TO_NUM = {
@@ -106,7 +106,7 @@ TEXT_TO_NUM = {
     "dizuit": 18,
     "disèt": 17,
     "sèz": 16,
-    "kinz": 15,
+    "kenz": 15,
     "katòz": 14,
     "trèz": 13,
     "douz": 12,
@@ -114,7 +114,7 @@ TEXT_TO_NUM = {
     "dis": 10,
     "nèf": 9,
     "uit": 8,
-    "set": 7,
+    "sèt": 7,
     "sis": 6,
     "senk": 5,
     "kat": 4,

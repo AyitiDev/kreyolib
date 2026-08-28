@@ -3,6 +3,12 @@
 * [kreyolib](#kreyolib)
 * [kreyolib.\_debug](#kreyolib._debug)
   * [print\_rich\_diff](#kreyolib._debug.print_rich_diff)
+* [kreyolib.convert](#kreyolib.convert)
+* [kreyolib.convert.\_vocab](#kreyolib.convert._vocab)
+* [kreyolib.convert.num\_to\_text](#kreyolib.convert.num_to_text)
+  * [num\_to\_text](#kreyolib.convert.num_to_text.num_to_text)
+* [kreyolib.convert.text\_to\_num](#kreyolib.convert.text_to_num)
+  * [text\_to\_num](#kreyolib.convert.text_to_num.text_to_num)
 * [kreyolib.corpus](#kreyolib.corpus)
 * [kreyolib.corpus.chat\_abbrvs](#kreyolib.corpus.chat_abbrvs)
 * [kreyolib.corpus.stop\_words](#kreyolib.corpus.stop_words)
@@ -41,6 +47,81 @@ def print_rich_diff(text1: str, text2: str) -> None
 ```
 
 Renders a colorized diff of two strings using ANSI escape codes.
+
+<a id="kreyolib.convert"></a>
+
+# kreyolib.convert
+
+<a id="kreyolib.convert._vocab"></a>
+
+# kreyolib.convert.\_vocab
+
+<a id="kreyolib.convert.num_to_text"></a>
+
+# kreyolib.convert.num\_to\_text
+
+<a id="kreyolib.convert.num_to_text.num_to_text"></a>
+
+#### num\_to\_text
+
+```python
+def num_to_text(input_num: int, *, ordinal: bool = False) -> str
+```
+
+Convert an integer into its Kreyòl word representation.
+
+Uses a greedy decomposition over the magnitude map (units up to
+trilya = 10**21) and recursively converts the count of each magnitude.
+Powers of a thousand (mil, milyon, ...) are prefixed with "yon" when the
+count is one (e.g. 1_000_000 -> "yon milyon").
+
+**Arguments**:
+
+- `input_num` - The integer to convert.
+- `ordinal` - If True, return the ordinal form (e.g. "premye",
+  "dezyèm") instead of the cardinal form.
+  
+
+**Returns**:
+
+  The Kreyòl word form of the number.
+  
+
+**Raises**:
+
+- `ValueError` - If input_num is greater than or equal to 10**24, or if
+  ordinal is True and input_num is less than 1.
+
+<a id="kreyolib.convert.text_to_num"></a>
+
+# kreyolib.convert.text\_to\_num
+
+<a id="kreyolib.convert.text_to_num.text_to_num"></a>
+
+#### text\_to\_num
+
+```python
+def text_to_num(text: str) -> int
+```
+
+Converts Haitian Creole number text into an integer using a left-to-right parser
+
+**Arguments**:
+
+- `text` - Number written as Haitian Creole words. Minor spelling
+  variations may be accepted through fuzzy matching.
+  
+
+**Returns**:
+
+  The integer represented by the input text.
+  
+
+**Raises**:
+
+- `ValueError` - If a token's best fuzzy match does not exceed the
+  required confidence threshold, if "mwens" appears other than
+  at the start, or if more than one decimal separator is present.
 
 <a id="kreyolib.corpus"></a>
 
@@ -214,17 +295,16 @@ Split text into sentences.
 def word_tokenize(text: str) -> list[str]
 ```
 
-Split text into word level tokens smartly
+Split text into word-level tokens.
 
-Tokenize text while respecting context for
-hashtags, URLs and emails.
+Tokenizes text while respecting context for hashtags, URLs, and emails.
 
 **Arguments**:
 
-- `text` - The text to tokenize into sentences.
+- `text` - The text to tokenize.
   
 
 **Returns**:
 
-  A list of sentences.
+  A list of word tokens.
 

@@ -121,6 +121,39 @@ word_tokenize("www.google.com avèk Jhon@gmail.com.")
 # ['www.google.com', 'avèk', 'Jhon', '@gmail.com', '.']
 ```
 
+### Conversion
+
+#### Number to Text ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconvertnum_to_textnum_to_text))
+
+Converts an integer (or decimal) into its Kreyòl word form, with optional ordinal and negative support.
+
+```python
+from kreyolib.convert.num_to_text import num_to_text
+
+print(num_to_text(223))  # 'de san venntwa'
+print(num_to_text(1_000_000))  # 'yon milyon'
+print(num_to_text(12.4))  # 'douz pwen kat'
+print(num_to_text(1, ordinal=True))  # 'premye'
+print(num_to_text(-5))  # 'mwens senk'
+print (num_to_text(400_034))  # 'kat san mil trannkat'
+print(num_to_text(0.17))  # 'zewo pwen disèt'
+```
+
+#### Text to Number ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconverttext_to_numtext_to_num))
+
+Converts Kreyòl number words back into an integer or float, tolerating minor spelling variants via fuzzy matching.
+
+```python
+from kreyolib.convert.text_to_num import text_to_num
+
+print(text_to_num("de san venntwa"))  # 223
+print(text_to_num("yon milyon san uit"))  # 1000008
+print(text_to_num("douz pwen kat"))  # 12.4
+print(text_to_num("mwens de san"))  # -200
+print(text_to_num("zewo pwen zewo uit"))  # 0.08
+print(text_to_num("kat milyon de san karanntwa"))  # 4_000_243
+```
+
 ### Advanced Models & Intelligence
 
 #### POS Tagger ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))
@@ -155,7 +188,7 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [x] Contraction expansion
   - [x] Diacritics remover
 - [ ] **2. Conversion**
-  - [ ] Number-to-text (cardinal, ordinal)
+  - [x] Number-to-text (cardinal, ordinal)
   - [ ] Date and time formatters
   - [ ] Text and measure formatters
 - [ ] **3. Corpus & Datasets**
@@ -169,8 +202,7 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [ ] Sentence/Next-word predictor
 - [ ] **5. Tokenization & Segmentation**
   - [x] Context-aware Word tokenizer
-  - [x] Sentence boundary splitter
-  - [ ] Social media, tweet, mention, and hashtag tokenization
+  - [x] Sentence boundary splitter (with support for mention, and hashtag)
   - [ ] Subword tokenization via Byte-Pair Encoding and rules
 - [ ] **6. Phonetics & Syntax**
   - [ ] Text-to-phonetics and IPA generation

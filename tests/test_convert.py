@@ -68,9 +68,12 @@ def test_num_to_text_guards(number, ordinal, error_message):
     [
         ("mwens de san", -200),
         ("de mil san", 2100),
+        ("zewo pwen disèt", 0.17),
         ("mil de sann kenz", 1215),
+        ("en pwen krant kat", 1.44),
         ("Krateven disnèf", 99),
         ("katreven diznèf", 99),
+        ("zewo pwen zewo uit", 0.08),
         ("mwen sis san mil katrevan", -600080),
         ("sen mil kant san senkant senk", 5455),
         ("kat milyon de san karanntwa", 4_000_243),
@@ -79,3 +82,17 @@ def test_num_to_text_guards(number, ordinal, error_message):
 def test_text_to_num(input_text, expected):
     """Test that word-formatted text converts back to the correct integer."""
     assert text_to_num(input_text) == expected
+
+
+@pytest.mark.parametrize(
+    "number, error_message",
+    [
+        ("Sa pa yon chif", "Unrecognized number word"),
+        ("Kat mwen dis", "only appear at the start"),
+        ("twa pwen twa pwen de", "can only contain one"),
+    ],
+)
+def test_text_to_num_guards(number, error_message):
+    """Test that the function has guards for invalid inputs."""
+    with pytest.raises(ValueError, match=error_message):
+        text_to_num(number)

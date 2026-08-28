@@ -1,6 +1,7 @@
 import pytest
 
 from kreyolib.convert.num_to_text import num_to_text
+from kreyolib.convert.text_to_num import text_to_num
 
 
 @pytest.mark.parametrize(
@@ -53,3 +54,21 @@ def test_num_to_text_guards():
     # Ordinal form rejects input less than 1
     with pytest.raises(ValueError, match=r"requires a number that is greater"):
         num_to_text(-1, ordinal=True)
+
+
+@pytest.mark.parametrize(
+    "input_text, expected",
+    [
+        ("mwens de san", -200),
+        ("de mil san", 2100),
+        ("mil de sann kenz", 1215),
+        ("Krateven disnèf", 99),
+        ("katreven diznèf", 99),
+        ("mwen sis san mil katrevan", -600080 ),
+        ("sen mil kant san senkant senk", 5455),
+        ("kat milyon de san karanntwa", 4_000_243),
+    ],
+)
+def test_text_to_num(input_text, expected):
+    """Test that word-formatted text converts back to the correct integer."""
+    assert text_to_num(input_text) == expected

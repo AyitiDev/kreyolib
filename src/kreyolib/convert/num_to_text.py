@@ -12,15 +12,7 @@ FIRST_CARDINALS_DETECTOR = re.compile(r"(?:[yv]?en|de|twa|kat|nèf|[sd]is)$")
 
 
 def _finalize(text: str, scale_token: str, *, ordinal: bool, fract_digits: int) -> str:
-    """Apply ordinal conversion, decimal point, and the yon prefix.
-
-    Args:
-        text: The fully-joined word form (may include the negative prefix).
-        scale_token: The leading magnitude token used to decide the yon
-            prefix (e.g. "milyon"); the raw token, without prefix.
-        ordinal: Whether to return the ordinal form.
-        fract_digits: The fractional digits to append after "pwen".
-    """
+    """Apply ordinal conversion, decimal point, and the yon prefix."""
     if ordinal:
         m = FIRST_CARDINALS_DETECTOR.search(text)
         if m:

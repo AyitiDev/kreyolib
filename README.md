@@ -153,6 +153,8 @@ print(text_to_num("de san venntwa"))  # 223
 print(text_to_num("yon milyon san uit"))  # 1000008
 print(text_to_num("douz pwen kat"))  # 12.4
 print(text_to_num("mwens de san"))  # -200
+print(text_to_num("de mil de san"))  # 200200
+print(text_to_num("de san de mil"))  # 202000
 print(text_to_num("zewo pwen zewo uit"))  # 0.08
 print(text_to_num("kat milyon de san karanntwa"))  # 4_000_243
 ```

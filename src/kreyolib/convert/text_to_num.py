@@ -1,6 +1,6 @@
 from difflib import SequenceMatcher
 
-from kreyolib.convert._vocab import SCALES, TEXT_TO_NUM
+from kreyolib.convert._vocab import NUM_TO_TEXT, SCALES, TEXT_TO_NUM
 
 # A scale can multiply the preceding value
 # while that value is below the scale's next-order boundary
@@ -29,6 +29,39 @@ def _fuzzy_find(token: str, tok_pos: int) -> str:
     return word
 
 
+def _aggregate_seq(seq: list[int]) -> int:
+    """Aggregate number values by applying hierarchical scale multipliers."""
+    last_scale = 0
+    last_scaled = False
+    results = []
+
+    for num in seq:
+        text = NUM_TO_TEXT[num]
+
+        if text in SCALES:
+            scale = SCALES[text]
+
+            # A lower scale after a scaled value starts a new group.
+            if not results or (last_scaled and scale < last_scale):
+                results.append(num)
+
+            # A higher scale applies to the entire accumulated value.
+            elif scale > last_scale:
+                results = [sum(results) * num]
+
+            # An equal scale multiplies the current group.
+            else:
+                results[-1] *= num
+
+            last_scale = scale
+            last_scaled = True
+        else:
+            results.append(num)
+            last_scaled = False
+
+    return sum(results)
+
+
 def _finalize(
     *,
     sign: int | float,
@@ -39,8 +72,8 @@ def _finalize(
     """Combine int/fraq sequences and applying the sign."""
     if is_decimal:
         fraq_seq = raw_seq
-        int_val = sum(int_seq)
-        frac_val = sum(fraq_seq)
+        int_val = _aggregate_seq(int_seq)
+        frac_val = _aggregate_seq(fraq_seq)
 
         # Positional decimal scaling
         # based on the number of fractional tokens
@@ -50,7 +83,7 @@ def _finalize(
         mult_factor = 10**fraq_seq_len
         result = int_val + (frac_val / mult_factor)
     else:
-        result = sum(raw_seq)
+        result = _aggregate_seq(raw_seq)
 
     return sign * result
 
@@ -99,12 +132,7 @@ def text_to_num(text: str) -> int:
             sequence = []
             continue
 
-        num = TEXT_TO_NUM[word]
-
-        if sequence and sequence[-1] < MAX_VALUE_BEFORE_SCALE and word in SCALES:
-            sequence[-1] *= num
-        else:
-            sequence.append(num)
+        sequence.append(TEXT_TO_NUM[word])
 
     return _finalize(
         sign=sign,
@@ -116,6 +144,9 @@ def text_to_num(text: str) -> int:
 
 if __name__ == "__main__":  # pragma: no cover
     texts = [
+        "mil san kat",
+        "de mil de san",
+        "san kat mil",
         "en pwen zewo trannkat",
         "dis vigil senk",
         "mwens de san",

@@ -12,8 +12,17 @@ IRREG_ORDINAL_MAP = {
     "yen": "yinyèm",
 }
 
-# Scale / magnitude unit words (centaine, millier, million, ...)
-SCALES = {"san", "mil", "milyon", "milya", "bilyon", "bilya", "trilyon", "trilya"}
+# Scale / magnitude units mapped to their magnitude order.
+SCALES = {
+    "san": 1,
+    "mil": 2,
+    "milyon": 3,
+    "milya": 4,
+    "bilyon": 5,
+    "bilya": 6,
+    "trilyon": 7,
+    "trilya": 8,
+}
 
 # Don't alter the order, it does matter especially for num_to_text.py
 TEXT_TO_NUM = {

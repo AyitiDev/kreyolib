@@ -5,7 +5,7 @@ from kreyolib.convert._vocab import IRREG_ORDINAL_MAP, NUM_TO_TEXT, SCALES, TEXT
 
 # Scales that ussualy take the prefix `yon`
 # When the magnitude is one, e.g., yon milyon.
-EXCEPTIONS_SCALES = SCALES - {"san", "mil"}
+EXCEPTIONS_SCALES = set(SCALES.keys()) - {"san", "mil"}
 
 # Detection regex to detect the first 4 cardinal num
 # Since they can also merged with some into some number

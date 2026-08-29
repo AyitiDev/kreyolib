@@ -69,6 +69,9 @@ def test_num_to_text_guards(number, ordinal, error_message):
     [
         ("mwens de san", -200),
         ("de mil san", 2100),
+        ("san kat mil", 104000),
+        ("mil de san", 1200),
+        ("de san mil", 200000),
         ("zewo pwen disèt", 0.17),
         ("mil de sann kenz", 1215),
         ("en pwen krant kat", 1.44),

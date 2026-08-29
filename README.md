@@ -188,18 +188,17 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
 
 ## Roadmap & Progress / Plan Travay
 
-- [ ] **1. Normalization & Preprocessing**
+- [x] **1. Normalization & Preprocessing**
   - [x] Text standardization and modernization
   - [x] Contraction expansion
   - [x] Diacritics remover
 - [ ] **2. Conversion**
   - [x] Number-to-text conversion in Kreyòl with bidirectional support
   - [ ] Date and time formatters
-  - [ ] Text and measure formatters
 - [ ] **3. Corpus & Datasets**
-  - [x] Stop words and chat/informal abbreviations
-  - [ ] Sentences, words, and chat abbreviation maps
-  - [ ] Emoji maps with short Kreyòl description values
+  - [x] Stop words
+  - [x] Chat/informal abbreviations
+  - [ ] Sentences and words
 - [ ] **4. Advanced Models & Intelligence**
   - [x] Part-of-Speech (POS) tagging engine (ml)
   - [ ] Named Entity Recognition for Haitian entities (ml)
@@ -213,7 +212,7 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [ ] Text-to-phonetics and IPA generation
   - [ ] CV syllabification engine
 - [ ] **7. Spelling & Error Correction**
-  - [ ] Levenshtein distance and spell-checking engine
+  - [ ] Spell-checking engine
 - [ ] **8. Core Architecture & Pipeline**
   - [ ] Sequential execution pipeline runner
 

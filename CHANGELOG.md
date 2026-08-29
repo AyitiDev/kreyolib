@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Sentence Tokenization** ([#4](https://github.com/AyitiDev/kreyolib/pull/4)): Added `sent_tokenize()` to split text into sentences, powered by [yasbd-lib](https://github.com/speedyk-005/yasbd-lib) with Haitian Creole rules extended with French abbreviations and sentence starters.
 - **Word Tokenization** ([#5](https://github.com/AyitiDev/kreyolib/pull/5)): Added `word_tokenize()` to split text into word-level tokens while preserving abbreviations, hashtags, mentions, and URLs.
+- **Number Conversion** ([#6](https://github.com/AyitiDev/kreyolib/pull/6)): Added `num_to_text()` and `text_to_num()` for converting between Kreyòl number words and integers/decimals, with cardinal, ordinal, and negative support.
 
 ---
 

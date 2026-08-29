@@ -121,6 +121,44 @@ word_tokenize("www.google.com avèk Jhon@gmail.com.")
 # ['www.google.com', 'avèk', 'Jhon', '@gmail.com', '.']
 ```
 
+### Conversion
+
+#### Number to Text ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconvertnum_to_textnum_to_text))
+
+Converts an integer or decimal into its Kreyòl word form. It also supports negative numbers and ordinal numbers.
+
+```python
+from kreyolib.convert.num_to_text import num_to_text
+
+print(num_to_text(223))  # 'de san venntwa'
+print(num_to_text(1_000_000))  # 'yon milyon'
+print(num_to_text(12.4))  # 'douz pwen kat'
+print(num_to_text(-5))  # 'mwens senk'
+print (num_to_text(400_034))  # 'kat san mil trannkat'
+print(num_to_text(0.17))  # 'zewo pwen disèt'
+print(num_to_text(0.014))  # 'zewo pwen zewo katòz'
+print(num_to_text(42, ordinal=True))  # 'san vennkatryèm'
+print(num_to_text(124, ordinal=True))  # 'karanndezyèm'
+
+```
+
+#### Text to Number ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconverttext_to_numtext_to_num))
+
+Converts Kreyòl number words back into an integer or float. The converter supports negative numbers and decimals and tolerates minor spelling variations through fuzzy matching.
+
+```python
+from kreyolib.convert.text_to_num import text_to_num
+
+print(text_to_num("de san venntwa"))  # 223
+print(text_to_num("yon milyon san uit"))  # 1000008
+print(text_to_num("douz pwen kat"))  # 12.4
+print(text_to_num("mwens de san"))  # -200
+print(text_to_num("de mil de san"))  # 200200
+print(text_to_num("de san de mil"))  # 202000
+print(text_to_num("zewo pwen zewo uit"))  # 0.08
+print(text_to_num("kat milyon de san karanntwa"))  # 4_000_243
+```
+
 ### Advanced Models & Intelligence
 
 #### POS Tagger ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))
@@ -154,27 +192,29 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [x] Text standardization and modernization
   - [x] Contraction expansion
   - [x] Diacritics remover
-  - [ ] Date, number, and text formatters
-- [ ] **2. Corpus & Datasets**
+- [ ] **2. Conversion**
+  - [x] Number-to-text conversion in Kreyòl with bidirectional support
+  - [ ] Date and time formatters
+  - [ ] Text and measure formatters
+- [ ] **3. Corpus & Datasets**
   - [x] Stop words and chat/informal abbreviations
   - [ ] Sentences, words, and chat abbreviation maps
   - [ ] Emoji maps with short Kreyòl description values
-- [ ] **3. Advanced Models & Intelligence**
+- [ ] **4. Advanced Models & Intelligence**
   - [x] Part-of-Speech (POS) tagging engine (ml)
   - [ ] Named Entity Recognition for Haitian entities (ml)
   - [ ] Lexicon-based sentiment analysis engine
   - [ ] Sentence/Next-word predictor
-- [ ] **4. Tokenization & Segmentation**
+- [ ] **5. Tokenization & Segmentation**
   - [x] Context-aware Word tokenizer
-  - [x] Sentence boundary splitter
-  - [ ] Social media, tweet, mention, and hashtag tokenization
+  - [x] Sentence boundary splitter (with support for mention, and hashtag)
   - [ ] Subword tokenization via Byte-Pair Encoding and rules
-- [ ] **5. Phonetics & Syntax**
+- [ ] **6. Phonetics & Syntax**
   - [ ] Text-to-phonetics and IPA generation
   - [ ] CV syllabification engine
-- [ ] **6. Spelling & Error Correction**
+- [ ] **7. Spelling & Error Correction**
   - [ ] Levenshtein distance and spell-checking engine
-- [ ] **7. Core Architecture & Pipeline**
+- [ ] **8. Core Architecture & Pipeline**
   - [ ] Sequential execution pipeline runner
 
 ### How People Can Contribute

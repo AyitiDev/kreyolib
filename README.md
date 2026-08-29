@@ -125,7 +125,7 @@ word_tokenize("www.google.com avèk Jhon@gmail.com.")
 
 #### Number to Text ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconvertnum_to_textnum_to_text))
 
-Converts an integer (or decimal) into its Kreyòl word form, with optional ordinal and negative support.
+Converts an integer or decimal into its Kreyòl word form. It also supports negative numbers and ordinal numbers.
 
 ```python
 from kreyolib.convert.num_to_text import num_to_text
@@ -144,7 +144,7 @@ print(num_to_text(124, ordinal=True))  # 'karanndezyèm'
 
 #### Text to Number ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconverttext_to_numtext_to_num))
 
-Converts Kreyòl number words back into an integer or float, tolerating minor spelling variants via fuzzy matching.
+Converts Kreyòl number words back into an integer or float. The converter supports negative numbers and decimals and tolerates minor spelling variations through fuzzy matching.
 
 ```python
 from kreyolib.convert.text_to_num import text_to_num
@@ -191,7 +191,7 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [x] Contraction expansion
   - [x] Diacritics remover
 - [ ] **2. Conversion**
-  - [x] Number-to-text (cardinal, ordinal)
+  - [x] Number-to-text conversion in Kreyòl with bidirectional support
   - [ ] Date and time formatters
   - [ ] Text and measure formatters
 - [ ] **3. Corpus & Datasets**

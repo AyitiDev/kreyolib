@@ -1,4 +1,5 @@
 import re
+from decimal import Decimal
 
 from kreyolib.convert._vocab import IRREG_ORDINAL_MAP, NUM_TO_TEXT, SCALES, TEXT_TO_NUM
 
@@ -11,20 +12,44 @@ EXCEPTIONS_SCALES = SCALES - {"san", "mil"}
 FIRST_CARDINALS_DETECTOR = re.compile(r"(?:[yv]?en|de|twa|kat|nèf|[sd]is)$")
 
 
-def _finalize(text: str, scale_token: str, *, ordinal: bool, fract_digits: int) -> str:
+def _finalize(seq: list[str], *, ordinal: bool) -> str:
     """Apply ordinal conversion, decimal point, and the yon prefix."""
     if ordinal:
-        m = FIRST_CARDINALS_DETECTOR.search(text)
+        last_token = seq[-1]
+        m = FIRST_CARDINALS_DETECTOR.search(last_token)
         if m:
-            text = text[: m.start()] + IRREG_ORDINAL_MAP[m.group(0)] + text[m.end() :]
+            seq[-1] = last_token[: m.start()] + IRREG_ORDINAL_MAP[m.group(0)]
         else:
-            text += "yèm"
-        return text
+            seq[-1] += "yèm"
+        return " ".join(seq)
 
-    if fract_digits:
-        text += " pwen " + num_to_text(fract_digits).removeprefix("yon ")
+    text = " ".join(seq)
+    return "yon " + text if seq[0] in EXCEPTIONS_SCALES else text
 
-    return "yon " + text if scale_token in EXCEPTIONS_SCALES else text
+
+def _num_to_text_seq(input_num: int) -> list[str]:
+    # Quick path
+    if input_num in NUM_TO_TEXT:
+        return [NUM_TO_TEXT[input_num]]
+
+    sequence = []
+    for text, num in TEXT_TO_NUM.items():
+        # Prevent ZeroDivisionError
+        # It is the end of the map anyway
+        if num == 0:
+            break
+
+        # Count = magnitude: 0 = nothing
+        # e.g., for 42_000, q = 42
+        count, input_num = divmod(input_num, num)
+        if count == 0:
+            pass
+        elif count == 1:
+            sequence.append(text)
+        else:
+            sequence.append(f"{num_to_text(count)} {text}")
+
+    return sequence
 
 
 def num_to_text(input_num: int, *, ordinal: bool = False) -> str:
@@ -50,45 +75,32 @@ def num_to_text(input_num: int, *, ordinal: bool = False) -> str:
     if ordinal and (isinstance(input_num, float) or input_num < 1):
         raise ValueError("ordinal form requires a integer and must be greater than zero")
 
-    prefix = "mwens " if input_num < 0 else ""
+    sequence = []
+    if input_num < 0:
+        sequence.append("mwens")
     input_num = abs(input_num)
 
     if input_num >= 10**24:
-        raise ValueError(f"number too large: maximum supported is 10**24 - 1, got {input_num}")
+        raise ValueError(f"number too large. Maximum supported is 10**24 - 1, got {input_num}")
+    whole = round(input_num)
+    sequence += _num_to_text_seq(whole)
 
-    # Separate the fraction digits, e.g., 3.14 -> 3 and 14
-    parts = str(input_num).split(".")
-    input_int = int(parts[0])
-    fract_digits = int(parts[1]) if len(parts) > 1 else 0
+    decimal_part = Decimal(str(input_num)) % 1
+    if not decimal_part:
+        return _finalize(sequence, ordinal=ordinal)
 
-    # Quick path
-    if input_int in NUM_TO_TEXT:
-        text = prefix + NUM_TO_TEXT[input_int]
-        return _finalize(text, text, ordinal=ordinal, fract_digits=fract_digits)
+    target = str(decimal_part).split(".")[1]  # e.g., 0.014 = 014
+    fract_digits = int(target)
+    leading_zero_count = len(target) - len(str(fract_digits))
 
-    sequence = []
-    for text, num in TEXT_TO_NUM.items():
-        # Prevent ZeroDivisionError
-        # It is the end of the map anyway
-        if num == 0:
-            break
+    sequence.append("pwen")
+    sequence.extend(["zewo"] * leading_zero_count)
+    sequence += _num_to_text_seq(fract_digits)
 
-        # Count = magnitude: 0 = nothing
-        # e.g., for 42_000, q = 42
-        count, input_int = divmod(input_int, num)
-        if count == 0:
-            pass
-        elif count == 1:
-            sequence.append(text)
-        else:
-            sequence.append(f"{num_to_text(count)} {text}")
-
-    text = prefix + " ".join(sequence)
-    return _finalize(text, sequence[0], ordinal=ordinal, fract_digits=fract_digits)
+    return _finalize(sequence, ordinal=ordinal)
 
 
 if __name__ == "__main__":  # pragma: no cover
-    numbers = [10.5, 20, 42, 21, 223, 157, 400_034, 10**6, 10**24 - 1]
-    numbers = [10.5]
+    numbers = [10.4, 0.07, 42, 21, 223, 157, 400_034, 10**6, 10**24 - 1]
     for num in numbers:
         print(num, ":", num_to_text(num, ordinal=False))

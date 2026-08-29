@@ -9,6 +9,7 @@ from kreyolib.convert.text_to_num import text_to_num
     [
         (0, "zewo"),
         (0.17, "zewo pwen disèt"),
+        (0.014, "zewo pwen zewo katòz"),
         (-5, "mwens senk"),
         (-11, "mwens onz"),
         (12, "douz"),

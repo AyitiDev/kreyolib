@@ -133,10 +133,13 @@ from kreyolib.convert.num_to_text import num_to_text
 print(num_to_text(223))  # 'de san venntwa'
 print(num_to_text(1_000_000))  # 'yon milyon'
 print(num_to_text(12.4))  # 'douz pwen kat'
-print(num_to_text(1, ordinal=True))  # 'premye'
 print(num_to_text(-5))  # 'mwens senk'
 print (num_to_text(400_034))  # 'kat san mil trannkat'
 print(num_to_text(0.17))  # 'zewo pwen disèt'
+print(num_to_text(0.014))  # 'zewo pwen zewo katòz'
+print(num_to_text(42, ordinal=True))  # 'san vennkatryèm'
+print(num_to_text(124, ordinal=True))  # 'karanndezyèm'
+
 ```
 
 #### Text to Number ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconverttext_to_numtext_to_num))

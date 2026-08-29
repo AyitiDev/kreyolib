@@ -99,13 +99,17 @@ def text_to_num(text: str) -> int:
         The integer represented by the input text.
 
     Raises:
-        ValueError: If a token's best fuzzy match does not exceed the
-            required confidence threshold, if "mwens" appears other than
-            at the start, or if more than one decimal separator is present.
+        ValueError: Raised if:
+            - A token's best fuzzy match does not exceed the
+            required confidence threshold.
+            - If "mwens" appears other than at the start
+            - More than one decimal separator is present
+            - consecutive identical word is found
     """
     tokens = text.lower().split()
     sign = 1  # -1 == negative
     is_decimal = False
+    prev_word = None
     sequence = []
 
     # Track integer vs fractional parts for proper decimal scaling
@@ -113,6 +117,10 @@ def text_to_num(text: str) -> int:
 
     for i, tok in enumerate(tokens):
         word = _fuzzy_find(tok, i)
+
+        if word == prev_word:
+            raise ValueError(f"consecutive identical word is not allowed: {text!r}")
+
         if word == "mwens":
             if not i == 0:
                 raise ValueError("'mwens' (minus) can only appear at the start of the number")
@@ -130,9 +138,11 @@ def text_to_num(text: str) -> int:
             # Move current accumulated items to integer part and switch target
             integer_seq = sequence
             sequence = []
+            prev_word = None
             continue
 
         sequence.append(TEXT_TO_NUM[word])
+        prev_word = word
 
     return _finalize(
         sign=sign,
@@ -144,6 +154,7 @@ def text_to_num(text: str) -> int:
 
 if __name__ == "__main__":  # pragma: no cover
     texts = [
+        "mil mil mil",
         "mil san kat",
         "de mil de san",
         "san kat mil",

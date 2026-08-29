@@ -94,6 +94,8 @@ def test_text_to_num(input_text, expected):
         ("Sa pa yon chif", "Unrecognized number word"),
         ("Kat mwen dis", "only appear at the start"),
         ("twa pwen twa pwen de", "can only contain one"),
+        ("mil mil", "consecutive identical"),
+        ("senk senk", "consecutive identical"),
     ],
 )
 def test_text_to_num_guards(number, error_message):

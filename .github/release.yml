@@ -26,8 +26,3 @@ changelog:
         - bug
         - edge-cases
         - patch
-        
-    - title: '📝 Documentation'
-      labels:
-        - documentation
-        - benchmark

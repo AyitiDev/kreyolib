@@ -1,0 +1,33 @@
+changelog:
+  exclude:
+    labels:
+      - duplicate
+      - invalid
+      - wontfix
+      - dependencies
+      - chore
+
+  categories:
+    - title: '🚀 Added'
+      labels:
+        - feature
+        - enhancement
+        - new-language(s)
+        
+    - title: '⚙️ Changed'
+      labels:
+        - refactor
+        - performance
+        - python
+        - optimization
+        
+    - title: '🐛 Fixed'
+      labels:
+        - bug
+        - edge-cases
+        - patch
+        
+    - title: '📝 Documentation'
+      labels:
+        - documentation
+        - benchmark

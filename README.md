@@ -37,6 +37,26 @@ pip install kreyolib -U
 
 ## Usage / Itilizasyon
 
+### Alphabet / Alfabèt
+
+The package exposes the full Haitian Creole alphabet as frozen sets for phonology and tokenization work:
+
+```python
+from kreyolib import (
+    ORAL_VOWELS,
+    NASAL_VOWELS,
+    CONSONANTS,
+    SEMI_VOWELS,
+    ALPHABET,
+)
+
+ORAL_VOWELS              # frozenset({'a', 'e', 'è', 'i', 'o', 'ò', 'ou'})
+NASAL_VOWELS             # frozenset({'an', 'en', 'on', 'oun', 'in'})
+CONSONANTS               # frozenset({'b', 'ch', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'ng', 'p', 'r', 's', 't', 'v', 'z'})
+SEMI_VOWELS              # frozenset({'w', 'y', 'ui'})
+ALPHABET  # ORAL_VOWELS | NASAL_VOWELS | CONSONANTS | SEMI_VOWELS
+```
+
 ### Normalization
 
 #### Orthography ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizeorthographystandardize_text))

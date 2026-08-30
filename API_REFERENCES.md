@@ -119,9 +119,12 @@ Converts Haitian Creole number text into an integer using a left-to-right parser
 
 **Raises**:
 
-- `ValueError` - If a token's best fuzzy match does not exceed the
-  required confidence threshold, if "mwens" appears other than
-  at the start, or if more than one decimal separator is present.
+- `ValueError` - Raised if:
+  - A token's best fuzzy match does not exceed the
+  required confidence threshold.
+  - If "mwens" appears other than at the start
+  - More than one decimal separator is present
+  - consecutive identical word is found
 
 <a id="kreyolib.corpus"></a>
 

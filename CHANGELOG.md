@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.2.0] - Unreleased
+## [0.2.0] - 2026-08-29
 
 ### Added
 - **Sentence Tokenization** ([#4](https://github.com/AyitiDev/kreyolib/pull/4)): Added `sent_tokenize()` to split text into sentences, powered by [yasbd-lib](https://github.com/speedyk-005/yasbd-lib) with Haitian Creole rules extended with French abbreviations and sentence starters.

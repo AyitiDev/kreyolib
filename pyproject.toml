@@ -1,6 +1,6 @@
 [project]
 name = "kreyolib"
-version = "0.1.0"
+version = "0.2.0"
 description = "A software library for Haitian Creole (Kreyòl Ayisyen) natural language processing, text normalization, and localization. --- Yon bibliyotèk lojisyèl pou tretman lang natirèl, nòmalizasyon tèks, ak lokalizasyon an Kreyòl Ayisyen."
 authors = [
   { name = "AyitiDev", email = "116703678+speedyk-005@users.noreply.github.com" }

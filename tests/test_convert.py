@@ -1,7 +1,12 @@
+from datetime import datetime, timedelta
+
 import pytest
 
+from kreyolib.convert.datetime_to_text import datetime_to_text
 from kreyolib.convert.num_to_text import num_to_text
 from kreyolib.convert.text_to_num import text_to_num
+
+REFERENCE = datetime(2026, 1, 1, 0, 0, 0)
 
 
 @pytest.mark.parametrize(
@@ -102,3 +107,20 @@ def test_text_to_num_guards(number, error_message):
     """Test that the function has guards for invalid inputs."""
     with pytest.raises(ValueError, match=error_message):
         text_to_num(number)
+
+
+@pytest.mark.parametrize(
+    "input_dt, relative, ref, expected",
+    [
+        (datetime(2026, 9, 4), False, None, "vandredi 4 septanm 2026"),
+        (datetime(2023, 12, 3, 15, 30, 42), False, None, "dimanch 3 desanm 2023, 15:30:42"),
+        (timedelta(weeks=4, days=8), True, None, "sa gen 1 mwa, 6 jou"),
+        (timedelta(weeks=12, days=3, hours=60), True, None, "sa gen 2 mwa, 4 semèn, 1 jou"),
+        (REFERENCE, True, REFERENCE, "kounye a"),
+        (timedelta(days=4), False, REFERENCE, "lendi 5 janvye 2026"),
+        (timedelta(hours=5), True, REFERENCE, "jodi a, sa gen 5 èdtan"),
+    ],
+)
+def test_datetime_to_text(input_dt, relative, ref, expected):
+    """Test that datetime/timedelta conversion produces correct Kreyòl text."""
+    assert datetime_to_text(input_dt, relative=relative, _ref=ref) == expected

@@ -1,16 +1,29 @@
 import re
 from datetime import datetime, time, timedelta
 
-from kreyolib.convert._datetime_vocab import MONTHS, SECONDS_PER_UNIT, WEEKDAYS, RElATIVE_DAYS
+from kreyolib.convert._datetime_vocab import MONTHS, SECONDS_PER_UNIT, WEEKDAYS
+
+
+def _format_relative_seq(prefix: str, parts: list) -> str:
+    """Format a sequence of relative time components into natural language."""
+    if len(parts) == 1:
+        text = f"{parts[0][1]} {parts[0][0]}"
+    else:
+        str_parts = [f"{quant} {unit}" for unit, quant in parts]
+        text = f"{', '.join(str_parts[:-1])} e {str_parts[-1]}"
+    return prefix + re.sub(r"\ben", "yon", text)
 
 
 def _convert_to_relative(
     dt: datetime | timedelta,
-    reference: datetime,
+    ref: datetime,
     max_relative_units: int,
-):
+) -> str:
     """Convert a datetime to a relative expression."""
-    delta = dt if isinstance(dt, timedelta) else reference - dt
+    if isinstance(dt, timedelta):
+        dt = ref + dt
+
+    delta = ref - dt
     remaining_sec = abs(delta.total_seconds())
 
     if remaining_sec < 1:
@@ -29,15 +42,12 @@ def _convert_to_relative(
         if len(parts) == max_relative_units:
             break
 
-    if parts[0][0] in {"jou", "èdtan", "minit", "segonn"}:
-        day_diff = (
-            dt.days if isinstance(dt, timedelta) else (dt.date() - reference.date()).days
-        )
-        if day_diff in RElATIVE_DAYS:
-            prefix = f"{RElATIVE_DAYS[day_diff]}, " + prefix
+    if parts[0][0] in {"èdtan", "minit", "segonn"}:
+        day_diff = dt.days if isinstance(dt, timedelta) else (dt.date() - ref.date()).days
+        if day_diff == 0:
+            prefix = "jodi a, " + prefix
 
-    text = ", ".join([f"{quant} {unit}" for unit, quant in parts])
-    return prefix + re.sub(r"\ben", "yon", text)
+    return _format_relative_seq(prefix, parts)
 
 
 def datetime_to_text(
@@ -45,8 +55,8 @@ def datetime_to_text(
     *,
     relative: bool = False,
     max_relative_units: int = 3,
-    _ref=None,
-):
+    _ref=None | datetime,
+) -> str:
     """Convert a datetime to Haitian Creole text.
 
     Args:
@@ -60,12 +70,12 @@ def datetime_to_text(
     Returns:
         A Haitian Creole date, time, or relative-time expression.
     """
-    reference = _ref or datetime.now()
+    ref = _ref or datetime.now()
     if relative:
-        return _convert_to_relative(dt, reference, max_relative_units)
+        return _convert_to_relative(dt, ref, max_relative_units)
 
     if isinstance(dt, timedelta):
-        dt += reference
+        dt += ref
 
     weekday = WEEKDAYS[dt.weekday()]
     month = MONTHS[dt.month - 1]
@@ -80,13 +90,13 @@ def datetime_to_text(
 
 if __name__ == "__main__":  # pragma: no cover
     dates = [
+        datetime.now(),
         datetime(2026, 9, 4),
+        datetime(2026, 9, 8, 23, 59, 30),
         datetime(2023, 12, 3, 15, 30, 42),
-        datetime(2026, 9, 3, 23, 59, 30),
         timedelta(weeks=12, days=3, hours=60),
     ]
-
     for dt in dates:
-        print(datetime_to_text(dt))
-        print(datetime_to_text(dt, relative=True))
+        print("abs:", datetime_to_text(dt))
+        print("rel:", datetime_to_text(dt, relative=True))
         print()

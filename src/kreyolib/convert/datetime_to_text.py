@@ -1,13 +1,16 @@
 import re
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 
 from kreyolib.convert._datetime_vocab import MONTHS, SECONDS_PER_UNIT, WEEKDAYS, RElATIVE_DAYS
 
 
-def _convert_to_relative(dt: datetime, max_relative_units: int):
+def _convert_to_relative(
+    dt: datetime | timedelta,
+    reference: datetime,
+    max_relative_units: int,
+):
     """Convert a datetime to a relative expression."""
-    now = datetime.now()
-    delta = now - dt
+    delta = dt if isinstance(dt, timedelta) else reference - dt
     remaining_sec = abs(delta.total_seconds())
 
     if remaining_sec < 1:
@@ -26,36 +29,43 @@ def _convert_to_relative(dt: datetime, max_relative_units: int):
         if len(parts) == max_relative_units:
             break
 
-    if parts[0][0] in {"èdtan", "minit", "segonn"}:
-        day_diff = (dt.date() - now.date()).days
+    if parts[0][0] in {"jou", "èdtan", "minit", "segonn"}:
+        day_diff = (
+            dt.days if isinstance(dt, timedelta) else (dt.date() - reference.date()).days
+        )
         if day_diff in RElATIVE_DAYS:
             prefix = f"{RElATIVE_DAYS[day_diff]}, " + prefix
-            parts = parts[1:]
 
     text = ", ".join([f"{quant} {unit}" for unit, quant in parts])
     return prefix + re.sub(r"\ben", "yon", text)
 
 
-def date_to_text(
-    dt: datetime,
+def datetime_to_text(
+    dt: datetime | timedelta,
     *,
     relative: bool = False,
     max_relative_units: int = 3,
+    _ref=None,
 ):
     """Convert a datetime to Haitian Creole text.
 
     Args:
-        dt: Datetime to convert.
+        dt: Datetime or timedelta object to convert.
         relative: Whether to convert the datetime to a relative
             time expression.
         max_relative_units: Maximum number of non-zero units to
             include in the relative expression.
+        _ref: Internal param to allow deterministic testing.
 
     Returns:
         A Haitian Creole date, time, or relative-time expression.
     """
+    reference = _ref or datetime.now()
     if relative:
-        return _convert_to_relative(dt, max_relative_units)
+        return _convert_to_relative(dt, reference, max_relative_units)
+
+    if isinstance(dt, timedelta):
+        dt += reference
 
     weekday = WEEKDAYS[dt.weekday()]
     month = MONTHS[dt.month - 1]
@@ -71,11 +81,12 @@ def date_to_text(
 if __name__ == "__main__":  # pragma: no cover
     dates = [
         datetime(2026, 9, 4),
-        datetime(2026, 9, 4, 15, 30, 42),
+        datetime(2023, 12, 3, 15, 30, 42),
         datetime(2026, 9, 3, 23, 59, 30),
+        timedelta(weeks=12, days=3, hours=60),
     ]
 
     for dt in dates:
-        print(date_to_text(dt))
-        print(date_to_text(dt, relative=True))
+        print(datetime_to_text(dt))
+        print(datetime_to_text(dt, relative=True))
         print()

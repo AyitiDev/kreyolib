@@ -1,7 +1,7 @@
 import re
 from decimal import Decimal
 
-from kreyolib.convert._vocab import IRREG_ORDINAL_MAP, NUM_TO_TEXT, SCALES, TEXT_TO_NUM
+from kreyolib.convert._num_vocab import IRREG_ORDINAL_MAP, NUM_TO_TEXT, SCALES, TEXT_TO_NUM
 
 # Scales that ussualy take the prefix `yon`
 # When the magnitude is one, e.g., yon milyon.

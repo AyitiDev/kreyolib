@@ -34,7 +34,6 @@ TEXT_TO_NUM = {
     "milyon": 10**6,
     "mil": 1000,
     "san": 100,
-
     "katrevendisnèf": 99,
     "katrevendizuit": 98,
     "katrevensèt": 97,
@@ -45,7 +44,6 @@ TEXT_TO_NUM = {
     "katrevendouz": 92,
     "katrevenonz": 91,
     "katrevendis": 90,
-
     "katreven-nèf": 89,
     "katreven-uit": 88,
     "katreven-sèt": 87,
@@ -56,7 +54,6 @@ TEXT_TO_NUM = {
     "katreven-de": 82,
     "katreven-en": 81,
     "katreven": 80,
-
     "swasanndisnèf": 79,
     "swasanndizuit": 78,
     "swasanndisèt": 77,
@@ -67,7 +64,6 @@ TEXT_TO_NUM = {
     "swasanndouz": 72,
     "swasantonz": 71,
     "swasanndis": 70,
-
     "swasantnèf": 69,
     "swasanntuit": 68,
     "swasantsèt": 67,
@@ -78,7 +74,6 @@ TEXT_TO_NUM = {
     "swasanndè": 62,
     "swasanteyen": 61,
     "swasant": 60,
-
     "senkantnèf": 59,
     "senkanntuit": 58,
     "senkannsèt": 57,
@@ -89,7 +84,6 @@ TEXT_TO_NUM = {
     "senkannde": 52,
     "senkanteyen": 51,
     "senkant": 50,
-
     "karannèf": 49,
     "karanntuit": 48,
     "karannsèt": 47,
@@ -100,7 +94,6 @@ TEXT_TO_NUM = {
     "karannde": 42,
     "karanteyen": 41,
     "karant": 40,
-
     "trantnèf": 39,
     "tranntuit": 38,
     "trannsèt": 37,
@@ -111,7 +104,6 @@ TEXT_TO_NUM = {
     "trannde": 32,
     "tranteyen": 31,
     "trent": 30,
-
     "ventnèf": 29,
     "venntuit": 28,
     "vennsèt": 27,
@@ -122,7 +114,6 @@ TEXT_TO_NUM = {
     "vennde": 22,
     "venteyen": 21,
     "ven": 20,
-
     "disnèf": 19,
     "dizuit": 18,
     "disèt": 17,

@@ -1,50 +1,7 @@
 import re
 from datetime import datetime, time
 
-WEEKDAYS = [
-    "lendi",
-    "madi",
-    "mèkredi",
-    "jedi",
-    "vandredi",
-    "samdi",
-    "dimanch",
-]
-
-MONTHS = [
-    "janvye",
-    "fevriye",
-    "mas",
-    "avril",
-    "me",
-    "jen",
-    "jiyè",
-    "out",
-    "septanm",
-    "oktòb",
-    "novanm",
-    "desanm",
-]
-
-
-SECONDS_PER_UNIT = {
-    "dekad": 10 * 365 * 24 * 60 * 60,
-    "ane": 365 * 24 * 60 * 60,
-    "mwa": 30 * 24 * 60 * 60,
-    "semèn": 7 * 24 * 60 * 60,
-    "jou": 24 * 60 * 60,
-    "èdtan": 60 * 60,  # More consistent than `è`
-    "minit": 60,
-    "segonn": 1,
-}
-
-RElATIVE_DAYS = {
-    -2: "avan yè",
-    -1: "yè",
-    0: "jodi a",
-    1: "demèn",
-    2: "apre demèn",
-}
+from kreyolib.convert._datetime_vocab import MONTHS, SECONDS_PER_UNIT, WEEKDAYS, RElATIVE_DAYS
 
 
 def _convert_to_relative(dt: datetime, max_relative_units: int):

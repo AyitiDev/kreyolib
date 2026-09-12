@@ -38,10 +38,27 @@ SECONDS_PER_UNIT = {
     "segonn": 1,
 }
 
-RElATIVE_DAYS = {
-    -2: "avan yè",
-    -1: "yè",
-    0: "jodi a",
-    1: "demèn",
-    2: "apre demèn",
+UNITS = (
+    "segonn",
+    "minit",
+    "èdtan",
+    "jou",
+    "semèn",
+    "mwa",
+    "ane",
+    "dekad",
+)
+
+UNIT_TRANSLATION = {
+    "segonn": "seconds",
+    "segond": "seconds",
+    "minit": "minutes",
+    "è": "hours",
+    "zè": "hours",
+    "èdtan": "hours",
+    "jou": "days",
+    "semèn": "weeks",
+    "mwa": "months",
+    "ane": "years",
+    "dekad": "decades",
 }

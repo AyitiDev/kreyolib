@@ -4,9 +4,10 @@ import pytest
 
 from kreyolib.convert.datetime_to_text import datetime_to_text
 from kreyolib.convert.num_to_text import num_to_text
+from kreyolib.convert.text_to_datetime import text_to_datetime
 from kreyolib.convert.text_to_num import text_to_num
 
-REFERENCE = datetime(2026, 1, 1, 0, 0, 0)
+REFERENCE = datetime(2026, 1, 1)
 
 
 @pytest.mark.parametrize(
@@ -124,3 +125,19 @@ def test_text_to_num_guards(number, error_message):
 def test_datetime_to_text(input_dt, relative, ref, expected):
     """Test that datetime/timedelta conversion produces correct Kreyòl text."""
     assert datetime_to_text(input_dt, relative=relative, _ref=ref) == expected
+
+
+@pytest.mark.parametrize(
+    "input_text, ref, expected",
+    [
+        ("samdi 1 janvye 2019", None, datetime(2019, 1, 1)),
+        ("sa gen 5 jou", REFERENCE, datetime(2025, 12, 27)),
+        ("sa gen 5 jou, 4 semèn", REFERENCE, datetime(2025, 11, 29)),
+        ("semèn pase", REFERENCE, datetime(2025, 12, 25)),
+        ("madi pase", REFERENCE, datetime(2025, 12, 31)),
+        ("demen", REFERENCE, datetime(2026, 1, 2)),
+    ],
+)
+def test_text_to_datetime(input_text, ref, expected):
+    """Test that text conversion produces correct datetime."""
+    assert text_to_datetime(input_text, _ref=ref) == expected

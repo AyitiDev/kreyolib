@@ -55,7 +55,7 @@ def datetime_to_text(
     *,
     relative: bool = False,
     max_relative_units: int = 3,
-    _ref=None | datetime,
+    _ref: None | datetime = None,
 ) -> str:
     """Convert a datetime to Haitian Creole text.
 

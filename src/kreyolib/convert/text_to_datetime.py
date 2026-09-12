@@ -229,7 +229,7 @@ class TextToDateTime:
         return err_msg
 
 
-def text_to_datetime(text: str, *, _ref=None | datetime) -> datetime:
+def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime:
     """Parse date-like text into a datetime object.
 
     SupportedFormats:

@@ -18,7 +18,7 @@ def _fuzzy_find(token: str, tok_pos: int) -> str:
             SequenceMatcher(None, word, token).ratio(),
             word,
         )
-        for word in [*list(TEXT_TO_NUM), "mwens", "pwen", "vigil"]
+        for word in [*list(TEXT_TO_NUM), "mwens", "pwen", "vigil", "yon"]
     )
 
     if score < CONFIDENCE_THRESHOLD:
@@ -127,6 +127,9 @@ def text_to_num(text: str, *, fuzzy: bool = True) -> int:
 
         if word == prev_word:
             raise ValueError(f"consecutive identical word is not allowed: {text!r}")
+
+        if word == "yon":
+            continue
 
         if word == "mwens":
             if not i == 0:

@@ -79,10 +79,10 @@ from kreyolib import (
     ALPHABET,
 )
 
-ORAL_VOWELS    # frozenset({'a', 'e', 'è', 'i', 'o', 'ò', 'ou'})
-NASAL_VOWELS    # frozenset({'an', 'en', 'on', 'oun', 'in'})
-CONSONANTS      # frozenset({'b', 'ch', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'ng', 'p', 'r', 's', 't', 'v', 'z'})
-SEMI_VOWELS     # frozenset({'w', 'y', 'ui'})
+ORAL_VOWELS  # frozenset({'a', 'e', 'è', 'i', 'o', 'ò', 'ou'})
+NASAL_VOWELS  # frozenset({'an', 'en', 'on', 'oun', 'in'})
+CONSONANTS  # frozenset({'b', 'ch', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'ng', 'p', 'r', 's', 't', 'v', 'z'})
+SEMI_VOWELS  # frozenset({'w', 'y', 'ui'})
 ALPHABET  # Combines all
 ```
 
@@ -149,7 +149,9 @@ from kreyolib.tokenize.sentence import sent_tokenize
 sent_tokenize("Alo mond. Koman ou ye? Mwen byen.")
 # ['Alo mond.', 'Koman ou ye?', 'Mwen byen.']
 
-sent_tokenize("M. Dupont est un professeur. Li travay nan lekòl la. Li di: \"Mwen pral vini demen.\" Apre sa, li ale.")
+sent_tokenize(
+    'M. Dupont est un professeur. Li travay nan lekòl la. Li di: "Mwen pral vini demen." Apre sa, li ale.'
+)
 # ['M. Dupont est un professeur.', 'Li travay nan lekòl la.', 'Li di: "Mwen pral vini demen."', 'Apre sa, li ale.']
 ```
 
@@ -183,12 +185,11 @@ print(num_to_text(223))  # 'de san venntwa'
 print(num_to_text(1_000_000))  # 'yon milyon'
 print(num_to_text(12.4))  # 'douz pwen kat'
 print(num_to_text(-5))  # 'mwens senk'
-print (num_to_text(400_034))  # 'kat san mil trannkat'
+print(num_to_text(400_034))  # 'kat san mil trannkat'
 print(num_to_text(0.17))  # 'zewo pwen disèt'
 print(num_to_text(0.014))  # 'zewo pwen zewo katòz'
 print(num_to_text(42, ordinal=True))  # 'san vennkatryèm'
 print(num_to_text(124, ordinal=True))  # 'karanndezyèm'
-
 ```
 
 #### Text to Number ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconverttext_to_numtext_to_num))
@@ -288,6 +289,9 @@ print(text_to_datetime("mwa kap vini a"))
 Time expressions can be combined with relative or absolute date expressions.
 
 ```python
+print(text_to_datetime("avan yè a 10:45"))
+# datetime(2025, 12, 31, 10, 45))
+
 print(text_to_datetime("apre demen a 15è eka"))
 # datetime(2026, 1, 3, 15, 15)
 

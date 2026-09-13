@@ -104,6 +104,7 @@ def text_to_num(text: str, *, fuzzy: bool = True) -> int:
 
     Raises:
         ValueError: Raised if:
+            - Unrecognized number word
             - A token's best fuzzy match does not exceed the
             required confidence threshold.
             - If "mwens" appears other than at the start
@@ -147,7 +148,11 @@ def text_to_num(text: str, *, fuzzy: bool = True) -> int:
             prev_word = None
             continue
 
-        sequence.append(TEXT_TO_NUM[word])
+        try:
+            sequence.append(TEXT_TO_NUM[word])
+        except KeyError:
+            raise ValueError(f"Unrecognized number word (token num {i}): {word!r}") from None
+
         prev_word = word
 
     return _finalize(

@@ -98,16 +98,17 @@ def test_text_to_num(input_text, fuzzy, expected):
     "number, error_message",
     [
         ("Sa pa yon chif", "Unrecognized number word"),
-        ("Kat mwen dis", "only appear at the start"),
+        ("Kat mwens dis", "only appear at the start"),
         ("twa pwen twa pwen de", "can only contain one"),
         ("mil mil", "consecutive identical"),
         ("senk senk", "consecutive identical"),
+        ("sann", "Unrecognized number word"),
     ],
 )
 def test_text_to_num_guards(number, error_message):
     """Test that the function has guards for invalid inputs."""
     with pytest.raises(ValueError, match=error_message):
-        text_to_num(number)
+        text_to_num(number, fuzzy=False)
 
 
 @pytest.mark.parametrize(

@@ -21,7 +21,6 @@ from kreyolib.convert._datetime_vocab import (
     MONTHS,
     MONTHS_TO_INDEX,
     UNIT_TRANSLATION,
-    UNITS,
     WEEKDAYS,
     WEEKDAYS_TO_INDEX,
 )
@@ -88,7 +87,7 @@ class ConversionGrammar(Grammar):
     k_article = Choice(Keyword("a"), Keyword("an"))
     k_weekday = Choice(*[Keyword(name) for name in WEEKDAYS])
     k_month = Choice(*[Keyword(name) for name in MONTHS])
-    k_unit = Choice(*[Keyword(name) for name in UNITS])
+    k_unit = Choice(*[Keyword(name) for name in UNIT_TRANSLATION])
     k_lexical_hour = Choice(*[Keyword(name) for name in LEXICAL_HOURS])
 
     k_sa_gen = Sequence(k_sa, Choice(k_gen, k_genyen, k_fe))

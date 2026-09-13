@@ -38,17 +38,6 @@ SECONDS_PER_UNIT = {
     "segonn": 1,
 }
 
-UNITS = (
-    "segonn",
-    "minit",
-    "èdtan",
-    "jou",
-    "semèn",
-    "mwa",
-    "ane",
-    "dekad",
-)
-
 UNIT_TRANSLATION = {
     "segonn": "seconds",
     "segond": "seconds",

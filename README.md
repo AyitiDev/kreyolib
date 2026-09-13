@@ -194,7 +194,7 @@ print(num_to_text(124, ordinal=True))  # 'karanndezyèm'
 
 #### Text to Number ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconverttext_to_numtext_to_num))
 
-Converts Kreyòl number words back into an integer or float. The converter supports negative numbers and decimals and tolerates minor spelling variations through fuzzy matching.
+Converts Kreyòl number words back into an integer or float. The converter supports negative numbers, decimals, and larger scales (mil, milyon...). By default, minor spelling variations are tolerated through fuzzy matching; pass `fuzzy=False` to require exact words only.
 
 ```python
 from kreyolib.convert.text_to_num import text_to_num
@@ -206,7 +206,12 @@ print(text_to_num("mwens de san"))  # -200
 print(text_to_num("de mil de san"))  # 200200
 print(text_to_num("de san de mil"))  # 202000
 print(text_to_num("zewo pwen zewo uit"))  # 0.08
-print(text_to_num("kat milyon de san karanntwa"))  # 4_000_243
+print(text_to_num("de san", fuzzy=False))  # 200 (exact words only)
+
+try:
+    text_to_num("de sann", fuzzy=False)  # "sann" is not an exact word
+except ValueError:
+    print("rejected (fuzzy matching disabled)")
 ```
 
 #### Datetime to Text ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconvertdatetime_to_textdatetime_to_text))

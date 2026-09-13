@@ -11,8 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Date & Time Conversion** ([#7]): Added `datetime_to_text()` and `text_to_datetime()` for converting between Haitian Creole date/time expressions and Python datetime objects. Supports absolute and relative parsing with deterministic reference time.
-- **Strict Number Conversion** ([#8]): Added a `fuzzy` flag to `text_to_num()` to control fuzzy spelling matching. When `fuzzy=False`, only exact vocabulary words are accepted; misspellings raise a `ValueError`.
+- **Date & Time Conversion** ([#8](https://github.com/AyitiDev/kreyolib/pull/8)): Added `datetime_to_text()` and `text_to_datetime()` for converting between Haitian Creole date/time expressions and Python datetime objects. Supports absolute and relative parsing with deterministic reference time.
+- **Strict Number Conversion** ([#9](https://github.com/AyitiDev/kreyolib/pull/9)): Added a `fuzzy` flag to `text_to_num()` to control fuzzy spelling matching. When `fuzzy=False`, only exact vocabulary words are accepted; misspellings raise a `ValueError`.
 
 ---
 
@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Sentence Tokenization** ([#4](https://github.com/AyitiDev/kreyolib/pull/4)): Added `sent_tokenize()` to split text into sentences, powered by [yasbd-lib](https://github.com/speedyk-005/yasbd-lib) with Haitian Creole rules extended with French abbreviations and sentence starters.
 - **Word Tokenization** ([#5](https://github.com/AyitiDev/kreyolib/pull/5)): Added `word_tokenize()` to split text into word-level tokens while preserving abbreviations, hashtags, mentions, and URLs.
 - **Number Conversion** ([#6](https://github.com/AyitiDev/kreyolib/pull/6)): Added `num_to_text()` and `text_to_num()` for converting between Kreyòl number words and integers/decimals, with cardinal, ordinal, and negative support.
-- **Alphabet Constants**: Added the Haitian Creole alphabet as frozen sets at the package root (`ORAL_VOWELS`, `NASAL_VOWELS`, `CONSONANTS`, `SEMI_VOWELS`, `ALPHABET`).
+- **Alphabet Constants** ([#7](https://github.com/AyitiDev/kreyolib/pull/7)): Added the Haitian Creole alphabet as frozen sets at the package root (`ORAL_VOWELS`, `NASAL_VOWELS`, `CONSONANTS`, `SEMI_VOWELS`, `ALPHABET`).
 
 ---
 

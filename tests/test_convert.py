@@ -71,43 +71,44 @@ def test_num_to_text_guards(number, ordinal, error_message):
 
 
 @pytest.mark.parametrize(
-    "input_text, expected",
+    "input_text, fuzzy, expected",
     [
-        ("mwens de san", -200),
-        ("de mil san", 2100),
-        ("san kat mil", 104000),
-        ("mil de san", 1200),
-        ("de san mil", 200000),
-        ("zewo pwen disèt", 0.17),
-        ("mil de sann kenz", 1215),
-        ("en pwen krant kat", 1.44),
-        ("Krateven disnèf", 99),
-        ("katreven diznèf", 99),
-        ("zewo pwen zewo uit", 0.08),
-        ("mwen sis san mil katrevan", -600080),
-        ("sen mil kant san senkant senk", 5455),
-        ("kat milyon de san karanntwa", 4_000_243),
+        ("mwens de san", False, -200),
+        ("de mil san", False, 2100),
+        ("san kat mil", False, 104000),
+        ("mil de san", False, 1200),
+        ("de san mil", False, 200000),
+        ("zewo pwen disèt", False, 0.17),
+        ("mil de sann kenz", True, 1215),
+        ("en pwen krant kat", True, 1.44),
+        ("Krateven disnèf", True, 99),
+        ("katreven diznèf", True, 99),
+        ("zewo pwen zewo uit", False, 0.08),
+        ("mwen sis san mil katrevan", True, -600080),
+        ("sen mil kant san senkant senk", True, 5455),
+        ("kat milyon de san karantwa", True, 4_000_243),
     ],
 )
-def test_text_to_num(input_text, expected):
+def test_text_to_num(input_text, fuzzy, expected):
     """Test that word-formatted text converts back to the correct integer."""
-    assert text_to_num(input_text) == expected
+    assert text_to_num(input_text, fuzzy=fuzzy) == expected
 
 
 @pytest.mark.parametrize(
     "number, error_message",
     [
         ("Sa pa yon chif", "Unrecognized number word"),
-        ("Kat mwen dis", "only appear at the start"),
+        ("Kat mwens dis", "only appear at the start"),
         ("twa pwen twa pwen de", "can only contain one"),
         ("mil mil", "consecutive identical"),
         ("senk senk", "consecutive identical"),
+        ("sann", "Unrecognized number word"),
     ],
 )
 def test_text_to_num_guards(number, error_message):
     """Test that the function has guards for invalid inputs."""
     with pytest.raises(ValueError, match=error_message):
-        text_to_num(number)
+        text_to_num(number, fuzzy=False)
 
 
 @pytest.mark.parametrize(

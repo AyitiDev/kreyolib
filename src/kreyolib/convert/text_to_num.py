@@ -88,18 +88,23 @@ def _finalize(
     return sign * result
 
 
-def text_to_num(text: str) -> int:
+def text_to_num(text: str, *, fuzzy: bool = True) -> int:
     """Converts Haitian Creole number text into an integer using a left-to-right parser
 
     Args:
-        text: Number written as Haitian Creole words. Minor spelling
-            variations may be accepted through fuzzy matching.
+        text: Number written as Haitian Creole words. When ``fuzzy`` is
+            enabled, minor spelling variations are accepted through fuzzy
+            matching.
+        fuzzy: If True (default), accept tokens whose closest vocabulary
+            match exceeds the confidence threshold. If False, only exact
+            vocabulary words are accepted.
 
     Returns:
         The integer represented by the input text.
 
     Raises:
         ValueError: Raised if:
+            - Unrecognized number word
             - A token's best fuzzy match does not exceed the
             required confidence threshold.
             - If "mwens" appears other than at the start
@@ -116,7 +121,9 @@ def text_to_num(text: str) -> int:
     integer_seq = []
 
     for i, tok in enumerate(tokens):
-        word = _fuzzy_find(tok, i)
+        word = tok
+        if fuzzy:
+            word = _fuzzy_find(tok, i)
 
         if word == prev_word:
             raise ValueError(f"consecutive identical word is not allowed: {text!r}")
@@ -141,7 +148,11 @@ def text_to_num(text: str) -> int:
             prev_word = None
             continue
 
-        sequence.append(TEXT_TO_NUM[word])
+        try:
+            sequence.append(TEXT_TO_NUM[word])
+        except KeyError:
+            raise ValueError(f"Unrecognized number word (token num {i}): {word!r}") from None
+
         prev_word = word
 
     return _finalize(

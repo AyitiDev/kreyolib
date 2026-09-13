@@ -89,7 +89,7 @@ def datetime_to_text(dt: datetime | timedelta,
                      *,
                      relative: bool = False,
                      max_relative_units: int = 3,
-                     _ref: None | datetime = None) -> str
+                     _ref: datetime | None = None) -> str
 ```
 
 Convert a datetime to Haitian Creole text.
@@ -194,7 +194,7 @@ Parse a Haitian Creole date expression into a datetime.
 #### text\_to\_datetime
 
 ```python
-def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime
+def text_to_datetime(text: str, *, _ref: datetime | None = None) -> datetime
 ```
 
 Parse date-like text into a datetime object.

@@ -1,8 +1,36 @@
 import re
 from datetime import date, datetime, timedelta
 
-import dateutil
-from dateutil.relativedelta import FR, MO, SA, SU, TH, TU, WE, relativedelta
+try:
+    import dateutil
+    from dateutil.relativedelta import FR, MO, SA, SU, TH, TU, WE, relativedelta
+except ImportError:  # pragma: no cover
+    raise ImportError(
+        "The 'dateutil' library is not installed. "
+        "Please install it with 'pip install 'python-dateutil>=2.8.2,<3.0'' "
+        "or install the document processing extras with 'pip install kreyolib[datetime]'"
+    ) from None
+
+try:
+    from pyleri import (
+        Choice,
+        Grammar,
+        Keyword,
+        List,
+        Optional,
+        Regex,
+        Sequence,
+        Token,
+        end_of_statement,
+    )
+except ImportError:  # pragma: no cover
+    raise ImportError(
+        "The 'dateutil' library is not installed. "
+        "Please install it with 'pip install 'pyleri>=1.4.3,<1.6'' "
+        "or install the document processing extras with 'pip install kreyolib[datetime]'"
+    ) from None
+
+
 from pyleri import (
     Choice,
     Grammar,
@@ -43,7 +71,7 @@ def _looks_datetime_like(text: str) -> bool:
     """
     chars = [char for char in text if char.isalnum()]
 
-    if not chars:
+    if not chars:  # pragma: no cover
         return False
 
     numeric = sum(char.isdigit() for char in chars)
@@ -179,7 +207,7 @@ class TextToDateTime:
                     return self._handle_op_relative_day(op_node.children, ref)
                 case self.grm.op_relative_weekday:
                     return self._handle_op_relative_weekday(op_node.children, ref)
-                case _:
+                case _:  # pragma: no cover
                     raise NotImplementedError(f"Unhandled operation: {op_node.element.name!r}")
 
     def _handle_time(self, seq: list) -> timedelta | None:
@@ -214,7 +242,7 @@ class TextToDateTime:
         year = int(cleaned_seq[2].string)
         return datetime(year, month, day)
 
-    def _handle_relative_date_1(self, seq: list, ref: datetime) -> datetime:
+    def _handle_relative_date_1(self, seq: list, ref: datetime | None) -> datetime:
         """Convert a relative duration expression into a datetime."""
         ref = ref or datetime.now()
         sign = -1 if seq[0].children[0].element is self.grm.k_sa_gen else 1
@@ -234,7 +262,7 @@ class TextToDateTime:
 
         return ref + sign * relativedelta(**params)
 
-    def _handle_relative_date_2(self, seq: list, ref: datetime) -> datetime:
+    def _handle_relative_date_2(self, seq: list, ref: datetime | None) -> datetime:
         """Convert a relative unit expression into a datetime."""
         if ref is None:
             dt = date.today()
@@ -248,7 +276,7 @@ class TextToDateTime:
 
         return ref + delta
 
-    def _handle_op_relative_day(self, seq: list, ref: datetime) -> datetime:
+    def _handle_op_relative_day(self, seq: list, ref: datetime | None) -> datetime:
         """Resolve a relative-day to its nearest matching date."""
         if ref is None:
             dt = date.today()
@@ -276,7 +304,7 @@ class TextToDateTime:
             result += self._handle_time(seq[1:])
         return result
 
-    def _handle_op_relative_weekday(self, seq: list, ref: datetime) -> datetime:
+    def _handle_op_relative_weekday(self, seq: list, ref: datetime | None) -> datetime:
         """Resolve a relative weekday to its nearest matching date."""
         if ref is None:
             dt = date.today()
@@ -294,7 +322,7 @@ class TextToDateTime:
             result += time_dt
         return result
 
-    def _build_error_msg(self, res) -> str:
+    def _build_error_msg(self, res) -> str:  # pragma: no cover
         """Build a human-readable parser error message."""
         err_msg = f"error at pos {res.pos}"
 
@@ -319,7 +347,7 @@ class TextToDateTime:
         return err_msg
 
 
-def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime:
+def text_to_datetime(text: str, *, _ref: datetime | None = None) -> datetime:
     """Parse date-like text into a datetime object.
 
     SupportedExpressions:

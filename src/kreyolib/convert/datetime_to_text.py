@@ -1,7 +1,9 @@
 import re
 from datetime import datetime, time, timedelta
 
-from kreyolib.convert._datetime_vocab import MONTHS, SECONDS_PER_UNIT, WEEKDAYS
+from dateutil.relativedelta import relativedelta
+
+from kreyolib.convert._datetime_vocab import MONTHS, UNIT_TRANSLATION_REV, WEEKDAYS
 
 
 def _format_relative_seq(prefix: str, parts: list) -> str:
@@ -14,34 +16,46 @@ def _format_relative_seq(prefix: str, parts: list) -> str:
     return prefix + re.sub(r"\ben", "yon", text)
 
 
+def _extract_relevant_parts(
+    delta: relativedelta,
+    max_relative_units: int,
+) -> list[tuple]:
+    """Extract parts that matters from the delta to improve readability."""
+    parts = []
+    for unit in ("years", "months", "days", "hours", "minutes", "seconds"):
+        value = getattr(delta, unit)
+
+        if value:
+            if unit == "days":
+                week_value, value = divmod(value, 7)
+                if week_value and value == 0:
+                    unit, value = "weeks", week_value
+            parts.append((UNIT_TRANSLATION_REV[unit], abs(value)))
+
+        if len(parts) == max_relative_units:
+            break
+
+    return parts
+
+
 def _convert_to_relative(
     dt: datetime | timedelta,
-    ref: datetime,
+    ref: datetime | None,
     max_relative_units: int,
 ) -> str:
     """Convert a datetime to a relative expression."""
     if isinstance(dt, timedelta):
         dt = ref + dt
 
-    delta = ref - dt
-    remaining_sec = abs(delta.total_seconds())
+    delta = relativedelta(ref, dt)
 
-    if remaining_sec < 1:
+    remaining_sec = (dt - ref).total_seconds()
+    if abs(remaining_sec) < 1:
         return "kounye a"
 
-    prefix = "nan " if delta.total_seconds() < 0 else "sa gen "
+    prefix = "nan " if remaining_sec > 0 else "sa gen "
 
-    parts = []
-    for unit, unit_seconds in SECONDS_PER_UNIT.items():
-        quantity, remaining_sec = divmod(remaining_sec, unit_seconds)
-        quantity = int(quantity)
-
-        if quantity:
-            parts.append((unit, quantity))
-
-        if len(parts) == max_relative_units:
-            break
-
+    parts = _extract_relevant_parts(delta, max_relative_units)
     if parts[0][0] in {"èdtan", "minit", "segonn"}:
         day_diff = dt.days if isinstance(dt, timedelta) else (dt.date() - ref.date()).days
         if day_diff == 0:
@@ -55,7 +69,7 @@ def datetime_to_text(
     *,
     relative: bool = False,
     max_relative_units: int = 3,
-    _ref: None | datetime = None,
+    _ref: datetime | None = None,
 ) -> str:
     """Convert a datetime to Haitian Creole text.
 

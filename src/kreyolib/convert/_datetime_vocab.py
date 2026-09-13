@@ -27,17 +27,6 @@ MONTHS = [
 
 MONTHS_TO_INDEX = {name: i for i, name in enumerate(MONTHS, start=1)}
 
-SECONDS_PER_UNIT = {
-    "dekad": 10 * 365 * 24 * 60 * 60,
-    "ane": 365 * 24 * 60 * 60,
-    "mwa": 30 * 24 * 60 * 60,
-    "semèn": 7 * 24 * 60 * 60,
-    "jou": 24 * 60 * 60,
-    "èdtan": 60 * 60,  # More consistent than `è`
-    "minit": 60,
-    "segonn": 1,
-}
-
 UNIT_TRANSLATION = {
     "segonn": "seconds",
     "segond": "seconds",
@@ -51,6 +40,7 @@ UNIT_TRANSLATION = {
     "ane": "years",
     "dekad": "decades",
 }
+UNIT_TRANSLATION_REV = {v: k for k, v in UNIT_TRANSLATION.items()}
 
 LEXICAL_HOURS = {
     "inè": 1,

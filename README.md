@@ -37,7 +37,6 @@
   - [Conversion](#conversion)
     - [Number to Text (API)](#number-to-text-api)
     - [Text to Number (API)](#text-to-number-api)
-  - [Datetime Conversion](#datetime-conversion)
     - [Datetime to Text (API)](#datetime-to-text-api)
     - [Text to Datetime (API)](#text-to-datetime-api)
   - [Advanced Models & Intelligence](#advanced-models--intelligence)
@@ -209,11 +208,12 @@ print(text_to_num("zewo pwen zewo uit"))  # 0.08
 print(text_to_num("kat milyon de san karanntwa"))  # 4_000_243
 ```
 
-### Datetime Conversion
-
 #### Datetime to Text ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconvertdatetime_to_textdatetime_to_text))
 
-Converts a `datetime` or `timedelta` into a natural Kreyòl date, time, or relative-time expression.
+Converts a `datetime` or `timedelta` into Kreyòl date, time, or relative-time text.
+
+> [!NOTE]
+> Relative datetime outputs depend on the current time, so results may vary depending on when the function is called.
 
 ```python
 from datetime import datetime, timedelta
@@ -227,18 +227,16 @@ print(datetime_to_text(datetime(2023, 12, 3, 15, 30, 42)))
 # 'dimanch 3 desanm 2023, 15:30:42'
 
 print(datetime_to_text(-timedelta(weeks=4, days=8), relative=True))
-# 'sa gen 1 mwa e 6 jou'
+# 'sa gen 1 mwa e 5 jou'
 
 print(datetime_to_text(timedelta(weeks=12, days=3, hours=60), relative=True))
-# 'nan 2 mwa, 4 semèn e 1 jou'
+# 'nan 2 mwa, 4 semèn e 12 èdtan'
+```
 
-reference = datetime(2026, 1, 1)
+Relative conversion can express a duration from the current time.
 
-print(datetime_to_text(
-    timedelta(hours=5),
-    relative=True,
-    _ref=reference,
-))
+```python
+print(datetime_to_text(timedelta(hours=5), relative=True))
 # 'jodi a, nan 5 èdtan'
 ```
 
@@ -246,55 +244,54 @@ print(datetime_to_text(
 
 Parses Kreyòl date and time expressions into a `datetime` object. It supports numeric timestamps, absolute dates, relative dates, relative durations, weekdays, periods, and common time expressions.
 
-```python
-from datetime import datetime
+> [!NOTE]
+> Relative expressions are resolved against the current time, so their resulting `datetime` may vary depending on when the function is called.
 
+```python
 from kreyolib.convert.text_to_datetime import text_to_datetime
 
-reference = datetime(2026, 1, 1)
-
-print(text_to_datetime("2026-01-08 22:33", _ref=reference))
+print(text_to_datetime("2026-01-08 22:33"))
 # datetime(2026, 1, 8, 22, 33)
 
-print(text_to_datetime("samdi 1 janvye 2019", _ref=reference))
+print(text_to_datetime("samdi 1 janvye 2019"))
 # datetime(2019, 1, 1)
 
-print(text_to_datetime("demen", _ref=reference))
+print(text_to_datetime("demen"))
 # datetime(2026, 1, 2)
 
-print(text_to_datetime("semèn pwochèn a 10h", _ref=reference))
+print(text_to_datetime("semèn pwochèn a 10h"))
 # datetime(2026, 1, 8, 10, 0)
 
-print(text_to_datetime("demen a dizè", _ref=reference))
+print(text_to_datetime("demen a dizè"))
 # datetime(2026, 1, 2, 10, 0)
 ```
 
 Relative expressions can describe durations, previous or upcoming periods, and weekdays.
 
 ```python
-print(text_to_datetime("sa gen yon ane", _ref=reference))
+print(text_to_datetime("sa gen yon ane"))
 # datetime(2025, 1, 1)
 
-print(text_to_datetime("sa gen 5 jou, kat semèn", _ref=reference))
+print(text_to_datetime("sa gen 5 jou, kat semèn"))
 # datetime(2025, 11, 29)
 
-print(text_to_datetime("semèn pase", _ref=reference))
+print(text_to_datetime("semèn pase"))
 # datetime(2025, 12, 25)
 
-print(text_to_datetime("madi pase", _ref=reference))
+print(text_to_datetime("madi pase"))
 # datetime(2025, 12, 31)
 
-print(text_to_datetime("mwa kap vini a", _ref=reference))
+print(text_to_datetime("mwa kap vini a"))
 # datetime(2026, 2, 1)
 ```
 
 Time expressions can be combined with relative or absolute date expressions.
 
 ```python
-print(text_to_datetime("apre demen a 15è eka", _ref=reference))
+print(text_to_datetime("apre demen a 15è eka"))
 # datetime(2026, 1, 3, 15, 15)
 
-print(text_to_datetime("jedi pase a 3è edmi", _ref=reference))
+print(text_to_datetime("jedi pase a 3è edmi"))
 # datetime(2025, 12, 26, 3, 30)
 ```
 

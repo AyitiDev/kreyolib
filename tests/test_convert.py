@@ -75,6 +75,7 @@ def test_num_to_text_guards(number, ordinal, error_message):
     [
         ("mwens de san", False, -200),
         ("de mil san", False, 2100),
+        ("yon milyon san uit", True, 1_000_108),
         ("san kat mil", False, 104000),
         ("mil de san", False, 1200),
         ("de san mil", False, 200000),

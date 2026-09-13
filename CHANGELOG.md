@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Fixed
+
+- **`yon` (indefinite article) in number text** ([#10](https://github.com/AyitiDev/kreyolib/pull/10)): `text_to_num()` now skips the word **`yon`** ("a/an/one") when it appears as an article in number expressions, so inputs like *yon milyon* are parsed as 1,000,000 instead of raising `ValueError`.
+
 ## [0.3.0] - 2026-09-13
 
 ### Added

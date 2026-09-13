@@ -60,6 +60,9 @@ Most NLP progress has focused on high-resource languages, while Haitian Creole r
 
 ```bash
 pip install kreyolib -U
+
+# If you are going to do text_to _datetime
+pip install kreyolib[datetime] -U
 ```
 
 ---
@@ -215,6 +218,7 @@ Converts a `datetime` or `timedelta` into Kreyòl date, time, or relative-time t
 
 > [!NOTE]
 > Relative datetime outputs depend on the current time, so results may vary depending on when the function is called.
+> These were run with datetime(2026, 1, 1) reference
 
 ```python
 from datetime import datetime, timedelta

@@ -142,6 +142,7 @@ def test_datetime_to_text(input_dt, relative, ref, expected):
         ("jedi pase a 3è edmi", datetime(2025, 12, 26, 3, 30)),
         ("semèn pwochèn a 10h", datetime(2026, 1, 8, 10)),
         ("mwa kap vini a", datetime(2026, 2, 1)),
+        ("demen a dizè", datetime(2026, 1, 2, 10)),
     ],
 )
 def test_text_to_datetime(input_text, expected):

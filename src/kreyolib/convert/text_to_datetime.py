@@ -16,6 +16,7 @@ from pyleri import (
 )
 
 from kreyolib.convert._datetime_vocab import (
+    LEXICAL_HOURS,
     MONTHS,
     MONTHS_TO_INDEX,
     UNIT_TRANSLATION,
@@ -73,7 +74,7 @@ class ConversionGrammar(Grammar):
 
     k_e = Keyword("e")
     k_a = Keyword("a")
-    k_h = Choice(Keyword("h"), Keyword("è"))
+    k_h = Choice(Keyword("h"), Keyword("è"), Keyword("zè"))
     k_sa = Keyword("sa")
     k_gen = Keyword("gen")
     k_genyen = Keyword("genyen")
@@ -87,6 +88,7 @@ class ConversionGrammar(Grammar):
     k_weekday = Choice(*[Keyword(name) for name in WEEKDAYS])
     k_month = Choice(*[Keyword(name) for name in MONTHS])
     k_unit = Choice(*[Keyword(name) for name in UNITS])
+    k_lexical_hour = Choice(*[Keyword(name) for name in LEXICAL_HOURS])
 
     k_sa_gen = Sequence(k_sa, Choice(k_gen, k_genyen, k_fe))
 
@@ -95,7 +97,8 @@ class ConversionGrammar(Grammar):
         Sequence(
             k_a, r_hour_num, k_h,
             Optional(Choice(r_minute_num, k_edmi, k_eka))
-        )
+        ),
+        Sequence(k_a, k_lexical_hour),
     )
 
     op_calendar_date = Sequence(
@@ -187,9 +190,13 @@ class TextToDateTime:
 
         time_seq = item[0].children[0].children[1:]
 
-        hours = int(time_seq[0].string)
+        if time_seq[0].string.isalpha():
+            hours = LEXICAL_HOURS[time_seq[0].string]
+        else:
+            hours = int(time_seq[0].string)
+
         minutes = 0
-        if len(time_seq) == 3:
+        if not time_seq[-1].string.endswith(("è", "h")):
             if time_seq[2].string == "eka":
                 minutes = 15
             elif time_seq[2].string == "edmi":
@@ -376,6 +383,7 @@ if __name__ == "__main__":  # pragma: no cover
         "jedi pase a 3è edmi",
         "apre demen a 15è eka",
         "mwa kap vini a",
+        "demen a dizè",
     ]
     for text in texts:
         print(f"{text}:", text_to_datetime(text, _ref=datetime(2026, 1, 1)))

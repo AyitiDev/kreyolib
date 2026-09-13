@@ -311,8 +311,8 @@ class TextToDateTime:
             ref = datetime(dt.year, dt.month, dt.day)
 
         sign = -1 if seq[1].string == "pase" else 1
-        index = WEEKDAYS_TO_INDEX[seq[0].string]
-        weekday_cls = WEEKDAY_CLS[index]
+        weekday_idx = WEEKDAYS_TO_INDEX[seq[0].string] - 1
+        weekday_cls = WEEKDAY_CLS[weekday_idx]
         result = ref + relativedelta(weekday=weekday_cls(sign))
 
         if result.date() == ref.date():

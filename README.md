@@ -247,6 +247,7 @@ Parses Kreyòl date and time expressions into a `datetime` object. It supports n
 
 > [!NOTE]
 > Relative expressions are resolved against the current time, so their resulting `datetime` may vary depending on when the function is called.
+> Those were ran against datetime(2026, 1, 1) reference.
 
 ```python
 from kreyolib.convert.text_to_datetime import text_to_datetime
@@ -290,13 +291,16 @@ Time expressions can be combined with relative or absolute date expressions.
 
 ```python
 print(text_to_datetime("avan yè a 10:45"))
-# datetime(2025, 12, 31, 10, 45))
+# datetime(2025, 12, 30, 10, 45)
 
 print(text_to_datetime("apre demen a 15è eka"))
 # datetime(2026, 1, 3, 15, 15)
 
 print(text_to_datetime("jedi pase a 3è edmi"))
 # datetime(2025, 12, 26, 3, 30)
+
+print(text_to_datetime("jedi pwochèn"))
+# datetime(2026, 1, 8)
 ```
 
 ### Advanced Models & Intelligence

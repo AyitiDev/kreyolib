@@ -203,7 +203,6 @@ Converts Kreyòl number words back into an integer or float. The converter suppo
 from kreyolib.convert.text_to_num import text_to_num
 
 print(text_to_num("de san venntwa"))  # 223
-print(text_to_num("yon milyon san uit"))  # 1000008
 print(text_to_num("douz pwen kat"))  # 12.4
 print(text_to_num("mwens de san"))  # -200
 print(text_to_num("de mil de san"))  # 200200

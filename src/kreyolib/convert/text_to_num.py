@@ -1,6 +1,6 @@
 from difflib import SequenceMatcher
 
-from kreyolib.convert._vocab import NUM_TO_TEXT, SCALES, TEXT_TO_NUM
+from kreyolib.convert._num_vocab import NUM_TO_TEXT, SCALES, TEXT_TO_NUM
 
 # A scale can multiply the preceding value
 # while that value is below the scale's next-order boundary

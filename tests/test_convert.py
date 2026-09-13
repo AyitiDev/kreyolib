@@ -1,7 +1,13 @@
+from datetime import datetime, timedelta
+
 import pytest
 
+from kreyolib.convert.datetime_to_text import datetime_to_text
 from kreyolib.convert.num_to_text import num_to_text
+from kreyolib.convert.text_to_datetime import text_to_datetime
 from kreyolib.convert.text_to_num import text_to_num
+
+REFERENCE = datetime(2026, 1, 1)
 
 
 @pytest.mark.parametrize(
@@ -102,3 +108,46 @@ def test_text_to_num_guards(number, error_message):
     """Test that the function has guards for invalid inputs."""
     with pytest.raises(ValueError, match=error_message):
         text_to_num(number)
+
+
+@pytest.mark.parametrize(
+    "input_dt, relative, ref, expected",
+    [
+        (datetime(2026, 9, 4), False, None, "vandredi 4 septanm 2026"),
+        (datetime(2023, 12, 3, 15, 30, 42), False, None, "dimanch 3 desanm 2023, 15:30:42"),
+        (-timedelta(weeks=4, days=8), True, None, "sa gen 1 mwa e 5 jou"),
+        (timedelta(weeks=12, days=3, hours=60), True, None, "nan 2 mwa, 4 semèn e 12 èdtan"),
+        (REFERENCE, True, REFERENCE, "kounye a"),
+        (timedelta(days=4), False, REFERENCE, "lendi 5 janvye 2026"),
+        (timedelta(hours=5), True, REFERENCE, "jodi a, nan 5 èdtan"),
+    ],
+)
+def test_datetime_to_text(input_dt, relative, ref, expected):
+    """Test that datetime/timedelta conversion produces correct Kreyòl text."""
+    assert datetime_to_text(input_dt, relative=relative, _ref=ref) == expected
+
+
+@pytest.mark.parametrize(
+    "input_text, expected",
+    [
+        ("2026-01-08 22:33", datetime(2026, 1, 8, 22, 33)),
+        ("samdi 1 janvye 2019", datetime(2019, 1, 1)),
+        ("2 fevr 2014", datetime(2014, 2, 2)),
+        ("sa gen yon ane", datetime(2025, 1, 1)),
+        ("sa gen 5 jou, kat semèn", datetime(2025, 11, 29)),
+        ("sa gen sèt jou", datetime(2025, 12, 25)),
+        ("semèn pase", datetime(2025, 12, 25)),
+        ("madi pase", datetime(2025, 12, 30)),
+        ("jedi pwochèn", datetime(2026, 1, 8)),
+        ("demen", datetime(2026, 1, 2)),
+        ("avan yè a 10:45", datetime(2025, 12, 30, 10, 45)),
+        ("apre demen a 15è eka", datetime(2026, 1, 3, 15, 15)),
+        ("jedi pase a 3è edmi", datetime(2025, 12, 25, 3, 30)),
+        ("semèn pwochèn a 10h", datetime(2026, 1, 8, 10)),
+        ("mwa kap vini a", datetime(2026, 2, 1)),
+        ("demen a dizè", datetime(2026, 1, 2, 10)),
+    ],
+)
+def test_text_to_datetime(input_text, expected):
+    """Test that text conversion produces correct datetime."""
+    assert text_to_datetime(input_text, _ref=REFERENCE) == expected

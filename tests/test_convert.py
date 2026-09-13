@@ -130,15 +130,18 @@ def test_datetime_to_text(input_dt, relative, ref, expected):
 @pytest.mark.parametrize(
     "input_text, expected",
     [
+        ("2026-01-08 22:33", datetime(2026, 1, 8, 22, 33)),
         ("samdi 1 janvye 2019", datetime(2019, 1, 1)),
-        ("sa gen 5 jou", datetime(2025, 12, 27)),
-        ("sa gen 5 jou, 4 semèn", datetime(2025, 11, 29)),
+        ("sa gen yon ane", datetime(2025, 1, 1)),
+        ("sa gen 5 jou, kat semèn", datetime(2025, 11, 29)),
+        ("sa gen sèt jou", datetime(2025, 12, 25)),
         ("semèn pase", datetime(2025, 12, 25)),
         ("madi pase", datetime(2025, 12, 31)),
         ("demen", datetime(2026, 1, 2)),
         ("apre demen a 15è eka", datetime(2026, 1, 3, 15, 15)),
         ("jedi pase a 3è edmi", datetime(2025, 12, 26, 3, 30)),
         ("semèn pwochèn a 10h", datetime(2026, 1, 8, 10)),
+        ("mwa kap vini a", datetime(2026, 2, 1)),
     ],
 )
 def test_text_to_datetime(input_text, expected):

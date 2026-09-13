@@ -23,6 +23,7 @@ from kreyolib.convert._datetime_vocab import (
     WEEKDAYS,
     WEEKDAYS_TO_INDEX,
 )
+from kreyolib.convert.text_to_num import text_to_num
 
 WEEKDAY_CLS = [MO, TU, WE, TH, FR, SA, SU]
 
@@ -61,17 +62,18 @@ class ConversionGrammar(Grammar):
     t_colon = Token(":")
 
     r_num = Regex(r"\d+")
+    r_num_alpha = Regex(r"[bdekmnostuvy][-_a-zè]*[aefklnstz]")
     r_hour_num = Regex(r"[0-1]?\d|2[0-3]")
     r_minute_num = Regex(r"[0-5]?\d")
     r_day_num = Regex(r"[0-2]?\d|3[01]")
     r_year = Regex(r"\d{4}")
     r_apre = Regex("apr[eè]")
     r_rel_day = Regex(r"jodi\s*y?a|demen|yè")
-    r_pwochen = Regex(r"pwoch[eè]n")
+    r_pwochen = Regex(r"pwoch[eè]n|k['\s]?ap vini an?")
 
     k_e = Keyword("e")
     k_a = Keyword("a")
-    k_hour = Choice(Keyword("h"), Keyword("è"), Keyword("zè"))
+    k_h = Choice(Keyword("h"), Keyword("è"))
     k_sa = Keyword("sa")
     k_gen = Keyword("gen")
     k_genyen = Keyword("genyen")
@@ -91,7 +93,7 @@ class ConversionGrammar(Grammar):
     op_time = Choice(
         Sequence(k_a, r_hour_num, t_colon, r_minute_num),
         Sequence(
-            k_a, r_hour_num, k_hour,
+            k_a, r_hour_num, k_h,
             Optional(Choice(r_minute_num, k_edmi, k_eka))
         )
     )
@@ -106,7 +108,7 @@ class ConversionGrammar(Grammar):
     op_relative_date_1 = Sequence(
         Choice(k_sa_gen, k_nan),
         List(
-            Sequence(r_num, k_unit),
+            Sequence(Choice(r_num, r_num_alpha), k_unit),
             delimiter=Choice(t_comma, k_e),
             mi=1
         ),
@@ -146,12 +148,14 @@ class TextToDateTime:
     def __init__(self):
         """Initialize the converter and its parser error mappings."""
         self.elem_to_error_msg = {
-            self.grm.r_num: "a number",
+            self.grm.r_num: "a number (digit)",
+            self.grm.r_num_alpha: "a number (alpha)",
             self.grm.r_hour_num: "hour",
             self.grm.r_minute_num: "minute",
             self.grm.r_day_num: "day of the month",
             self.grm.r_year: "year",
-            self.grm.r_pwochen: "pwochen/pwochèn"
+            self.grm.r_pwochen: "pwochen/pwochèn",
+            self.grm.r_rel_day: "relative day like jodi a, demen, yè ...",
         }
 
     def translate(self, text: str, ref: datetime) -> datetime:
@@ -179,7 +183,6 @@ class TextToDateTime:
         """Convert a parsed time operation into a timedelta."""
         item = seq[0].children[0].children
         if item[0].element == self.grm.k_article:
-            print ("hi")
             return None
 
         time_seq = item[0].children[0].children[1:]
@@ -214,8 +217,13 @@ class TextToDateTime:
             if duration.string in {",", "e"}:
                 continue
 
-            count, unit = duration.children
-            params[UNIT_TRANSLATION[unit.string]] = int(count.string)
+            count = duration.children[0].string
+            unit = duration.children[1].string
+            if count.isalpha():
+                count = 1 if count in {"yon", "youn"} else text_to_num(count)
+            else:
+                count = int(count)
+            params[UNIT_TRANSLATION[unit]] = count
 
         return ref + sign * relativedelta(**params)
 
@@ -308,11 +316,33 @@ def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime:
     """Parse date-like text into a datetime object.
 
     SupportedFormats:
-        ...
+        Standard numeric datetimes:
+            - "2026-01-08 22:33"
+
+        Absolute dates:
+            - Day, month, and year: "1 janvye 2019"
+            - Day of the week with a date: "samdi 1 janvye 2019"
+
+        Relative dates:
+            - Relative days: "demen", "apre demen"
+            - Previous or next periods: "semèn pase",
+              "semèn pwochèn", "mwa kap vini a"
+            - Previous or next weekdays: "madi pase",
+              "jedi pase"
+
+        Relative durations:
+            - Past durations: "sa gen 5 jou"
+            - Multiple past durations: "sa gen 5 jou, kat semèn"
+
+        Time expressions:
+            - Hours and minutes can be combined with date expressions:
+              "demen a 15è eka", "jedi pase a 3è edmi",
+              "semèn pwochèn a 10h".
 
     Args:
-        text: Text containing a date or timestamp.
-        _ref: Internal param to allow deterministic testing.
+        text: Text containing a date, relative date, duration, or timestamp.
+        _ref: Internal reference datetime used for resolving relative
+            expressions and deterministic testing.
 
     Returns:
         A datetime object parsed from the input text.
@@ -337,11 +367,15 @@ def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime:
 
 if __name__ == "__main__":  # pragma: no cover
     texts = [
+        "2026-01-08 22:33",
+        "sa gen yon mwa",
         "samdi 1 janvye 2019",
         "sa gen 5 jou, 4 semèn",
+        "sa gen sèt ane",
         "semèn pwochèn a 10h",
         "jedi pase a 3è edmi",
         "apre demen a 15è eka",
+        "mwa kap vini a",
     ]
     for text in texts:
         print(f"{text}:", text_to_datetime(text, _ref=datetime(2026, 1, 1)))

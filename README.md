@@ -5,7 +5,7 @@
 
 [![Python Version](https://img.shields.io/badge/Python-3.10%20--%203.14-blue)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/kreyolib?kill_cache=1)](https://pypi.org/project/kreyolib)
-[![Coverage Status](https://coveralls.io/repos/github/AyitiDev/kreyolib/badge.svg?branch=main&kill_cache=1)](https://coveralls.io/github/AyitiDev/kreyolib?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/AyitiDev/kreyolib/badge.svg?branch=main&kill_cache=2)](https://coveralls.io/github/AyitiDev/kreyolib?branch=main)
 [![Stability](https://img.shields.io/badge/stability-alpha-red)](https://github.com/AyitiDev/kreyolib)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/AyitiDev/kreyolib/actions)
 [![lint](https://github.com/AyitiDev/kreyolib/actions/workflows/lint.yml/badge.svg)](https://github.com/AyitiDev/kreyolib/actions/workflows/lint.yml)
@@ -60,6 +60,9 @@ Most NLP progress has focused on high-resource languages, while Haitian Creole r
 
 ```bash
 pip install kreyolib -U
+
+# If you are going to do text_to _datetime
+pip install kreyolib[datetime] -U
 ```
 
 ---
@@ -220,6 +223,7 @@ Converts a `datetime` or `timedelta` into Kreyòl date, time, or relative-time t
 
 > [!NOTE]
 > Relative datetime outputs depend on the current time, so results may vary depending on when the function is called.
+> These were run with datetime(2026, 1, 1) reference
 
 ```python
 from datetime import datetime, timedelta
@@ -343,7 +347,7 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [x] Diacritics remover
 - [x] **2. Conversion**
   - [x] Number-to-text conversion in Kreyòl with bidirectional support
-  - [x] Date and time formatters
+  - [x] Datetime-to-text conversion in Kreyòl with bidirectional support
 - [ ] **3. Corpus & Datasets**
   - [x] Stop words
   - [x] Chat/informal abbreviations

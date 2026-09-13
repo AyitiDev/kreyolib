@@ -128,16 +128,19 @@ def test_datetime_to_text(input_dt, relative, ref, expected):
 
 
 @pytest.mark.parametrize(
-    "input_text, ref, expected",
+    "input_text, expected",
     [
-        ("samdi 1 janvye 2019", None, datetime(2019, 1, 1)),
-        ("sa gen 5 jou", REFERENCE, datetime(2025, 12, 27)),
-        ("sa gen 5 jou, 4 semèn", REFERENCE, datetime(2025, 11, 29)),
-        ("semèn pase", REFERENCE, datetime(2025, 12, 25)),
-        ("madi pase", REFERENCE, datetime(2025, 12, 31)),
-        ("demen", REFERENCE, datetime(2026, 1, 2)),
+        ("samdi 1 janvye 2019", datetime(2019, 1, 1)),
+        ("sa gen 5 jou", datetime(2025, 12, 27)),
+        ("sa gen 5 jou, 4 semèn", datetime(2025, 11, 29)),
+        ("semèn pase", datetime(2025, 12, 25)),
+        ("madi pase", datetime(2025, 12, 31)),
+        ("demen", datetime(2026, 1, 2)),
+        ("apre demen a 15è eka", datetime(2026, 1, 3, 15, 15)),
+        ("jedi pase a 3è edmi", datetime(2025, 12, 26, 3, 30)),
+        ("semèn pwochèn a 10h", datetime(2026, 1, 8, 10)),
     ],
 )
-def test_text_to_datetime(input_text, ref, expected):
+def test_text_to_datetime(input_text, expected):
     """Test that text conversion produces correct datetime."""
-    assert text_to_datetime(input_text, _ref=ref) == expected
+    assert text_to_datetime(input_text, _ref=REFERENCE) == expected

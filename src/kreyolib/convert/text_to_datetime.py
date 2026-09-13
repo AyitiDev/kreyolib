@@ -26,15 +26,6 @@ from kreyolib.convert._datetime_vocab import (
 
 WEEKDAY_CLS = [MO, TU, WE, TH, FR, SA, SU]
 
-RELATIVE_DAYS = {
-    "avan yè": -2,
-    "yè": -1,
-    "jodi a": 0,
-    "demen": 1,
-    "aprè demèn": 2,
-}
-RELATIVE_DAYS_PATTERN = re.compile(rf"\b(?:{'|'.join(RELATIVE_DAYS)})")
-
 _converter = None
 
 
@@ -58,25 +49,7 @@ def _looks_datetime_like(text: str) -> bool:
     return numeric / len(chars) > 0.8
 
 
-def _relative_day_to_date(rel_day: str, ref: datetime) -> datetime:
-    """Convert a relative-day expression into an absolute date.
-
-    Args:
-        rel_day: Haitian Creole relative-day expression such as
-            ``"yè"`` or ``"demen"``.
-        _ref: Internal param to allow deterministic testing.
-
-    Returns:
-        The date corresponding to the relative-day expression.
-
-    Raises:
-        KeyError: If ``rel_day`` is not a supported relative-day expression.
-    """
-    ref = ref or date.today()
-    day_diff = RELATIVE_DAYS[rel_day]
-    return ref + timedelta(days=day_diff)
-
-
+# fmt: off
 class ConversionGrammar(Grammar):
     """Pyleri grammar for Haitian Creole date and time expressions.
 
@@ -85,46 +58,86 @@ class ConversionGrammar(Grammar):
     """
 
     t_comma = Token(",")
+    t_colon = Token(":")
 
     r_num = Regex(r"\d+")
-    r_month_num = Regex(r"\d{1,2}")
+    r_hour_num = Regex(r"[0-1]?\d|2[0-3]")
+    r_minute_num = Regex(r"[0-5]?\d")
+    r_day_num = Regex(r"[0-2]?\d|3[01]")
     r_year = Regex(r"\d{4}")
+    r_apre = Regex("apr[eè]")
+    r_rel_day = Regex(r"jodi\s*y?a|demen|yè")
     r_pwochen = Regex(r"pwoch[eè]n")
 
     k_e = Keyword("e")
+    k_a = Keyword("a")
+    k_hour = Choice(Keyword("h"), Keyword("è"), Keyword("zè"))
     k_sa = Keyword("sa")
     k_gen = Keyword("gen")
     k_genyen = Keyword("genyen")
     k_fe = Keyword("fè")
     k_nan = Keyword("nan")
     k_pase = Keyword("pase")
+    k_avan = Keyword("avan")
+    k_edmi = Keyword("edmi")
+    k_eka = Keyword("eka")
     k_article = Choice(Keyword("a"), Keyword("an"))
-
     k_weekday = Choice(*[Keyword(name) for name in WEEKDAYS])
     k_month = Choice(*[Keyword(name) for name in MONTHS])
     k_unit = Choice(*[Keyword(name) for name in UNITS])
 
     k_sa_gen = Sequence(k_sa, Choice(k_gen, k_genyen, k_fe))
 
+    op_time = Choice(
+        Sequence(k_a, r_hour_num, t_colon, r_minute_num),
+        Sequence(
+            k_a, r_hour_num, k_hour,
+            Optional(Choice(r_minute_num, k_edmi, k_eka))
+        )
+    )
+
     op_calendar_date = Sequence(
-        Optional(Sequence(k_weekday, Optional(t_comma))), r_month_num, k_month, r_year
+        Optional(
+            Sequence(k_weekday, Optional(t_comma))
+        ),
+        r_day_num, k_month, r_year
     )
 
     op_relative_date_1 = Sequence(
         Choice(k_sa_gen, k_nan),
-        List(Sequence(r_num, k_unit), delimiter=Choice(t_comma, k_e), mi=1),
+        List(
+            Sequence(r_num, k_unit),
+            delimiter=Choice(t_comma, k_e),
+            mi=1
+        ),
     )
 
-    op_relative_date_2 = Sequence(k_unit, Choice(r_pwochen, k_pase), Optional(k_article))
+    op_relative_date_2 = Sequence(
+        k_unit,
+        Choice(r_pwochen, k_pase),
+        Optional(Choice(k_article, op_time)),
+    )
 
-    op_relative_weekday = Sequence(k_weekday, Choice(r_pwochen, k_pase), Optional(k_article))
+    op_relative_day = Sequence(
+        Optional(Choice(k_avan, r_apre)),
+        r_rel_day,
+        Optional(Choice(k_article, op_time)),
+    )
+
+    op_relative_weekday = Sequence(
+          k_weekday,
+          Choice(r_pwochen, k_pase),
+          Optional(Choice(k_article, op_time)),
+     )
 
     START = Choice(
         op_calendar_date,
         op_relative_date_1,
         op_relative_date_2,
+        op_relative_day,
         op_relative_weekday,
     )
+    # fmt: on
 
 
 class TextToDateTime:
@@ -133,9 +146,12 @@ class TextToDateTime:
     def __init__(self):
         """Initialize the converter and its parser error mappings."""
         self.elem_to_error_msg = {
-            self.grm.r_num: "number",
-            self.grm.r_month_num: "month number",
+            self.grm.r_num: "a number",
+            self.grm.r_hour_num: "hour",
+            self.grm.r_minute_num: "minute",
+            self.grm.r_day_num: "day of the month",
             self.grm.r_year: "year",
+            self.grm.r_pwochen: "pwochen/pwochèn"
         }
 
     def translate(self, text: str, ref: datetime) -> datetime:
@@ -152,10 +168,32 @@ class TextToDateTime:
                     return self._handle_relative_date_1(op_node.children, ref)
                 case self.grm.op_relative_date_2:
                     return self._handle_relative_date_2(op_node.children, ref)
+                case self.grm.op_relative_day:
+                    return self._handle_op_relative_day(op_node.children, ref)
                 case self.grm.op_relative_weekday:
                     return self._handle_op_relative_weekday(op_node.children, ref)
                 case _:
                     raise NotImplementedError(f"Unhandled operation: {op_node.element.name!r}")
+
+    def _handle_time(self, seq: list) -> timedelta | None:
+        """Convert a parsed time operation into a timedelta."""
+        item = seq[0].children[0].children
+        if item[0].element == self.grm.k_article:
+            print ("hi")
+            return None
+
+        time_seq = item[0].children[0].children[1:]
+
+        hours = int(time_seq[0].string)
+        minutes = 0
+        if len(time_seq) == 3:
+            if time_seq[2].string == "eka":
+                minutes = 15
+            elif time_seq[2].string == "edmi":
+                minutes = 30
+            else:
+                minutes = int(time_seq[2].string)
+        return timedelta(hours=hours, minutes=minutes)
 
     def _handle_calendar_date(self, seq: list) -> datetime:
         """Convert a parsed calendar-date operation into a datetime."""
@@ -183,18 +221,53 @@ class TextToDateTime:
 
     def _handle_relative_date_2(self, seq: list, ref: datetime) -> datetime:
         """Convert a relative unit expression into a datetime."""
-        ref = ref or datetime.now()
+        if ref is None:
+            dt = date.today()
+            ref = datetime(dt.year, dt.month, dt.day)
+
         sign = -1 if seq[1].string == "pase" else 1
 
         delta = relativedelta(**{UNIT_TRANSLATION[seq[0].string]: sign})
+        if len(seq) >= 3 and (time_dt := self._handle_time(seq[2:])):
+            delta += time_dt
 
         return ref + delta
 
+    def _handle_op_relative_day(self, seq: list, ref: datetime) -> datetime:
+        """Resolve a relative-day to its nearest matching date."""
+        if ref is None:
+            dt = date.today()
+            ref = datetime(dt.year, dt.month, dt.day)
+
+        prefix = ""
+        if seq[0].string.startswith(("ava", "apr")):
+            prefix = seq[0].string
+            seq = seq[1:]
+
+        if re.match(r"jodi\s*y?a", seq[0].string):
+            result = ref
+        elif seq[0].string == "yè":
+            delta = timedelta(days=-1)
+            if prefix == "avan":
+                delta = timedelta(days=-2)
+            result = ref + delta
+        else:
+            delta = timedelta(days=1)
+            if prefix in {"apre", "aprè"}:
+                delta = timedelta(days=2)
+            result = ref + delta
+
+        if len(seq) >= 2:
+            result += self._handle_time(seq[1:])
+        return result
+
     def _handle_op_relative_weekday(self, seq: list, ref: datetime) -> datetime:
         """Resolve a relative weekday to its nearest matching date."""
-        sign = -1 if seq[1].string == "pase" else 1
-        ref = ref or datetime.now()
+        if ref is None:
+            dt = date.today()
+            ref = datetime(dt.year, dt.month, dt.day)
 
+        sign = -1 if seq[1].string == "pase" else 1
         index = WEEKDAYS_TO_INDEX[seq[0].string]
         weekday_cls = WEEKDAY_CLS[index]
         result = ref + relativedelta(weekday=weekday_cls(sign))
@@ -202,6 +275,8 @@ class TextToDateTime:
         if result.date() == ref.date():
             result += relativedelta(days=7 * sign)
 
+        if len(seq) >= 3 and (time_dt := self._handle_time(seq[2:])):
+            result += time_dt
         return result
 
     def _build_error_msg(self, res) -> str:
@@ -257,16 +332,6 @@ def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime:
         except (ValueError, OverflowError) as exc:
             raise ValueError(f"Invalid datetime: {text!r}") from exc
 
-    m = RELATIVE_DAYS_PATTERN.search(text)
-    # This covers case like "demen 15 jen 2019"
-    if m:
-        rel_day = m.group()
-        rem_text = text[: m.start()] + text[m.end() :]
-        date_part = _relative_day_to_date(rel_day, _ref)
-        if rem_text.strip():
-            return date_part + _converter.translate(rem_text)
-        return date_part
-
     return _converter.translate(text, _ref)
 
 
@@ -274,8 +339,9 @@ if __name__ == "__main__":  # pragma: no cover
     texts = [
         "samdi 1 janvye 2019",
         "sa gen 5 jou, 4 semèn",
-        "semèn pase",
-        "madi pase",
+        "semèn pwochèn a 10h",
+        "jedi pase a 3è edmi",
+        "apre demen a 15è eka",
     ]
     for text in texts:
-        print(f"{text}:", text_to_datetime(text))
+        print(f"{text}:", text_to_datetime(text, _ref=datetime(2026, 1, 1)))

@@ -16,6 +16,7 @@ from pyleri import (
 )
 
 from kreyolib.convert._datetime_vocab import (
+    DATE_NORMALIZATIONS,
     LEXICAL_HOURS,
     MONTHS,
     MONTHS_TO_INDEX,
@@ -322,12 +323,13 @@ class TextToDateTime:
 def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime:
     """Parse date-like text into a datetime object.
 
-    SupportedFormats:
+    SupportedExpressions:
         Standard numeric datetimes:
             - "2026-01-08 22:33"
 
         Absolute dates:
             - Day, month, and year: "1 janvye 2019"
+            - Abbreviated months: "2 fevr 2014"
             - Day of the week with a date: "samdi 1 janvye 2019"
 
         Relative dates:
@@ -342,9 +344,12 @@ def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime:
             - Multiple past durations: "sa gen 5 jou, kat semèn"
 
         Time expressions:
-            - Hours and minutes can be combined with date expressions:
+            - Numeric hours: "10h", "15è"
+            - Lexical hours: "dizè"
+            - Hour and minute expressions: "15è eka", "3è edmi"
+            - Time expressions can be combined with date expressions:
               "demen a 15è eka", "jedi pase a 3è edmi",
-              "semèn pwochèn a 10h".
+              "semèn pwochèn a 10h", "demen a dizè".
 
     Args:
         text: Text containing a date, relative date, duration, or timestamp.
@@ -362,6 +367,8 @@ def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime:
         _converter = TextToDateTime()
 
     text = text.lower()
+    for pat, repl in DATE_NORMALIZATIONS.items():
+        text = text.replace(pat, repl)
 
     if _looks_datetime_like(text):
         try:
@@ -377,6 +384,7 @@ if __name__ == "__main__":  # pragma: no cover
         "2026-01-08 22:33",
         "sa gen yon mwa",
         "samdi 1 janvye 2019",
+        "2 fevr 2014",
         "sa gen 5 jou, 4 semèn",
         "sa gen sèt ane",
         "semèn pwochèn a 10h",

@@ -132,6 +132,7 @@ def test_datetime_to_text(input_dt, relative, ref, expected):
     [
         ("2026-01-08 22:33", datetime(2026, 1, 8, 22, 33)),
         ("samdi 1 janvye 2019", datetime(2019, 1, 1)),
+        ("2 fevr 2014", datetime(2014, 2, 2)),
         ("sa gen yon ane", datetime(2025, 1, 1)),
         ("sa gen 5 jou, kat semèn", datetime(2025, 11, 29)),
         ("sa gen sèt jou", datetime(2025, 12, 25)),

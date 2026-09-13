@@ -89,3 +89,22 @@ LEXICAL_HOURS = {
     "ventetwazè": 23,
     "ventekatrè": 24,
 }
+
+DATE_NORMALIZATIONS = {
+    # Weekdays
+    " len ": " lendi ",
+    " mad ": " madi ",
+    " mèkr ": " mèkredi ",
+    " jed ": " jedi ",
+    " vand ": " vandredi ",
+    " sam ": " samdi ",
+    " dim ": " dimanch ",
+    # Months
+    " janv ": " janvye ",
+    " fevr ": " fevriye ",
+    " avr ": " avril ",
+    " sept ": " septanm ",
+    " okt ": " oktòb ",
+    " nov ": " novanm ",
+    " des ": " desanm ",
+}

@@ -1,12 +1,22 @@
 # Table of Contents
 
 * [kreyolib](#kreyolib)
+  * [CONSONANTS](#kreyolib.CONSONANTS)
 * [kreyolib.\_debug](#kreyolib._debug)
   * [print\_rich\_diff](#kreyolib._debug.print_rich_diff)
 * [kreyolib.convert](#kreyolib.convert)
-* [kreyolib.convert.\_vocab](#kreyolib.convert._vocab)
+* [kreyolib.convert.\_datetime\_vocab](#kreyolib.convert._datetime_vocab)
+* [kreyolib.convert.\_num\_vocab](#kreyolib.convert._num_vocab)
+* [kreyolib.convert.datetime\_to\_text](#kreyolib.convert.datetime_to_text)
+  * [datetime\_to\_text](#kreyolib.convert.datetime_to_text.datetime_to_text)
 * [kreyolib.convert.num\_to\_text](#kreyolib.convert.num_to_text)
   * [num\_to\_text](#kreyolib.convert.num_to_text.num_to_text)
+* [kreyolib.convert.text\_to\_datetime](#kreyolib.convert.text_to_datetime)
+  * [ConversionGrammar](#kreyolib.convert.text_to_datetime.ConversionGrammar)
+  * [TextToDateTime](#kreyolib.convert.text_to_datetime.TextToDateTime)
+    * [\_\_init\_\_](#kreyolib.convert.text_to_datetime.TextToDateTime.__init__)
+    * [translate](#kreyolib.convert.text_to_datetime.TextToDateTime.translate)
+  * [text\_to\_datetime](#kreyolib.convert.text_to_datetime.text_to_datetime)
 * [kreyolib.convert.text\_to\_num](#kreyolib.convert.text_to_num)
   * [text\_to\_num](#kreyolib.convert.text_to_num.text_to_num)
 * [kreyolib.corpus](#kreyolib.corpus)
@@ -34,6 +44,12 @@
 
 # kreyolib
 
+<a id="kreyolib.CONSONANTS"></a>
+
+#### CONSONANTS
+
+noqa: E501
+
 <a id="kreyolib._debug"></a>
 
 # kreyolib.\_debug
@@ -52,9 +68,45 @@ Renders a colorized diff of two strings using ANSI escape codes.
 
 # kreyolib.convert
 
-<a id="kreyolib.convert._vocab"></a>
+<a id="kreyolib.convert._datetime_vocab"></a>
 
-# kreyolib.convert.\_vocab
+# kreyolib.convert.\_datetime\_vocab
+
+<a id="kreyolib.convert._num_vocab"></a>
+
+# kreyolib.convert.\_num\_vocab
+
+<a id="kreyolib.convert.datetime_to_text"></a>
+
+# kreyolib.convert.datetime\_to\_text
+
+<a id="kreyolib.convert.datetime_to_text.datetime_to_text"></a>
+
+#### datetime\_to\_text
+
+```python
+def datetime_to_text(dt: datetime | timedelta,
+                     *,
+                     relative: bool = False,
+                     max_relative_units: int = 3,
+                     _ref: None | datetime = None) -> str
+```
+
+Convert a datetime to Haitian Creole text.
+
+**Arguments**:
+
+- `dt` - Datetime or timedelta object to convert.
+- `relative` - Whether to convert the datetime to a relative
+  time expression.
+- `max_relative_units` - Maximum number of non-zero units to
+  include in the relative expression.
+- `_ref` - Internal param to allow deterministic testing.
+  
+
+**Returns**:
+
+  A Haitian Creole date, time, or relative-time expression.
 
 <a id="kreyolib.convert.num_to_text"></a>
 
@@ -91,6 +143,105 @@ count is one (e.g. 1_000_000 -> "yon milyon").
 
 - `ValueError` - If input_num is greater than or equal to 10**24, or if
   ordinal is True and input_num is less than 1.
+
+<a id="kreyolib.convert.text_to_datetime"></a>
+
+# kreyolib.convert.text\_to\_datetime
+
+<a id="kreyolib.convert.text_to_datetime.ConversionGrammar"></a>
+
+## ConversionGrammar Objects
+
+```python
+class ConversionGrammar(Grammar)
+```
+
+Pyleri grammar for Haitian Creole date and time expressions.
+
+The grammar recognizes calendar dates, relative durations, relative
+units, and relative weekdays.
+
+<a id="kreyolib.convert.text_to_datetime.TextToDateTime"></a>
+
+## TextToDateTime Objects
+
+```python
+class TextToDateTime()
+```
+
+<a id="kreyolib.convert.text_to_datetime.TextToDateTime.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__()
+```
+
+Initialize the converter and its parser error mappings.
+
+<a id="kreyolib.convert.text_to_datetime.TextToDateTime.translate"></a>
+
+#### translate
+
+```python
+def translate(text: str, ref: datetime) -> datetime
+```
+
+Parse a Haitian Creole date expression into a datetime.
+
+<a id="kreyolib.convert.text_to_datetime.text_to_datetime"></a>
+
+#### text\_to\_datetime
+
+```python
+def text_to_datetime(text: str, *, _ref: None | datetime = None) -> datetime
+```
+
+Parse date-like text into a datetime object.
+
+SupportedExpressions:
+Standard numeric datetimes:
+- "2026-01-08 22:33"
+
+Absolute dates:
+- Day, month, and year: "1 janvye 2019"
+- Abbreviated months: "2 fevr 2014"
+- Day of the week with a date: "samdi 1 janvye 2019"
+
+Relative dates:
+- Relative days: "demen", "apre demen"
+- Previous or next periods: "semèn pase",
+"semèn pwochèn", "mwa kap vini a"
+- Previous or next weekdays: "madi pase",
+"jedi pase"
+
+Relative durations:
+- Past durations: "sa gen 5 jou"
+- Multiple past durations: "sa gen 5 jou, kat semèn"
+
+Time expressions:
+- Numeric hours: "10h", "15è"
+- Lexical hours: "dizè"
+- Hour and minute expressions: "15è eka", "3è edmi"
+- Time expressions can be combined with date expressions:
+"demen a 15è eka", "jedi pase a 3è edmi",
+"semèn pwochèn a 10h", "demen a dizè".
+
+**Arguments**:
+
+- `text` - Text containing a date, relative date, duration, or timestamp.
+- `_ref` - Internal reference datetime used for resolving relative
+  expressions and deterministic testing.
+  
+
+**Returns**:
+
+  A datetime object parsed from the input text.
+  
+
+**Raises**:
+
+- `ValueError` - If the text cannot be parsed as a datetime.
 
 <a id="kreyolib.convert.text_to_num"></a>
 

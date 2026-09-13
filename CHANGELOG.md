@@ -7,9 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.0] - Unreleased
+
+### Added
+
+- **Date & Time Conversion** ([#7]): Added `datetime_to_text()` and `text_to_datetime()` for converting between Haitian Creole date/time expressions and Python datetime objects. Supports absolute and relative parsing with deterministic reference time.
+
+---
+
 ## [0.2.0] - 2026-08-29
 
 ### Added
+
 - **Sentence Tokenization** ([#4](https://github.com/AyitiDev/kreyolib/pull/4)): Added `sent_tokenize()` to split text into sentences, powered by [yasbd-lib](https://github.com/speedyk-005/yasbd-lib) with Haitian Creole rules extended with French abbreviations and sentence starters.
 - **Word Tokenization** ([#5](https://github.com/AyitiDev/kreyolib/pull/5)): Added `word_tokenize()` to split text into word-level tokens while preserving abbreviations, hashtags, mentions, and URLs.
 - **Number Conversion** ([#6](https://github.com/AyitiDev/kreyolib/pull/6)): Added `num_to_text()` and `text_to_num()` for converting between Kreyòl number words and integers/decimals, with cardinal, ordinal, and negative support.
@@ -22,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Initial release.
 
 ### Added
+
 - **Text Standardization & Modernization**: Added rule-based orthography normalization to clean up chat slang, historical variants, and automatic article corrections.
 - **Contraction Expansion**: Implemented automatic clitic and contraction expansion to convert conversational forms into full standalone tokens.
 - **Diacritics Removal**: Added utility support to strip accent marks for legacy systems and search index normalization.

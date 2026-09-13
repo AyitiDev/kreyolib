@@ -19,6 +19,36 @@
 
 ---
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Overview / Apèsi](#overview--ap%C3%A8si)
+- [Installation / Enstalasyon](#installation--enstalasyon)
+- [Usage / Itilizasyon](#usage--itilizasyon)
+  - [Alphabet / Alfabèt](#alphabet--alfab%C3%A8t)
+  - [Normalization](#normalization)
+    - [Orthography (API)](#orthography-api)
+    - [Contractions (API)](#contractions-api)
+    - [Diacritics (API)](#diacritics-api)
+  - [Tokenization](#tokenization)
+    - [Sentence Splitter (API)](#sentence-splitter-api)
+    - [Word Tokenizer (API)](#word-tokenizer-api)
+  - [Conversion](#conversion)
+    - [Number to Text (API)](#number-to-text-api)
+    - [Text to Number (API)](#text-to-number-api)
+  - [Datetime Conversion](#datetime-conversion)
+    - [Datetime to Text (API)](#datetime-to-text-api)
+    - [Text to Datetime (API)](#text-to-datetime-api)
+  - [Advanced Models & Intelligence](#advanced-models--intelligence)
+    - [POS Tagger (API)](#pos-tagger-api)
+- [Roadmap & Progress / Plan Travay](#roadmap--progress--plan-travay)
+  - [How People Can Contribute](#how-people-can-contribute)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+---
+
 ## Overview / Apèsi
 
 Haitian Creole is spoken by millions of people, but it still lacks many of the language resources and tools available for larger languages. This project aims to build an open-source Ayiti NLP ecosystem focused on creating useful Natural Language Processing tools for Haitian Creole.
@@ -179,6 +209,95 @@ print(text_to_num("zewo pwen zewo uit"))  # 0.08
 print(text_to_num("kat milyon de san karanntwa"))  # 4_000_243
 ```
 
+### Datetime Conversion
+
+#### Datetime to Text ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconvertdatetime_to_textdatetime_to_text))
+
+Converts a `datetime` or `timedelta` into a natural Kreyòl date, time, or relative-time expression.
+
+```python
+from datetime import datetime, timedelta
+
+from kreyolib.convert.datetime_to_text import datetime_to_text
+
+print(datetime_to_text(datetime(2026, 9, 4)))
+# 'vandredi 4 septanm 2026'
+
+print(datetime_to_text(datetime(2023, 12, 3, 15, 30, 42)))
+# 'dimanch 3 desanm 2023, 15:30:42'
+
+print(datetime_to_text(-timedelta(weeks=4, days=8), relative=True))
+# 'sa gen 1 mwa e 6 jou'
+
+print(datetime_to_text(timedelta(weeks=12, days=3, hours=60), relative=True))
+# 'nan 2 mwa, 4 semèn e 1 jou'
+
+reference = datetime(2026, 1, 1)
+
+print(datetime_to_text(
+    timedelta(hours=5),
+    relative=True,
+    _ref=reference,
+))
+# 'jodi a, nan 5 èdtan'
+```
+
+#### Text to Datetime ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibconverttext_to_datetimetext_to_datetime))
+
+Parses Kreyòl date and time expressions into a `datetime` object. It supports numeric timestamps, absolute dates, relative dates, relative durations, weekdays, periods, and common time expressions.
+
+```python
+from datetime import datetime
+
+from kreyolib.convert.text_to_datetime import text_to_datetime
+
+reference = datetime(2026, 1, 1)
+
+print(text_to_datetime("2026-01-08 22:33", _ref=reference))
+# datetime(2026, 1, 8, 22, 33)
+
+print(text_to_datetime("samdi 1 janvye 2019", _ref=reference))
+# datetime(2019, 1, 1)
+
+print(text_to_datetime("demen", _ref=reference))
+# datetime(2026, 1, 2)
+
+print(text_to_datetime("semèn pwochèn a 10h", _ref=reference))
+# datetime(2026, 1, 8, 10, 0)
+
+print(text_to_datetime("demen a dizè", _ref=reference))
+# datetime(2026, 1, 2, 10, 0)
+```
+
+Relative expressions can describe durations, previous or upcoming periods, and weekdays.
+
+```python
+print(text_to_datetime("sa gen yon ane", _ref=reference))
+# datetime(2025, 1, 1)
+
+print(text_to_datetime("sa gen 5 jou, kat semèn", _ref=reference))
+# datetime(2025, 11, 29)
+
+print(text_to_datetime("semèn pase", _ref=reference))
+# datetime(2025, 12, 25)
+
+print(text_to_datetime("madi pase", _ref=reference))
+# datetime(2025, 12, 31)
+
+print(text_to_datetime("mwa kap vini a", _ref=reference))
+# datetime(2026, 2, 1)
+```
+
+Time expressions can be combined with relative or absolute date expressions.
+
+```python
+print(text_to_datetime("apre demen a 15è eka", _ref=reference))
+# datetime(2026, 1, 3, 15, 15)
+
+print(text_to_datetime("jedi pase a 3è edmi", _ref=reference))
+# datetime(2025, 12, 26, 3, 30)
+```
+
 ### Advanced Models & Intelligence
 
 #### POS Tagger ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))
@@ -212,9 +331,9 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [x] Text standardization and modernization
   - [x] Contraction expansion
   - [x] Diacritics remover
-- [ ] **2. Conversion**
+- [x] **2. Conversion**
   - [x] Number-to-text conversion in Kreyòl with bidirectional support
-  - [ ] Date and time formatters
+  - [x] Date and time formatters
 - [ ] **3. Corpus & Datasets**
   - [x] Stop words
   - [x] Chat/informal abbreviations

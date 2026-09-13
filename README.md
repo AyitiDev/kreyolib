@@ -342,7 +342,7 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [x] Diacritics remover
 - [x] **2. Conversion**
   - [x] Number-to-text conversion in Kreyòl with bidirectional support
-  - [x] Date and time formatters
+  - [x] Datetime-to-text conversion in Kreyòl with bidirectional support
 - [ ] **3. Corpus & Datasets**
   - [x] Stop words
   - [x] Chat/informal abbreviations

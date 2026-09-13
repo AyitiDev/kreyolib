@@ -351,7 +351,7 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
 - [ ] **3. Corpus & Datasets**
   - [x] Stop words
   - [x] Chat/informal abbreviations
-  - [ ] Sentences and words
+  - [ ] Proverbs
 - [ ] **4. Advanced Models & Intelligence**
   - [x] Part-of-Speech (POS) tagging engine (ml)
   - [ ] Named Entity Recognition for Haitian entities (ml)

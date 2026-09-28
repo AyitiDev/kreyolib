@@ -9,6 +9,27 @@ _MODEL_PATH = Path(__file__).parent / "data" / "ht.wiki.bpe.vs5000.model"
 _BIN_PATH = Path(__file__).parent / "data" / "ht.wiki.bpe.vs5000.d100.w2v.bin"
 
 
+def _read_header() -> tuple[int, int]:
+    """Reads the ``(vocab_size, dim)`` header from the Word2Vec binary.
+
+    The header is the single source of truth for the embedding dimension, so
+    retraining with a different ``d`` needs no code change.
+
+    Raises:
+        FileNotFoundError: If _BIN_PATH does not exist.
+        ValueError: If the header is not two integers.
+    """
+    with _BIN_PATH.open("rb") as f:
+        header = f.readline().decode("utf-8").strip()
+
+    try:
+        vocab_size, dim = map(int, header.split())
+    except ValueError as err:
+        raise ValueError(f"Invalid Word2Vec binary header: '{header}'") from err
+
+    return vocab_size, dim
+
+
 def _read_token_label(f: BinaryIO) -> str:
     """Reads and decodes the UTF-8 token label from a Word2Vec binary stream.
 
@@ -40,16 +61,13 @@ def _load_bpemb_vectors() -> tuple[spm.SentencePieceProcessor, np.ndarray]:
     sp = spm.SentencePieceProcessor()
     sp.load(str(_MODEL_PATH))
 
+    vocab_size, dim = _read_header()
+
+    # Match full SentencePiece vocab size so IDs map directly to row indices
+    vectors = np.zeros((sp.get_piece_size(), dim), dtype=np.float32)
+
     with _BIN_PATH.open("rb") as f:
-        header = f.readline().decode("utf-8").strip()
-        try:
-            vocab_size, dim = map(int, header.split())
-        except ValueError as err:
-            raise ValueError(f"Invalid Word2Vec binary header: '{header}'") from err
-
-        # Match full SentencePiece vocab size so IDs map directly to row indices
-        vectors = np.zeros((sp.get_piece_size(), dim), dtype=np.float32)
-
+        f.readline()  # header already parsed by _read_header()
         for _ in range(vocab_size):
             word = _read_token_label(f)
 
@@ -82,10 +100,11 @@ def bpe_tokenize(text: str, *, lowercase: bool = True) -> dict[str, Any]:
               subword embeddings.
     """
     if not text or text.isspace():
+        _, dim = _read_header()
         return {
             "tokens": [],
             "ids": [],
-            "embeddings": np.ndarray([], dtype=np.float32),
+            "embeddings": np.zeros((0, dim), dtype=np.float32),
         }
 
     processed_text = text.lower() if lowercase else text

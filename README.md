@@ -385,7 +385,7 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
 - [ ] **3. Corpus & Datasets**
   - [x] Stop words
   - [x] Chat/informal abbreviations
-  - [ ] Proverbs
+  - [ ] Sentences
 - [ ] **4. Advanced Models & Intelligence**
   - [x] Part-of-Speech (POS) tagging engine (ml)
   - [ ] Named Entity Recognition for Haitian entities (ml)
@@ -400,8 +400,6 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [ ] CV syllabification engine
 - [ ] **7. Spelling & Error Correction**
   - [ ] Spell-checking engine
-- [ ] **8. Core Architecture & Pipeline**
-  - [ ] Sequential execution pipeline runner
 
 ### How People Can Contribute
 

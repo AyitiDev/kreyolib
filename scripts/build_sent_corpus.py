@@ -41,27 +41,13 @@ VOWELS_PATTERN = re.compile(rf"[{''.join(ORAL_VOWELS | SEMI_VOWELS)}]", re.I)
 
 
 def fetch_source(url: str = SOURCE_URL) -> str:
-    """Downloads and decodes the upstream newswire corpus.
-
-    Returns:
-        The corpus as a UTF-8 string.
-
-    Raises:
-        urllib.error.URLError: If the corpus cannot be downloaded.
-    """
+    """Downloads and decodes the upstream newswire corpus."""
     with urllib.request.urlopen(url, timeout=60) as response:  # noqa: S310
         return response.read().decode("utf-8")
 
 
 def fetch_license(url: str = LICENSE_URL) -> str:
-    """Downloads the CMU data license notice.
-
-    Returns:
-        The notice as a UTF-8 string, with trailing newlines stripped.
-
-    Raises:
-        urllib.error.URLError: If the notice cannot be downloaded.
-    """
+    """Downloads the CMU data license notice."""
     with urllib.request.urlopen(url, timeout=60) as response:  # noqa: S310
         return response.read().decode("utf-8").strip()
 
@@ -80,7 +66,13 @@ def is_usable(line: str) -> bool:
 
 
 def build_corpus(text: str) -> set[str]:
-    # Set comprehension deduplicates instantly on ingestion
+    """Samples the usable lines down to a fixed-size corpus.
+
+    Repair happens before the usability check so that mojibake does not push a
+    line below the alphabetic ratio. The set comprehension deduplicates, then
+    sorting before the shuffle keeps the result stable regardless of Python's
+    hash seed, since set iteration order otherwise varies between runs.
+    """
     usable_lines = {
         ftfy.fix_text(raw.strip())
         for raw in text.splitlines()

@@ -6,6 +6,11 @@ C1 control bytes where Haitian Creole diacritics belong (e.g. ``f\\x8a\\x95t``
 for ``fèt``). ftfy reverses that, after which the lines are filtered, deduped,
 shuffled with a fixed seed, and truncated.
 
+The generated module embeds the CMU data license notice verbatim, as fetched
+from http://www.speech.cs.cmu.edu/haitian/text/COPYING Condition 1 of that
+license requires the notice, the conditions, and the disclaimer to be retained
+with any distribution deriving from the data.
+
 The output is deterministic: re-running against the same upstream corpus with
 the same seed produces the same 1,000 sentences.
 
@@ -22,6 +27,7 @@ from pathlib import Path
 import ftfy
 
 SOURCE_URL = "http://www.speech.cs.cmu.edu/haitian/text/newswire-all.ht"
+LICENSE_URL = "http://www.speech.cs.cmu.edu/haitian/text/COPYING"
 TARGET_PATH = Path(__file__).parent.parent / "src/kreyolib/corpus/sample_sentences.py"
 SAMPLE_SIZE = 1000
 SEED = 42
@@ -44,6 +50,19 @@ def fetch_source(url: str = SOURCE_URL) -> str:
     """
     with urllib.request.urlopen(url, timeout=60) as response:  # noqa: S310
         return response.read().decode("utf-8")
+
+
+def fetch_license(url: str = LICENSE_URL) -> str:
+    """Downloads the CMU data license notice.
+
+    Returns:
+        The notice as a UTF-8 string, with trailing newlines stripped.
+
+    Raises:
+        urllib.error.URLError: If the notice cannot be downloaded.
+    """
+    with urllib.request.urlopen(url, timeout=60) as response:  # noqa: S310
+        return response.read().decode("utf-8").strip()
 
 
 def is_usable(line: str) -> bool:
@@ -74,8 +93,13 @@ def build_corpus(text: str) -> set[str]:
     return set(unique_sorted[:SAMPLE_SIZE])
 
 
-def render_module(corpus: set[str]) -> str:
-    """Renders the corpus set as an importable Python module."""
+def render_module(corpus: set[str], license_notice: str) -> str:
+    """Renders the corpus set as an importable Python module.
+
+    Args:
+        corpus: The sampled sentences.
+        license_notice: The CMU data license, reproduced verbatim.
+    """
     lines = [
         '"""A sample of Haitian Creole sentences for testing and experimentation.',
         "",
@@ -87,6 +111,19 @@ def render_module(corpus: set[str]) -> str:
         "The source text was repaired with ftfy, filtered to prose-like lines,",
         f"deduplicated, shuffled with seed {SEED}, and truncated to the first",
         f"{SAMPLE_SIZE:,} sentences.",
+        "",
+        "The sentences are a modified derivative of the source corpus. The CMU",
+        "data license notice is reproduced below, as its condition 1 requires",
+        "the notice, the conditions, and the disclaimer to be retained with any",
+        f"distribution deriving from the data. Fetched from {LICENSE_URL}",
+        "",
+        "License Notice:",
+        "",
+    ]
+    # The notice is plain ASCII with no quotes or backslashes, so it can be
+    # embedded in the docstring without escaping.
+    lines += license_notice.splitlines()
+    lines += [
         '"""',
         "",
         "SAMPLE_SENTENCES = {",
@@ -99,8 +136,10 @@ def render_module(corpus: set[str]) -> str:
 
 def main() -> int:
     corpus = build_corpus(fetch_source())
-    TARGET_PATH.write_text(render_module(corpus), encoding="utf-8")
+    notice = fetch_license()
+    TARGET_PATH.write_text(render_module(corpus, notice), encoding="utf-8")
     print(f"Wrote {len(corpus)} sentences to {str(TARGET_PATH)}")
+    print(f"Embedded {len(notice.splitlines())} lines of license notice")
     return 0
 
 

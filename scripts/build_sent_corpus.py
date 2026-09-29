@@ -25,6 +25,8 @@ from pathlib import Path
 
 import ftfy
 
+from kreyolib import ORAL_VOWELS, SEMI_VOWELS
+
 SOURCE_URL = "http://www.speech.cs.cmu.edu/haitian/text/newswire-all.ht"
 LICENSE_URL = "http://www.speech.cs.cmu.edu/haitian/text/COPYING"
 TARGET_PATH = Path(__file__).parent.parent / "src/kreyolib/corpus/sample_sentences.py"
@@ -35,7 +37,7 @@ MIN_LINE_LEN = 15
 MAX_LINE_LEN = 150
 MIN_ALPHA_RATIO = 0.5
 
-HAITIAN_VOWELS = re.compile(r"[aeiouyàâèéêëîïôöùûü]", re.I)
+VOWELS_PATTERN = re.compile(rf"[{''.join(ORAL_VOWELS | SEMI_VOWELS)}]", re.I)
 
 
 def fetch_source(url: str = SOURCE_URL) -> str:
@@ -74,7 +76,7 @@ def is_usable(line: str) -> bool:
         return False
     if sum(c.isalpha() for c in line) < len(line) * MIN_ALPHA_RATIO:
         return False
-    return bool(HAITIAN_VOWELS.search(line))
+    return bool(VOWELS_PATTERN.search(line))
 
 
 def build_corpus(text: str) -> set[str]:

@@ -34,6 +34,7 @@
   - [Tokenization](#tokenization)
     - [Sentence Splitter (API)](#sentence-splitter-api)
     - [Word Tokenizer (API)](#word-tokenizer-api)
+    - [BPE Tokenizer (API)](#bpe-tokenizer-api)
   - [Conversion](#conversion)
     - [Number to Text (API)](#number-to-text-api)
     - [Text to Number (API)](#text-to-number-api)
@@ -61,9 +62,14 @@ Most NLP progress has focused on high-resource languages, while Haitian Creole r
 ```bash
 pip install kreyolib -U
 
-# If you are going to do text_to _datetime
+# If you are going to do text_to_datetime
 pip install kreyolib[datetime] -U
+
+# If you are going to do BPE tokenization
+pip install kreyolib[bpe] -U
 ```
+
+`bpe` pulls in `numpy` and `sentencepiece`, which the rest of the library does not need. It is only required for `kreyolib.tokenize.bpe`.
 
 ---
 
@@ -173,6 +179,34 @@ word_tokenize("@Jhon Sak genla? ##myboy")
 
 word_tokenize("www.google.com avèk Jhon@gmail.com.")
 # ['www.google.com', 'avèk', 'Jhon', '@gmail.com', '.']
+```
+
+#### BPE Tokenizer ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtokenizebpebpebp_tokenize))
+
+Returns subword tokens, their IDs, and matching subword embeddings, which is useful for subword-level NLP tasks such as language modeling or sequence tagging on Haitian Creole text. Built on the [BPEmb Haitian Creole model](https://bpemb.h-its.org/ht/) (5k-piece vocab, 100 dim vectors). See the [BPE Source Code](https://github.com/AyitiDev/kreyolib/tree/main/src/kreyolib/tokenize/bpe) for details.
+
+Requires the optional `bpe` extra (`pip install kreyolib[bpe]`), which brings in `numpy` and `sentencepiece`. The SentencePiece model and its 100-dimensional Word2Vec vectors ship with the package, so no download happens at runtime.
+
+```python
+from kreyolib.tokenize.bpe import bpe_tokenize
+
+result = bpe_tokenize("Mwen ap travay nan jaden an.")
+
+result["tokens"]
+# ['▁mwen', '▁ap', '▁travay', '▁nan', '▁jaden', '▁an', '.']
+
+result["ids"]
+# [1194, 438, 976, 31, 3863, 44, 4962]
+
+result["embeddings"].shape
+# (7, 100)
+```
+
+Set `lowercase=False` to preserve the original casing during tokenization.
+
+```python
+bpe_tokenize("Mwen", lowercase=False)["tokens"]
+# ['▁', 'M', 'wen']
 ```
 
 ### Conversion

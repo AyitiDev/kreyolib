@@ -391,10 +391,10 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
   - [ ] Named Entity Recognition for Haitian entities (ml)
   - [ ] Lexicon-based sentiment analysis engine
   - [ ] Sentence/Next-word predictor
-- [ ] **5. Tokenization & Segmentation**
+- [x] **5. Tokenization & Segmentation**
   - [x] Context-aware Word tokenizer
   - [x] Sentence boundary splitter (with support for mention, and hashtag)
-  - [ ] Subword tokenization via Byte-Pair Encoding and rules
+  - [x] Subword tokenization via Byte-Pair Encoding and rules
 - [ ] **6. Phonetics & Syntax**
   - [ ] Text-to-phonetics and IPA generation
   - [ ] CV syllabification engine

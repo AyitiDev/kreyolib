@@ -20,7 +20,6 @@ Usage:
 
 import random
 import re
-import sys
 import urllib.request
 from pathlib import Path
 
@@ -138,7 +137,7 @@ def main() -> int:
     corpus = build_corpus(fetch_source())
     notice = fetch_license()
     TARGET_PATH.write_text(render_module(corpus, notice), encoding="utf-8")
-    print(f"Wrote {len(corpus)} sentences to {str(TARGET_PATH)}")
+    print(f"Wrote {len(corpus)} sentences to {TARGET_PATH!s}")
     print(f"Embedded {len(notice.splitlines())} lines of license notice")
     return 0
 

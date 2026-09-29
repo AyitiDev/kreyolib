@@ -42,6 +42,10 @@
     - [Text to Datetime (API)](#text-to-datetime-api)
   - [Advanced Models & Intelligence](#advanced-models--intelligence)
     - [POS Tagger (API)](#pos-tagger-api)
+- [Corpus & Data](#corpus--data)
+  - [Stop Words (API)](#stop-words-api)
+  - [Chat Abbreviations (API)](#chat-abbreviations-api)
+  - [Sample Sentences (API)](#sample-sentences-api)
 - [Roadmap & Progress / Plan Travay](#roadmap--progress--plan-travay)
   - [How People Can Contribute](#how-people-can-contribute)
 
@@ -373,6 +377,54 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
 
 ---
 
+## Corpus & Data
+
+Language data bundled with kreyolib, importable from `kreyolib.corpus`.
+
+```python
+from kreyolib.corpus import STOP_WORDS, CHAT_ABBRVS_MAP, SAMPLE_SENTENCES
+```
+
+### Stop Words ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolib.corpus.stop_words))
+
+115 Haitian Creole stop words as a `frozenset`, derived from spaCy's Haitian Creole list under the MIT License. Useful as a default filter when you want function words out of the way.
+
+```python
+len(STOP_WORDS)
+# 115
+
+"te" in STOP_WORDS
+# True
+```
+
+### Chat Abbreviations ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolib.corpus.chat_abbrvs))
+
+80 informal and SMS-style abbreviations mapped to their expanded forms, as a `dict`. Compiled from personal WhatsApp logs, so coverage is uneven and skewed toward casual registers. `normalize_orthography` applies this map for you.
+
+```python
+CHAT_ABBRVS_MAP["avk"]
+# 'avèk'
+
+CHAT_ABBRVS_MAP["bjr"]
+# 'bonjou'
+```
+
+### Sample Sentences ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolib.corpus.sample_sentences))
+
+1,000 Haitian Creole sentences as a `set`, for tests, examples, and experimentation. Sampled from the CMU Haitian newswire corpus with a fixed seed, so the sample is reproducible.
+
+```python
+len(SAMPLE_SENTENCES)
+# 1000
+
+sorted(SAMPLE_SENTENCES)[43]
+# '400 konvansyonè yo ki tyeke nan otèl Cherry Hill Hilton nan se kèk nan pi gwo kliyan otèl lan.'
+```
+
+The sentences are a modified derivative of the CMU corpus, so the full CMU data license notice is embedded in the [module source](https://github.com/AyitiDev/kreyolib/blob/main/src/kreyolib/corpus/sample_sentences.py), as its condition 1 requires. Regenerate with `python scripts/build_sent_corpus.py`.
+
+---
+
 ## Roadmap & Progress / Plan Travay
 
 - [x] **1. Normalization & Preprocessing**
@@ -382,10 +434,10 @@ tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
 - [x] **2. Conversion**
   - [x] Number-to-text conversion in Kreyòl with bidirectional support
   - [x] Datetime-to-text conversion in Kreyòl with bidirectional support
-- [ ] **3. Corpus & Datasets**
+- [x] **3. Corpus & Datasets**
   - [x] Stop words
   - [x] Chat/informal abbreviations
-  - [ ] Sentences
+  - [x] Sentences
 - [ ] **4. Advanced Models & Intelligence**
   - [x] Part-of-Speech (POS) tagging engine (ml)
   - [ ] Named Entity Recognition for Haitian entities (ml)

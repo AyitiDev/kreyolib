@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Subword (BPE) Tokenization** ([#14](https://github.com/AyitiDev/kreyolib/pull/14)): Added `bpe_tokenize()` to `kreyolib.tokenize.bpe`, returning subword `tokens`, their `ids`, and matching pre-trained `embeddings` as a `float32` array shaped `(seq_len, dim)`. Bundles the [BPEmb](https://bpemb.h-its.org/ht/) Haitian Creole model (`ht.wiki.bpe.vs5000`, 5,000 pieces, 100-dim vectors) so nothing is downloaded at runtime. Requires the new `bpe` extra, which brings in `numpy` and `sentencepiece`.
+- **Sample Sentence Corpus** ([#15](https://github.com/AyitiDev/kreyolib/pull/15)): Added `SAMPLE_SENTENCES`, 1,000 Haitian Creole sentences sampled from the CMU newswire corpus with a fixed seed, for use as test data and fixtures. Exported from `kreyolib.corpus`.
+
 ### Fixed
 
 - **`yon` (indefinite article) in number text** ([#10](https://github.com/AyitiDev/kreyolib/pull/10)): `text_to_num()` now skips the word **`yon`** ("a/an/one") when it appears as an article in number expressions, so inputs like *yon milyon* are parsed as 1,000,000 instead of raising `ValueError`.

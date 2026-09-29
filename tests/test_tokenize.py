@@ -1,5 +1,7 @@
+import numpy as np
 import pytest
 
+from kreyolib.tokenize.bpe.bpe import bpe_tokenize
 from kreyolib.tokenize.sentence import sent_tokenize
 from kreyolib.tokenize.word import word_tokenize
 
@@ -52,3 +54,34 @@ def test_sentence_tokenize(test_case):
     input_text = test_case.replace("|", "")
 
     assert sent_tokenize(input_text) == expected
+
+
+@pytest.mark.parametrize(
+    "text, expected_tokens, expected_ids",
+    [
+        ("", [], []),
+        (
+            "kreyòl ayisyen se yon bèl lang",
+            ["▁kreyòl", "▁ayisyen", "▁se", "▁yon", "▁bèl", "▁lang"],
+            [189, 36, 60, 93, 2399, 92],
+        ),
+        ("chèf ak fanmi", ["▁chèf", "▁ak", "▁fanmi"], [2233, 62, 1536]),
+        ("123.", ["▁", "123", "."], [4939, 0, 4962]),
+    ],
+)
+def test_bpe_tokenize(
+    text: str,
+    expected_tokens: list[str],
+    expected_ids: list[int],
+):
+    """Test bpe tokenization token string and ID alignment."""
+    result = bpe_tokenize(text)
+
+    assert result["tokens"] == expected_tokens
+    assert result["ids"] == expected_ids
+
+    # Matrix rows naturally match len(ids) without an explicit len check
+    embeddings = result["embeddings"]
+    assert isinstance(embeddings, np.ndarray)
+    assert embeddings.shape == (len(expected_ids), 100)
+    assert embeddings.dtype == np.float32

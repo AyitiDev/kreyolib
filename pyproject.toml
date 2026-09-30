@@ -74,8 +74,14 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-packages = ["kreyolib"]
 include-package-data = true
+
+# Discover every subpackage under src/ rather than naming them one by one. An
+# explicit list of just "kreyolib" shipped the top-level package with none of its
+# subpackages.
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["kreyolib*"]
 
 [tool.pytest.ini_options]
 minversion = "7.4"

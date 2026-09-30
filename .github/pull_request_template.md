@@ -18,7 +18,7 @@
 <!-- What type of change does your PR cover? Put an `x` in the box that applies. -->
 
 - [ ] Nouvo fonksyon / New feature (language support, new utility, etc.)
-- [ ] Ran nan kòd / Bug fix (non-breaking change fixing an issue)
+- [ ] Reparasyon kòd / Bug fix (non-breaking change fixing an issue)
 - [ ] Kalite kòd oswa pèfòmans / Code quality or performance improvement
 - [ ] Dokimantasyon / Documentation update
 - [ ] Lòt / Other (tanpri dekri / please describe):

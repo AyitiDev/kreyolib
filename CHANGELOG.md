@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.1] - Unreleased
+
+### Fixed
+
+- **Subpackages and BPE model files missing from built distributions** ([#16](https://github.com/AyitiDev/kreyolib/pull/16)):
+  - `[tool.setuptools] packages` named only the top-level `"kreyolib"`, so wheels and sdists shipped `kreyolib/__init__.py` and the bundled `tagger/data` files but none of the subpackages.
+  - the BPEmb `.model` and `.bin` files were excluded by `MANIFEST.in`, which matched only `*.txt`, `*.csv`, and `*.joblib`. Added explicit rules for both extensions.
+
 ## [0.4.0] - 2026-09-29
 
 ### Added

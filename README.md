@@ -40,12 +40,15 @@
     - [Text to Number (API)](#text-to-number-api)
     - [Datetime to Text (API)](#datetime-to-text-api)
     - [Text to Datetime (API)](#text-to-datetime-api)
-  - [Advanced Models & Intelligence](#advanced-models--intelligence)
-    - [POS Tagger (API)](#pos-tagger-api)
+  - [Phonetics](#phonetics)
+    - [Syllabification (API)](#syllabification-api)
+    - [IPA Transcription (API)](#ipa-transcription-api)
 - [Corpus & Data](#corpus--data)
   - [Stop Words (API)](#stop-words-api)
   - [Chat Abbreviations (API)](#chat-abbreviations-api)
   - [Sample Sentences (API)](#sample-sentences-api)
+- [Advanced Models & Intelligence](#advanced-models--intelligence)
+  - [POS Tagger (API)](#pos-tagger-api)
 - [Roadmap & Progress / Plan Travay](#roadmap--progress--plan-travay)
   - [How People Can Contribute](#how-people-can-contribute)
 
@@ -350,29 +353,46 @@ print(text_to_datetime("jedi pwochèn"))
 # datetime(2026, 1, 8)
 ```
 
-### Advanced Models & Intelligence
+### Phonetics
 
-#### POS Tagger ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))
+#### Syllabification ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibphoneticssyllablesyllabify))
 
-Built on Universal Dependencies treebanks (Autogramm, Adolphe) with custom preprocessing and French-based proper noun handling. See the [Tagger Source Code](https://github.com/AyitiDev/kreyolib/tree/main/src/kreyolib/tagger) for training details.
-
-Tag a raw sentence:
+Splits a word into CV syllables, handling nasal vowels, semivowels, and clusters like `ch`, `ng`, `pw`, `zy`, etc.
 
 ```python
-from kreyolib.tagger.pos import tag
+from kreyolib.phonetics.syllable import syllabify
 
-tag("Map vini demen nan maten pou n al travay ansanm.")
-# [('M', 'PRON'), ('ap', 'AUX'), ('vini', 'VERB'), ('demen', 'NOUN'), ('nan', 'ADP'),
-#  ('maten', 'NOUN'), ('pou', 'ADP'), ('n', 'PRON'), ('al', 'VERB'), ('travay', 'VERB'),
-#  ('ansanm', 'ADV'), ('.', 'PUNCT')]
+syllabify("bannann")
+# ['ban', 'nann']
+
+syllabify("prepare")
+# ['pre', 'pa', 're']
+
+syllabify("televizyon")
+# ['te', 'le', 'vi', 'zyon']
+
+syllabify("anviwonman")
+# ['an', 'vi', 'won', 'man']
+
+syllabify("uitè")
+# ['ui', 'tè']
 ```
 
-Or a pre-tokenized list:
+#### IPA Transcription ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibphoneticsipaword_to_ipa))
+
+Syllabifies a word and converts it to IPA, joined with `.` boundaries by default (pass `delimiter` to change it).
 
 ```python
-tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
-# [('Mwen', 'PRON'), ('rele', 'VERB'), ('Jan', 'PROPN'), (',', 'PUNCT'), ('e', 'CCONJ'),
-#  ('mwen', 'PRON'), ('abite', 'VERB'), ('Okay', 'NOUN'), ('.', 'PUNCT')]
+from kreyolib.phonetics.ipa import word_to_ipa
+
+word_to_ipa("achte")
+# 'aʃ.te'
+
+word_to_ipa("konprann")
+# 'kõ.prãn'
+
+word_to_ipa("anviwonman")
+# 'ã.vi.wõ.mã'
 ```
 
 ---
@@ -423,6 +443,31 @@ sorted(SAMPLE_SENTENCES)[43]
 
 The sentences are a modified derivative of the CMU corpus, so the full CMU data license notice is embedded in the [module source](https://github.com/AyitiDev/kreyolib/blob/main/src/kreyolib/corpus/sample_sentences.py), as its condition 1 requires. Regenerate with `python scripts/build_sent_corpus.py`.
 
+## Advanced Models & Intelligence
+
+### POS Tagger ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtaggerpostag))
+
+Built on Universal Dependencies treebanks (Autogramm, Adolphe) with custom preprocessing and French-based proper noun handling. See the [Tagger Source Code](https://github.com/AyitiDev/kreyolib/tree/main/src/kreyolib/tagger) for training details.
+
+Tag a raw sentence:
+
+```python
+from kreyolib.tagger.pos import tag
+
+tag("Map vini demen nan maten pou n al travay ansanm.")
+# [('M', 'PRON'), ('ap', 'AUX'), ('vini', 'VERB'), ('demen', 'NOUN'), ('nan', 'ADP'),
+#  ('maten', 'NOUN'), ('pou', 'ADP'), ('n', 'PRON'), ('al', 'VERB'), ('travay', 'VERB'),
+#  ('ansanm', 'ADV'), ('.', 'PUNCT')]
+```
+
+Or a pre-tokenized list:
+
+```python
+tag(["Mwen", "rele", "Jan", ",", "e", "mwen", "abite", "Okay", "."])
+# [('Mwen', 'PRON'), ('rele', 'VERB'), ('Jan', 'PROPN'), (',', 'PUNCT'), ('e', 'CCONJ'),
+#  ('mwen', 'PRON'), ('abite', 'VERB'), ('Okay', 'NOUN'), ('.', 'PUNCT')]
+```
+
 ---
 
 ## Roadmap & Progress / Plan Travay
@@ -438,20 +483,20 @@ The sentences are a modified derivative of the CMU corpus, so the full CMU data 
   - [x] Stop words
   - [x] Chat/informal abbreviations
   - [x] Sentences
-- [ ] **4. Advanced Models & Intelligence**
+- [x] **4. Tokenization & Segmentation**
+  - [x] Context-aware Word tokenizer
+  - [x] Sentence boundary splitter (with support for mention, and hashtag)
+  - [x] Subword tokenization via Byte-Pair Encoding and rules
+- [x] **5. Phonetics & Syntax**
+  - [x] Text-to-phonetics and IPA generation
+  - [x] CV syllabification engine
+- [ ] **5. Advanced Models & Intelligence**
   - [x] Part-of-Speech (POS) tagging engine (ml)
   - [ ] Named Entity Recognition for Haitian entities (ml)
   - [ ] Lexicon-based sentiment analysis engine
   - [ ] Sentence/Next-word predictor
-- [x] **5. Tokenization & Segmentation**
-  - [x] Context-aware Word tokenizer
-  - [x] Sentence boundary splitter (with support for mention, and hashtag)
-  - [x] Subword tokenization via Byte-Pair Encoding and rules
-- [ ] **6. Phonetics & Syntax**
-  - [ ] Text-to-phonetics and IPA generation
-  - [ ] CV syllabification engine
-- [ ] **7. Spelling & Error Correction**
   - [ ] Spell-checking engine
+
 
 ### How People Can Contribute
 

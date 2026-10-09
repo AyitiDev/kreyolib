@@ -154,7 +154,7 @@ strip_diacritics("Abèy yo ap vole sou òganizasyon an lè yo ale nan fèt la.")
 
 #### Sentence Splitter ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibtokenizesentencesent_tokenize))
 
-Splits text into sentences, respecting abbreviations, quotes, and parenthesized boundaries. Powered by [yasbd-lib](https://github.com/speedyk-005/yasbd-lib/blob/main/src/yasbd/rules/__init__.py), with Haitian Creole rules extended with French abbreviations and sentence starters.
+Splits text into sentences, respecting abbreviations, quotes, and parenthesized boundaries. Powered by [yasbd-lib](https://github.com/speedyk-005/yasbd-lib/), with Haitian Creole rules extended with French abbreviations and sentence starters.
 
 ```python
 from kreyolib.tokenize.sentence import sent_tokenize
@@ -275,10 +275,10 @@ print(datetime_to_text(datetime(2023, 12, 3, 15, 30, 42)))
 # 'dimanch 3 desanm 2023, 15:30:42'
 
 print(datetime_to_text(-timedelta(weeks=4, days=8), relative=True))
-# 'sa gen 1 mwa e 5 jou'
+# 'sa gen 1 mwa e 6 jou'
 
-print(datetime_to_text(timedelta(weeks=12, days=3, hours=60), relative=True))
-# 'nan 2 mwa, 4 semèn e 12 èdtan'
+print(datetime_to_text(timedelta(weeks=12, days=7, hours=35), relative=True))
+# 'nan 3 mwa, 5 jou e 11 èdtan'
 ```
 
 Relative conversion can express a duration from the current time.

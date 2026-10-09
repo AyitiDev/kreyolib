@@ -22,7 +22,6 @@
 * [kreyolib.\_debug](#kreyolib._debug)
   * [print\_rich\_diff](#kreyolib._debug.print_rich_diff)
 * [kreyolib](#kreyolib)
-  * [CONSONANTS](#kreyolib.CONSONANTS)
 * [kreyolib.normalize.contractions](#kreyolib.normalize.contractions)
   * [expand\_contractions](#kreyolib.normalize.contractions.expand_contractions)
 * [kreyolib.normalize.diacritics](#kreyolib.normalize.diacritics)
@@ -30,6 +29,11 @@
 * [kreyolib.normalize](#kreyolib.normalize)
 * [kreyolib.normalize.orthography](#kreyolib.normalize.orthography)
   * [standardize\_text](#kreyolib.normalize.orthography.standardize_text)
+* [kreyolib.phonetics](#kreyolib.phonetics)
+* [kreyolib.phonetics.ipa](#kreyolib.phonetics.ipa)
+  * [word\_to\_ipa](#kreyolib.phonetics.ipa.word_to_ipa)
+* [kreyolib.phonetics.syllable](#kreyolib.phonetics.syllable)
+  * [syllabify](#kreyolib.phonetics.syllable.syllabify)
 * [kreyolib.tagger](#kreyolib.tagger)
 * [kreyolib.tagger.pos](#kreyolib.tagger.pos)
   * [tag](#kreyolib.tagger.pos.tag)
@@ -350,12 +354,6 @@ Renders a colorized diff of two strings using ANSI escape codes.
 
 # kreyolib
 
-<a id="kreyolib.CONSONANTS"></a>
-
-#### CONSONANTS
-
-noqa: E501
-
 <a id="kreyolib.normalize.contractions"></a>
 
 # kreyolib.normalize.contractions
@@ -431,6 +429,57 @@ orthography modernization, and article correction and more.
 **Notes**:
 
   Newlines are not preserved; expects a single-paragraph format.
+
+<a id="kreyolib.phonetics"></a>
+
+# kreyolib.phonetics
+
+<a id="kreyolib.phonetics.ipa"></a>
+
+# kreyolib.phonetics.ipa
+
+<a id="kreyolib.phonetics.ipa.word_to_ipa"></a>
+
+#### word\_to\_ipa
+
+```python
+def word_to_ipa(word: str, delimiter: str = ".") -> str
+```
+
+Syllabifies a word and converts it into a syllabified IPA string.
+
+**Arguments**:
+
+- `word` - The input word.
+- `delimiter` - The character separating syllables in the output (default is '.').
+  
+
+**Returns**:
+
+- `str` - The IPA representation with syllable boundaries.
+
+<a id="kreyolib.phonetics.syllable"></a>
+
+# kreyolib.phonetics.syllable
+
+<a id="kreyolib.phonetics.syllable.syllabify"></a>
+
+#### syllabify
+
+```python
+def syllabify(word: str) -> list[str]
+```
+
+Syllabifies a given word into a list of syllable strings using rules.
+
+**Arguments**:
+
+- `word` - The input word to be syllabified.
+  
+
+**Returns**:
+
+  A list containing the segmented syllable chunks.
 
 <a id="kreyolib.tagger"></a>
 

@@ -142,6 +142,7 @@ ignore = ["PLW2901", "PLW0603", "COM812", "D203", "D213", "RUF001", "RUF003", "R
 "src/kreyolib/convert/text_to_datetime.py" = ["RET503", "PLR2004"]
 "src/kreyolib/corpus/sample_sentences.py" = ["E501", "Q000"]
 "tests/*" = ["E501", "S101", "PLR2004", "Q0", "ERA001", "SLF001", "PT006", "ARG002", "S101"]
+"scripts/*" = ["INP001"]
 "notebooks/*" = ["ALL"]
 
 [tool.ruff.format]

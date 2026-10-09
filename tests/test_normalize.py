@@ -21,12 +21,20 @@ def test_strip_diacritics(text_input, expected):
 @pytest.mark.parametrize(
     "text_input, expected",
     [
-        ("M'ap ale.", "Mwen ap ale."),
+        ("Map ale.", "Mwen ap ale."),
+        ("Mwen bezwen yon map", "Mwen bezwen yon map"),
         ("Mwen tap di ou l'ap vini.", "Mwen te ap di ou li ap vini."),
         ("Nal travay.", "Nou al travay."),
         ("Y'ap manje.", "Yo ap manje."),
         ("M gen yon map", "Mwen gen yon map"),
         ("Mprale nan fèt la", "Mwen prale nan fèt la"),
+        ("Kisa w te di a?", "Kisa ou te di a?"),
+        ("na fè sa pita", "nou a fè sa pita"),
+        ("Ma di ou sa.", "Mwen a di ou sa."),
+        ("Pa manyen ma a.", "Pa manyen ma a."),
+        ("Wa vini demen.", "Ou a vini demen."),
+        ("Wa a fache", "Wa a fache"),
+        ("Ya manje.", "Yo a manje."),
     ],
 )
 def test_expand_contractions(text_input, expected):

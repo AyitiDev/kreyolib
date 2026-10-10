@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `expand_contractions()` now expands fused pronoun + future-marker forms (`ma`, `na`, `wa`, `ya`) into a separate pronoun and the future marker `a`, e.g. *na fè sa pita* to *nou a fè sa pita*.
   - `tag()` now splits fused future forms into a `PRON` + `AUX` pair (`Ma` to `Mwen`/`a`), preserving sentence-initial capitalization.
 
+### Fixed
+
+- **Retrained POS tagger model** ([#19](https://github.com/AyitiDev/kreyolib/pull/19)): Regenerated `pos_tagger.joblib` so the training recipe no longer folds the Adolphe dev split into training (corpus drops from 3,014 to 2,749 sentences), and the artifact now saves under the filename the package loads. Accuracy is 98.44% on the Autogramm test split, and the relativizer `ki` now tags as `SCONJ`.
+
 ## [0.4.1] - 2026-09-30
 
 ### Fixed

@@ -65,6 +65,40 @@ from kreyolib.tagger.pos import tag
                 ("?", "PUNCT"),
             ],
         ),
+        (
+            "na fè sa pita",
+            [
+                ("nou", "PRON"),
+                ("a", "AUX"),
+                ("fè", "VERB"),
+                ("sa", "PRON"),
+                ("pita", "NOUN"),
+            ],
+        ),
+        (
+            "Ma vini demen.",
+            [
+                ("Mwen", "PRON"),
+                ("a", "AUX"),
+                ("vini", "VERB"),
+                ("demen", "NOUN"),
+                (".", "PUNCT"),
+            ],
+        ),
+        (
+            "Ou te di m wa gentan vini.",
+            [
+                ("Ou", "PRON"),
+                ("te", "AUX"),
+                ("di", "VERB"),
+                ("m", "PRON"),
+                ("ou", "PRON"),
+                ("a", "AUX"),
+                ("gentan", "ADV"),
+                ("vini", "VERB"),
+                (".", "PUNCT"),
+            ],
+        ),
     ],
 )
 def test_pos_tagging(inputs, expected):

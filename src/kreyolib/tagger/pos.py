@@ -4,6 +4,8 @@ from pathlib import Path
 import joblib
 from nltk.tokenize import RegexpTokenizer
 
+from kreyolib.normalize.contractions import CONTRACTIONS_MAP
+
 _MODEL_PATH = Path(__file__).parent / "data" / "pos_tagger.joblib"
 _FR_NAMES_PATH = Path(__file__).parent / "data" / "firstnames.txt"
 _tokenizer = RegexpTokenizer(r"\w+|[^\w\s]")
@@ -80,15 +82,42 @@ def _preprocess_tokens(tokens: list[str]) -> list[str]:
     return processed_tokens
 
 
+def _is_pron_aux(i: int, tokens: list[str]) -> bool:
+    """Determine if a token is a fused future form (ma, na, wa, ya)."""
+    tok_lower = tokens[i][0].lower()
+    if tok_lower in {"ya", "na"}:
+        return True
+    if tok_lower in {"ma", "wa"} and (
+        i == 0
+        or (
+            tok_lower in {"ma", "wa"}
+            and tokens[i - 1] not in {"pral", "ap", "yon"}
+            and tokens[i + 1] != "yon"
+        )
+    ):
+        return True
+
+    if i + 1 == len(tokens):
+        return False
+
+    return False
+
+
 def _postprocess_tokens(tokens: list[str]) -> list[str]:
-    """Postprocess tokens to handle French based proper noun and "se" verb."""
+    """Postprocess tokens to handle misclassified cases."""
     fr_names = _get_names_set()
     processed_tokens = []
-    for tok, tag in tokens:
+    for i, (tok, tag) in enumerate(tokens):
         tok_lower = tok.lower()
         # "se" is always misclassified
         if tok_lower == "se":
             tag = "VERB"
+        elif _is_pron_aux(i, tokens):
+            pronoun = CONTRACTIONS_MAP[tok_lower[0]]
+            processed_tokens.append(
+                (pronoun.capitalize() if tok[0].isupper() else pronoun, "PRON")
+            )
+            tok, tag = tok_lower[-1], "AUX"
         elif tok_lower in fr_names:
             tag = "PROPN"
 
@@ -114,6 +143,6 @@ def tag(inputs: str | list[str]) -> list[tuple[str, str]]:
 
 
 if __name__ == "__main__":  # pragma: no cover
-    test_sentence = "Map vini demen nan maten pou n al travay ansanm."
+    test_sentence = "ma danse. Kisak fè sa. preparew. na di m sa w panse. ma prepare l."
     print("Loaded names count:", len(_get_names_set()))
     print("String input:", tag(test_sentence))

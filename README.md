@@ -133,13 +133,13 @@ standardize_text("Nan lé monn mouin té pèdu nan péché; Min Jézu té sové-
 
 #### Contractions ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizecontractionsexpand_contractions))
 
-Expands colloquial clitics (`m'ap`, `y'ap`, `n'`) into formal standalone words.
+Expands colloquial clitics (`m'ap`, `y'ap`, `n'`, `na`, ...) into formal standalone words.
 
 ```python
 from kreyolib.normalize.contractions import expand_contractions
 
-expand_contractions("M'ap ale lakay nou paske yap tann nou pou n' al travay.")
-# Mwen ap ale lakay nou paske yo ap tann nou pou nou al travay.
+expand_contractions("M'ap ale nan lakou w la paske yap tann nou. na travay anpil.")
+# Mwen ap ale nan lakou ou la paske yo ap tann nou. nou a travay anpil.
 ```
 
 #### Diacritics ([API](https://github.com/AyitiDev/kreyolib/blob/main/API_REFERENCES.md#kreyolibnormalizediacriticsstrip_diacritics))
@@ -456,7 +456,7 @@ from kreyolib.tagger.pos import tag
 
 tag("Map vini demen nan maten pou n al travay ansanm.")
 # [('M', 'PRON'), ('ap', 'AUX'), ('vini', 'VERB'), ('demen', 'NOUN'), ('nan', 'ADP'),
-#  ('maten', 'NOUN'), ('pou', 'ADP'), ('n', 'PRON'), ('al', 'VERB'), ('travay', 'VERB'),
+#  ('maten', 'NOUN'), ('pou', 'SCONJ'), ('n', 'PRON'), ('al', 'VERB'), ('travay', 'NOUN'),
 #  ('ansanm', 'ADV'), ('.', 'PUNCT')]
 ```
 

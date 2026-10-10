@@ -114,6 +114,6 @@ def tag(inputs: str | list[str]) -> list[tuple[str, str]]:
 
 
 if __name__ == "__main__":  # pragma: no cover
-    test_sentence = "Kisak fè sa. Sak te a pete. preparew."
+    test_sentence = "Map vini demen nan maten pou n al travay ansanm."
     print("Loaded names count:", len(_get_names_set()))
     print("String input:", tag(test_sentence))

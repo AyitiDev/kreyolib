@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Fixed
+
+- **Retrained POS tagger model** ([#19](https://github.com/AyitiDev/kreyolib/pull/19)): Regenerated `pos_tagger.joblib` so the training recipe no longer folds the Adolphe dev split into training (corpus drops from 3,014 to 2,749 sentences), and the artifact now saves under the filename the package loads. Accuracy is 98.44% on the Autogramm test split, and the relativizer `ki` now tags as `SCONJ`.
+
 ## [0.4.1] - 2026-09-30
 
 ### Fixed

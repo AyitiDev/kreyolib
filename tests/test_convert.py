@@ -118,7 +118,12 @@ def test_text_to_num_guards(number, error_message):
         (datetime(2026, 9, 4), False, None, "vandredi 4 septanm 2026"),
         (datetime(2023, 12, 3, 15, 30, 42), False, None, "dimanch 3 desanm 2023, 15:30:42"),
         (-timedelta(weeks=4, days=8), True, REFERENCE, "sa gen 1 mwa e 6 jou"),
-        (timedelta(weeks=12, days=7, hours=35), True, REFERENCE, "nan 3 mwa, 5 jou e 11 èdtan"),
+        (
+            timedelta(weeks=12, days=7, hours=35),
+            True,
+            REFERENCE,
+            "nan 3 mwa, 5 jou e 11 èdtan",
+        ),
         (REFERENCE, True, REFERENCE, "kounye a"),
         (timedelta(days=4), False, REFERENCE, "lendi 5 janvye 2026"),
         (timedelta(hours=5), True, REFERENCE, "jodi a, nan 5 èdtan"),

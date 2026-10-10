@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **Fused Future Contractions** ([#18](https://github.com/AyitiDev/kreyolib/pull/18)):
+  - `expand_contractions()` now expands fused pronoun + future-marker forms (`ma`, `na`, `wa`, `ya`) into a separate pronoun and the future marker `a`, e.g. *na fè sa pita* to *nou a fè sa pita*.
+  - `tag()` now splits fused future forms into a `PRON` + `AUX` pair (`Ma` to `Mwen`/`a`), preserving sentence-initial capitalization.
+
 ## [0.4.1] - 2026-09-30
 
 ### Fixed

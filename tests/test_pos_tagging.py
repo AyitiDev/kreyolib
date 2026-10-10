@@ -58,7 +58,7 @@ from kreyolib.tagger.pos import tag
         (
             "Kisak fè sa?",
             [
-                ("Kisa", "PRON"),
+                ("Kisa", "ADV"),
                 ("k", "SCONJ"),
                 ("fè", "VERB"),
                 ("sa", "PRON"),

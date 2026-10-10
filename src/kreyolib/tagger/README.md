@@ -11,8 +11,8 @@ The underlying model was trained using Haitian Creole treebanks from the **Unive
 
 To inspect or clone these datasets locally:
 ```bash
-git clone [https://github.com/UniversalDependencies/UD_Haitian_Creole-Autogramm.git](https://github.com/UniversalDependencies/UD_Haitian_Creole-Autogramm.git)
-git clone [https://github.com/UniversalDependencies/UD_Haitian_Creole-Adolphe.git](https://github.com/UniversalDependencies/UD_Haitian_Creole-Adolphe.git)
+git clone (https://github.com/UniversalDependencies/UD_Haitian_Creole-Autogramm.git
+git clone https://github.com/UniversalDependencies/UD_Haitian_Creole-Adolphe.git
 ```
 For a detailed side-by-side comparison of these treebanks, check out the [Universal Dependencies Haitian Creole Treebank Comparison](https://universaldependencies.org/treebanks/ht-comparison.html).
 

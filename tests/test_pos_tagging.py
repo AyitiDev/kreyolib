@@ -102,7 +102,7 @@ from kreyolib.tagger.pos import tag
         (
             "mtap prepare l.",
             [
-                ("m", "PRON"),
+                ("mwen", "PRON"),
                 ("te", "AUX"),
                 ("ap", "AUX"),
                 ("prepare", "VERB"),

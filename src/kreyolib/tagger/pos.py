@@ -112,6 +112,8 @@ def _postprocess_tokens(tokens: list[str]) -> list[str]:
         # "se" is always misclassified
         if tok_lower == "se":
             tag = "VERB"
+        elif tok_lower == "kisa":
+            tag = "PRON"
         elif _is_pron_aux(i, tokens):
             pronoun = CONTRACTIONS_MAP[tok_lower[0]]
             processed_tokens.append(

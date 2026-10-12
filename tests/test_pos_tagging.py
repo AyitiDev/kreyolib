@@ -99,6 +99,17 @@ from kreyolib.tagger.pos import tag
                 (".", "PUNCT"),
             ],
         ),
+        (
+            "mtap prepare l.",
+            [
+                ("m", "PRON"),
+                ("te", "AUX"),
+                ("ap", "AUX"),
+                ("prepare", "VERB"),
+                ("l", "PRON"),
+                (".", "PUNCT"),
+            ],
+        ),
     ],
 )
 def test_pos_tagging(inputs, expected):

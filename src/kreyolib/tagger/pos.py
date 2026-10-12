@@ -67,6 +67,9 @@ def _preprocess_tokens(tokens: list[str]) -> list[str]:
             pronoun, aux_marker = current_token[0], current_lower[1:]
             processed_tokens.extend([pronoun, aux_marker])
             continue
+        if current_lower == "mtap":
+            processed_tokens.extend(["mwen", "te", "ap"])
+            continue
 
         has_token_unmerged = False
         for pat in MERGED_WORD_PATTERNS:
@@ -145,6 +148,6 @@ def tag(inputs: str | list[str]) -> list[tuple[str, str]]:
 
 
 if __name__ == "__main__":  # pragma: no cover
-    test_sentence = "ma danse. Kisak fè sa. preparew. na di m sa w panse. ma prepare l."
+    test_sentence = "ma danse. Kisak fè sa. preparew. na di m sa w panse. mtap prepare l."
     print("Loaded names count:", len(_get_names_set()))
     print("String input:", tag(test_sentence))

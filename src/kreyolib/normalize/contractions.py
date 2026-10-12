@@ -8,8 +8,10 @@ CONTRACTIONS_FINDER = re.compile(
     r"""
     (?<!(?:pral|yon|se|te|ape?)\s+)\b
     (?:
-        ([mtnwyikl](?:\s*['’‘])?)\s*
-        (?:(?<=\s)|(?=(?:pral|al|ap)e?|ta))
+        (
+            (?:mt|[mtnwyikl])(?:\s*['’‘])?)\s*
+            (?:(?<=\s)|(?=(?:pral|al|ap)e?|ta)
+        )
         |
         ([mnwy])(?=a\b(?!\s*a\b))
     )
@@ -18,6 +20,7 @@ CONTRACTIONS_FINDER = re.compile(
 )
 
 CONTRACTIONS_MAP = {
+    "mt": "mwen te",
     "m": "mwen",
     "t": "te",
     "l": "li",
@@ -39,10 +42,10 @@ def expand_contractions(text: str) -> str:
 
     def replace(match: re.Match) -> str:
         # Extract the matched clitic character (group 1 or the fused form in group 2)
-        first_ch = (match.group(1) or match.group(2))[0]
-        was_upper = first_ch.isupper()
+        matched = "".join([c for c in match.group(1) or match.group(2) if c.isalpha()])
+        was_upper = matched[0].isupper()
 
-        full_form = CONTRACTIONS_MAP.get(first_ch.lower(), first_ch) + " "
+        full_form = CONTRACTIONS_MAP.get(matched.lower(), matched) + " "
         return full_form.capitalize() if was_upper else full_form
 
     return CONTRACTIONS_FINDER.sub(replace, text)
@@ -51,5 +54,5 @@ def expand_contractions(text: str) -> str:
 if __name__ == "__main__":  # pragma: no cover
     from kreyolib._debug import print_rich_diff
 
-    text = "M' ap ale demen. M tap di ou l'ap vini jodya. Na pale pita. Wa a fache."
+    text = "M' ap ale demen. Mtap di ou l'ap vini jodya. Na pale pita. Wa a fache."
     print_rich_diff(text, expand_contractions(text))

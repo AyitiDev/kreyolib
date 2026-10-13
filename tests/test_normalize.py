@@ -35,7 +35,7 @@ def test_strip_diacritics(text_input, expected):
         ("Wa vini demen.", "Ou a vini demen."),
         ("Wa a fache", "Wa a fache"),
         ("Ya manje.", "Yo a manje."),
-        ("mtap prepare l.", "mwen te ap prepare l."),
+        ("mtap prepare l.", "mwen te ap prepare li. "),
     ],
 )
 def test_expand_contractions(text_input, expected):

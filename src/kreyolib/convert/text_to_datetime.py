@@ -151,6 +151,12 @@ class ConversionGrammar(Grammar):
         Optional(Choice(k_article, op_time)),
     )
 
+    op_relative_this = Sequence(
+        k_unit,
+        k_sa,
+        Optional(k_article),
+    )
+
     op_relative_day = Sequence(
         Optional(Choice(k_avan, r_apre)),
         r_rel_day,
@@ -167,6 +173,7 @@ class ConversionGrammar(Grammar):
         op_calendar_date,
         op_relative_date_1,
         op_relative_date_2,
+        op_relative_this,
         op_relative_day,
         op_relative_weekday,
     )
@@ -203,6 +210,8 @@ class TextToDateTime:
                     return self._handle_relative_date_1(op_node.children, ref)
                 case self.grm.op_relative_date_2:
                     return self._handle_relative_date_2(op_node.children, ref)
+                case self.grm.op_relative_this:
+                    return self._handle_op_relative_this(op_node.children, ref)
                 case self.grm.op_relative_day:
                     return self._handle_op_relative_day(op_node.children, ref)
                 case self.grm.op_relative_weekday:
@@ -275,6 +284,14 @@ class TextToDateTime:
             delta += time_dt
 
         return ref + delta
+
+    def _handle_op_relative_this(self, _seq: list, ref: datetime | None) -> datetime:
+        """Resolve a 'this <unit>' expression to the reference datetime."""
+        if ref is None:
+            dt = date.today()
+            ref = datetime(dt.year, dt.month, dt.day)
+
+        return ref
 
     def _handle_op_relative_day(self, seq: list, ref: datetime | None) -> datetime:
         """Resolve a relative-day to its nearest matching date."""
@@ -363,6 +380,7 @@ def text_to_datetime(text: str, *, _ref: datetime | None = None) -> datetime:
             - Relative days: "demen", "apre demen"
             - Previous or next periods: "semèn pase",
               "semèn pwochèn", "mwa kap vini a"
+            - Current periods: "semèn sa", ane sa a"
             - Previous or next weekdays: "madi pase",
               "jedi pase"
 

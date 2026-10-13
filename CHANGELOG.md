@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Current period date expressions** ([#22](https://github.com/AyitiDev/kreyolib/pull/22)): `text_to_datetime()` now recognizes `<unit> sa` expressions such as `mwa sa`, `semèn sa`, and `ane sa`, resolving them to the reference datetime.
+
 ### Fixed
 
 - **Temporal adverb normalization** ([#21](https://github.com/AyitiDev/kreyolib/pull/21)): `standardize_text()` now normalizes the variant spellings `jodiya`/`jodya` to `jodi a` and `kounyeya`/`kounya` to `kounye a`.

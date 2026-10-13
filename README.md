@@ -111,17 +111,17 @@ Standardizes chat slang, archaic spellings, clitics, and article usage into mode
 ```python
 from kreyolib.normalize.orthography import standardize_text
 
-# -- Chat slang & abbreviations --
 standardize_text("Bjr! Mw tap tann ou sou ban an, svp cheri ou knn c fèt mwen jodi a.")
 # Bonjou! Mwen tap tann ou sou ban an, silvouplè cheri ou konn se fèt mwen jodi a.
 
-# -- Article correction --
 standardize_text("Mwen chita sou ban a. Mwen ap manje bannann la ki te sou tab lan.")
 # Mwen chita sou ban an. Mwen ap manje bannann nan ki te sou tab la.
 
-# -- Capitalization fixes --
 standardize_text("mwen renmen bondye")
 # Mwen renmen Bondye
+
+standardize_text("Jodiya ak kounya")
+# Jodi a ak kounye a
 ```
 
 With `aggressive=True`, older historical variations and non-standard spellings are folded in as well:

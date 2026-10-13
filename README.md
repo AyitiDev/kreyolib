@@ -318,7 +318,7 @@ print(text_to_datetime("demen a dizè"))
 # datetime(2026, 1, 2, 10, 0)
 ```
 
-Relative expressions can describe durations, previous or upcoming periods, and weekdays.
+Relative expressions can describe durations, previous, current, or upcoming periods, and weekdays.
 
 ```python
 print(text_to_datetime("sa gen yon ane"))
@@ -335,6 +335,9 @@ print(text_to_datetime("madi pase"))
 
 print(text_to_datetime("mwa kap vini a"))
 # datetime(2026, 2, 1)
+
+print(text_to_datetime("ane sa a"))
+# datetime(2026, 1, 1)
 ```
 
 Time expressions can be combined with relative or absolute date expressions.

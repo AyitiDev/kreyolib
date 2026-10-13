@@ -71,6 +71,10 @@ def test_expand_contractions(text_input, expected):
         ),
         # Test that lowercase of Jesus if fixed
         ("Jezi ak bondye", False, "Jezi ak Bondye"),
+
+        # Test variant temporal adverbs are normalized to standard forms
+        ("Nou wè l jodya.", False, "Nou wè l jodi a."),
+        ("Mwen grangou kounyeya.", False, "Mwen grangou kounye a."),
     ],
 )
 def test_standardize_text_variations(text_input, aggressive, expected):

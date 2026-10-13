@@ -67,11 +67,12 @@ OLD_TO_NEW_VOCAB_MAP_1 = {
 
 # less aggressive version
 OLD_TO_NEW_VOCAB_MAP_2 = {
-     # Multi-word phrases
     "koun ye a": "kounye a",
     "la pè": "lapè",
-
-    # Longest specific multi-character sequences
+    "jodiya": "jodi a",
+    "jodya": "jodi a",
+    "kounyeya": "kounye a",
+    "kounya": "kounye a",
     "bondieu": "Bondye",
     "mouin": "mwen",
     "padonnin": "padone",

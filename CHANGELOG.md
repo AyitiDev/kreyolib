@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Temporal adverb normalization** ([#21](https://github.com/AyitiDev/kreyolib/pull/21)): `standardize_text()` now normalizes the variant spellings `jodiya`/`jodya` to `jodi a` and `kounyeya`/`kounya` to `kounye a`.
+
 ## [0.5.0] - 2026-10-10
 
 ### Added

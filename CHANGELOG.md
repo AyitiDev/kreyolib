@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`kisa` and `mtap` handling** ([#20](https://github.com/AyitiDev/kreyolib/pull/20)):
+  - `tag()` now labels the interrogative `kisa` as `PRON` instead of `ADV`.
+  - `expand_contractions()` and `tag()` now expand the fused `mtap` form (`m` + `t` + `ap`) into `mwen te ap`.
+
 ## [0.5.0] - 2026-10-10
 
 ### Added
